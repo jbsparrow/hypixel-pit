@@ -1,10 +1,10 @@
-namespace SpriteKind {
-    export const Object = SpriteKind.create()
-}
+@namespace
+class SpriteKind:
+    Object = SpriteKind.create()
 
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Object, function on_on_overlap(sprite: Sprite, otherSprite: Sprite) {
-    if (Character.overlapsWith(Drop_Circle)) {
-        scene.setBackgroundImage(img`
+def on_on_overlap(sprite, otherSprite):
+    if Character.overlaps_with(Drop_Circle):
+        scene.set_background_image(img("""
             dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
                         dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
                         dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
@@ -125,14 +125,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Object, function on_on_overlap(s
                         dddddd555555555555555555555d55555555555555555555555555555555555555555555555ddddddddddddddddddddddddb34dddd5555555555555dd533bddde444b3ddd44ddd3ddd3bbb3ddddddddd
                         ddddddd55555555555555555555ddddd55555555555555555555555555555555555555ddddddddddddddddddddddddddddde3355dddddddddddddd5d55b3bdddd444bbdddb4ddd4dd3ee3ddddddddddd
                         ddddddddd55555555555555555555ddddddddddddddddddddd555555ddddddddddddddddddddddddddddddddddddddddddde33d55d5555dd555d555333b3bddddddd4e33dbbdd4444eeddddddddddddd
-        `)
+        """))
         sprites.destroy(Drop_Circle)
-    }
-    
-})
-let Character : Sprite = null
-let Drop_Circle : Sprite = null
-Drop_Circle = sprites.create(img`
+sprites.on_overlap(SpriteKind.player, SpriteKind.Object, on_on_overlap)
+
+Character: Sprite = None
+Drop_Circle: Sprite = None
+Drop_Circle = sprites.create(img("""
         ................................
             ...........33333333333..........
             .........33...........33........
@@ -165,10 +164,14 @@ Drop_Circle = sprites.create(img`
             .......33...............33......
             .........33...........33........
             ...........33333333333..........
-    `, SpriteKind.Object)
-Drop_Circle.setPosition(79, 59)
-scaling.scaleToPercent(Drop_Circle, 300, ScaleDirection.Uniformly, ScaleAnchor.Middle)
-Character = sprites.create(img`
+    """),
+    SpriteKind.Object)
+Drop_Circle.set_position(79, 59)
+scaling.scale_to_percent(Drop_Circle,
+    300,
+    ScaleDirection.UNIFORMLY,
+    ScaleAnchor.MIDDLE)
+Character = sprites.create(img("""
         . . . . . . f f f f . . . . . . 
             . . . . f f f 2 2 f f f . . . . 
             . . . f f f 2 2 2 2 f f f . . . 
@@ -185,7 +188,8 @@ Character = sprites.create(img`
             . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
             . . . . . f f f f f f . . . . . 
             . . . . . f f . . f f . . . . .
-    `, SpriteKind.Player)
-Character.setPosition(10, 101)
-controller.moveSprite(Character)
-scene.cameraFollowSprite(Character)
+    """),
+    SpriteKind.player)
+Character.set_position(10, 101)
+controller.move_sprite(Character)
+scene.camera_follow_sprite(Character)
