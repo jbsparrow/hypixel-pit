@@ -186,3 +186,4 @@ Character = sprites.create(img`
     `, SpriteKind.Player)
 Character.setPosition(10, 101)
 controller.moveSprite(Character)
+scene.cameraFollowSprite(Character)
