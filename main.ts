@@ -197,6 +197,24 @@ scene.setTile(15, img`
     c c c c c c c b c c c c c c c c 
     c c c c c c c c c c c c c c c c 
     `, false)
+scene.setTile(1, img`
+    d 1 1 1 1 1 1 1 1 1 1 1 1 1 1 b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    1 d d d d d d d d d d d d d d b 
+    b b b b b b b b b b b b b b b b 
+    `, false)
 Drop_Circle = sprites.create(img`
     ................................
     ...........33333333333..........
