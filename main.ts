@@ -1,8 +1,6 @@
 namespace SpriteKind {
     export const Object = SpriteKind.create()
 }
-let playerDeployed = 0
-let Character: Sprite = null
 function generateMap () {
     playerDeployed = 0
     scene.setTileMap(img`
@@ -304,3 +302,6 @@ scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
         7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
         `, false)
 })
+let Character: Sprite = null
+let playerDeployed = 0
+generateMap()
