@@ -301,6 +301,7 @@ scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
         7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
         7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
         `, false)
+    playerDeployed = 1
 })
 let Character: Sprite = null
 let playerDeployed = 0
