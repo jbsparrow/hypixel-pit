@@ -8,6 +8,7 @@ namespace SpriteKind {
 }
 controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
+    walk_left = 0
 })
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -84,12 +85,15 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
     200,
     true
     )
+    walk_up = 1
 })
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
+    walk_up = 0
 })
 controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
+    walk_down = 0
 })
 controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -166,6 +170,7 @@ controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.P
     200,
     true
     )
+    walk_right = 1
 })
 scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
     scene.setTile(15, img`
@@ -226,6 +231,7 @@ scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
 })
 controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
+    walk_right = 0
 })
 function generate_map () {
     playerDeployed = 0
@@ -546,6 +552,7 @@ controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pr
     200,
     true
     )
+    walk_left = 1
 })
 controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -622,7 +629,12 @@ controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Pr
     200,
     true
     )
+    walk_down = 1
 })
 let playerDeployed = 0
+let walk_right = 0
+let walk_down = 0
+let walk_up = 0
+let walk_left = 0
 let Character: Sprite = null
 generate_map()
