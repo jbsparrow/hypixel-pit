@@ -7,24 +7,12 @@ namespace SpriteKind {
     export const Object = SpriteKind.create()
 }
 controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Released, function () {
-    animation.attachAnimation(Character, idle_left)
-    animation.setAction(Character, ActionKind.Idle)
+    animation.stopAnimation(animation.AnimationTypes.All, Character)
 })
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
-    animation.attachAnimation(Character, walk_up)
-    animation.setAction(Character, ActionKind.Walking)
-})
-controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Released, function () {
-    animation.attachAnimation(Character, idle_up)
-    animation.setAction(Character, ActionKind.Idle)
-})
-controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Released, function () {
-    animation.attachAnimation(Character, idle_down)
-    animation.setAction(Character, ActionKind.Idle)
-})
-function create_animations () {
-    idle_up = animation.createAnimation(ActionKind.Idle, 1000)
-    idle_up.addAnimationFrame(img`
+    animation.runImageAnimation(
+    Character,
+    [img`
         . . . . . . f f f f . . . . . . 
         . . . . f f e e e e f f . . . . 
         . . . f e e e f f e e e f . . . 
@@ -41,84 +29,7 @@ function create_animations () {
         . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
         . . . . . f f f f f f . . . . . 
         . . . . . f f . . f f . . . . . 
-        `)
-    idle_down = animation.createAnimation(ActionKind.Idle, 1000)
-    idle_down.addAnimationFrame(img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f f 2 2 f f f . . . . 
-        . . . f f f 2 2 2 2 f f f . . . 
-        . . f f f e e e e e e f f f . . 
-        . . f f e 2 2 2 2 2 2 e e f . . 
-        . . f e 2 f f f f f f 2 e f . . 
-        . . f f f f e e e e f f f f . . 
-        . f f e f b f 4 4 f b f e f f . 
-        . f e e 4 1 f d d f 1 4 e e f . 
-        . . f e e d d d d d d e e f . . 
-        . . . f e e 4 4 4 4 e e f . . . 
-        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `)
-    idle_left = animation.createAnimation(ActionKind.Idle, 1000)
-    idle_left.addAnimationFrame(img`
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d d 4 e e e f . . . 
-        . . . f e 4 4 4 e e f f . . . . 
-        . . . f 2 2 2 e d d 4 . . . . . 
-        . . . f 2 2 2 e d d e . . . . . 
-        . . . f 5 5 4 f e e f . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . . . . f f f . . . . . . . 
-        `)
-    idle_right = animation.createAnimation(ActionKind.Idle, 1000)
-    idle_right.addAnimationFrame(img`
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e 4 d d d d f . . . 
-        . . . . f f e e 4 4 4 e f . . . 
-        . . . . . 4 d d e 2 2 2 f . . . 
-        . . . . . e d d e 2 2 2 f . . . 
-        . . . . . f e e f 4 5 5 f . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . . . . f f f . . . . . . 
-        `)
-    walk_up = animation.createAnimation(ActionKind.Walking, 100)
-    walk_up.addAnimationFrame(img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . f f f f f 2 2 f f f f f . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e 2 f 2 f f 2 f 2 e f . . 
-        . . f f f 2 2 e e 2 2 f f f . . 
-        . f f e f 2 f e e f 2 f e f f . 
-        . f e e f f e e e e f e e e f . 
-        . . f e e e e e e e e e e f . . 
-        . . . f e e e e e e e e f . . . 
-        . . e 4 f f f f f f f f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `)
-    walk_up.addAnimationFrame(img`
+        `,img`
         . . . . . . . . . . . . . . . . 
         . . . . . . f f f f . . . . . . 
         . . . . f f e e e e f f . . . . 
@@ -135,8 +46,7 @@ function create_animations () {
         . . . 4 f 2 2 2 2 2 e d d 4 . . 
         . . . e f f f f f f e e 4 . . . 
         . . . . f f f . . . . . . . . . 
-        `)
-    walk_up.addAnimationFrame(img`
+        `,img`
         . . . . . . f f f f . . . . . . 
         . . . . f f e e e e f f . . . . 
         . . . f e e e f f e e e f . . . 
@@ -153,8 +63,7 @@ function create_animations () {
         . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
         . . . . . f f f f f f . . . . . 
         . . . . . f f . . f f . . . . . 
-        `)
-    walk_up.addAnimationFrame(img`
+        `,img`
         . . . . . . . . . . . . . . . . 
         . . . . . . f f f f . . . . . . 
         . . . . f f e e e e f f . . . . 
@@ -171,155 +80,21 @@ function create_animations () {
         . . 4 d d e 2 2 2 2 2 f 4 . . . 
         . . . 4 e e f f f f f f e . . . 
         . . . . . . . . . f f f . . . . 
-        `)
-    walk_down = animation.createAnimation(ActionKind.Walking, 100)
-    walk_down.addAnimationFrame(img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f f 2 2 f f f . . . . 
-        . . . f f f 2 2 2 2 f f f . . . 
-        . . f f f e e e e e e f f f . . 
-        . . f f e 2 2 2 2 2 2 e e f . . 
-        . . f e 2 f f f f f f 2 e f . . 
-        . . f f f f e e e e f f f f . . 
-        . f f e f b f 4 4 f b f e f f . 
-        . f e e 4 1 f d d f 1 4 e e f . 
-        . . f e e d d d d d d e e f . . 
-        . . . f e e 4 4 4 4 e e f . . . 
-        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `)
-    walk_down.addAnimationFrame(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f . . . . . . 
-        . . . . f f f 2 2 f f f . . . . 
-        . . . f f f 2 2 2 2 f f f . . . 
-        . . f f f e e e e e e f f f . . 
-        . . f f e 2 2 2 2 2 2 e e f . . 
-        . f f e 2 f f f f f f 2 e f f . 
-        . f f f f f e e e e f f f f f . 
-        . . f e f b f 4 4 f b f e f . . 
-        . . f e 4 1 f d d f 1 4 e f . . 
-        . . . f e 4 d d d d 4 e f e . . 
-        . . f e f 2 2 2 2 e d d 4 e . . 
-        . . e 4 f 2 2 2 2 e d d e . . . 
-        . . . . f 4 4 5 5 f e e . . . . 
-        . . . . f f f f f f f . . . . . 
-        . . . . f f f . . . . . . . . . 
-        `)
-    walk_down.addAnimationFrame(img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f f 2 2 f f f . . . . 
-        . . . f f f 2 2 2 2 f f f . . . 
-        . . f f f e e e e e e f f f . . 
-        . . f f e 2 2 2 2 2 2 e e f . . 
-        . . f e 2 f f f f f f 2 e f . . 
-        . . f f f f e e e e f f f f . . 
-        . f f e f b f 4 4 f b f e f f . 
-        . f e e 4 1 f d d f 1 4 e e f . 
-        . . f e e d d d d d d e e f . . 
-        . . . f e e 4 4 4 4 e e f . . . 
-        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `)
-    walk_down.addAnimationFrame(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f . . . . . . 
-        . . . . f f f 2 2 f f f . . . . 
-        . . . f f f 2 2 2 2 f f f . . . 
-        . . f f f e e e e e e f f f . . 
-        . . f e e 2 2 2 2 2 2 e f f . . 
-        . f f e 2 f f f f f f 2 e f f . 
-        . f f f f f e e e e f f f f f . 
-        . . f e f b f 4 4 f b f e f . . 
-        . . f e 4 1 f d d f 1 4 e f . . 
-        . . e f e 4 d d d d 4 e f . . . 
-        . . e 4 d d e 2 2 2 2 f e f . . 
-        . . . e d d e 2 2 2 2 f 4 e . . 
-        . . . . e e f 5 5 4 4 f . . . . 
-        . . . . . f f f f f f f . . . . 
-        . . . . . . . . . f f f . . . . 
-        `)
-    walk_left = animation.createAnimation(ActionKind.Walking, 100)
-    walk_left.addAnimationFrame(img`
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d d 4 e e e f . . . 
-        . . . f e 4 4 4 e e f f . . . . 
-        . . . f 2 2 2 e d d 4 . . . . . 
-        . . . f 2 2 2 e d d e . . . . . 
-        . . . f 5 5 4 f e e f . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . . . . f f f . . . . . . . 
-        `)
-    walk_left.addAnimationFrame(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d e e e e e f . . . 
-        . . . f e 4 e d d 4 f . . . . . 
-        . . . f 2 2 e d d e f . . . . . 
-        . . f f 5 5 f e e f f f . . . . 
-        . . f f f f f f f f f f . . . . 
-        . . . f f f . . . f f . . . . . 
-        `)
-    walk_left.addAnimationFrame(img`
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d d 4 e e e f . . . 
-        . . . f e 4 4 4 e e f f . . . . 
-        . . . f 2 2 2 e d d 4 . . . . . 
-        . . . f 2 2 2 e d d e . . . . . 
-        . . . f 5 5 4 f e e f . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . . . . f f f . . . . . . . 
-        `)
-    walk_left.addAnimationFrame(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d d 4 e e e f . . . 
-        . . . f e 4 4 4 e d d 4 . . . . 
-        . . . f 2 2 2 2 e d d e . . . . 
-        . . f f 5 5 4 4 f e e f . . . . 
-        . . f f f f f f f f f f . . . . 
-        . . . f f f . . . f f . . . . . 
-        `)
-    walk_right = animation.createAnimation(ActionKind.Walking, 100)
-    walk_right.addAnimationFrame(img`
+        `],
+    200,
+    true
+    )
+})
+controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Released, function () {
+    animation.stopAnimation(animation.AnimationTypes.All, Character)
+})
+controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Released, function () {
+    animation.stopAnimation(animation.AnimationTypes.All, Character)
+})
+controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+    Character,
+    [img`
         . . . . . . f f f f f f . . . . 
         . . . . f f e e e e f 2 f . . . 
         . . . f f e e e e f 2 2 2 f . . 
@@ -336,8 +111,7 @@ function create_animations () {
         . . . . . f e e f 4 5 5 f . . . 
         . . . . . . f f f f f f . . . . 
         . . . . . . . f f f . . . . . . 
-        `)
-    walk_right.addAnimationFrame(img`
+        `,img`
         . . . . . . . . . . . . . . . . 
         . . . . . . f f f f f f . . . . 
         . . . . f f e e e e f 2 f . . . 
@@ -354,8 +128,7 @@ function create_animations () {
         . . . . f f f e e f 5 5 f f . . 
         . . . . f f f f f f f f f f . . 
         . . . . . f f . . . f f f . . . 
-        `)
-    walk_right.addAnimationFrame(img`
+        `,img`
         . . . . . . f f f f f f . . . . 
         . . . . f f e e e e f 2 f . . . 
         . . . f f e e e e f 2 2 2 f . . 
@@ -372,8 +145,7 @@ function create_animations () {
         . . . . . f e e f 4 5 5 f . . . 
         . . . . . . f f f f f f . . . . 
         . . . . . . . f f f . . . . . . 
-        `)
-    walk_right.addAnimationFrame(img`
+        `,img`
         . . . . . . . . . . . . . . . . 
         . . . . . . f f f f f f . . . . 
         . . . . f f e e e e f 2 f . . . 
@@ -390,19 +162,10 @@ function create_animations () {
         . . . . f e e f 4 4 5 5 f f . . 
         . . . . f f f f f f f f f f . . 
         . . . . . f f . . . f f f . . . 
-        `)
-    animation.attachAnimation(Character, idle_up)
-    animation.attachAnimation(Character, idle_down)
-    animation.attachAnimation(Character, idle_left)
-    animation.attachAnimation(Character, idle_right)
-    animation.attachAnimation(Character, walk_up)
-    animation.attachAnimation(Character, walk_down)
-    animation.attachAnimation(Character, walk_left)
-    animation.attachAnimation(Character, walk_right)
-}
-controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
-    animation.attachAnimation(Character, walk_right)
-    animation.setAction(Character, ActionKind.Walking)
+        `],
+    200,
+    true
+    )
 })
 scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
     scene.setTile(15, img`
@@ -462,8 +225,7 @@ scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
     playerDeployed = 1
 })
 controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Released, function () {
-    animation.attachAnimation(Character, idle_right)
-    animation.setAction(Character, ActionKind.Idle)
+    animation.stopAnimation(animation.AnimationTypes.All, Character)
 })
 function generate_map () {
     playerDeployed = 0
@@ -706,26 +468,161 @@ function generate_map () {
         . . . . . f f . . f f . . . . . 
         `, SpriteKind.Player)
     controller.player1.moveSprite(Character, 100, 100)
-    Character.setPosition(10, 101)
     scene.cameraFollowSprite(Character)
     scene.placeOnRandomTile(Character, 14)
 }
 controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
-    animation.attachAnimation(Character, walk_left)
-    animation.setAction(Character, ActionKind.Walking)
+    animation.runImageAnimation(
+    Character,
+    [img`
+        . . . . f f f f f f . . . . . . 
+        . . . f 2 f e e e e f f . . . . 
+        . . f 2 2 2 f e e e e f f . . . 
+        . . f e e e e f f e e e f . . . 
+        . f e 2 2 2 2 e e f f f f . . . 
+        . f 2 e f f f f 2 2 2 e f . . . 
+        . f f f e e e f f f f f f f . . 
+        . f e e 4 4 f b e 4 4 e f f . . 
+        . . f e d d f 1 4 d 4 e e f . . 
+        . . . f d d d d 4 e e e f . . . 
+        . . . f e 4 4 4 e e f f . . . . 
+        . . . f 2 2 2 e d d 4 . . . . . 
+        . . . f 2 2 2 e d d e . . . . . 
+        . . . f 5 5 4 f e e f . . . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . . . . f f f . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . f 2 f e e e e f f . . . . 
+        . . f 2 2 2 f e e e e f f . . . 
+        . . f e e e e f f e e e f . . . 
+        . f e 2 2 2 2 e e f f f f . . . 
+        . f 2 e f f f f 2 2 2 e f . . . 
+        . f f f e e e f f f f f f f . . 
+        . f e e 4 4 f b e 4 4 e f f . . 
+        . . f e d d f 1 4 d 4 e e f . . 
+        . . . f d d d e e e e e f . . . 
+        . . . f e 4 e d d 4 f . . . . . 
+        . . . f 2 2 e d d e f . . . . . 
+        . . f f 5 5 f e e f f f . . . . 
+        . . f f f f f f f f f f . . . . 
+        . . . f f f . . . f f . . . . . 
+        `,img`
+        . . . . f f f f f f . . . . . . 
+        . . . f 2 f e e e e f f . . . . 
+        . . f 2 2 2 f e e e e f f . . . 
+        . . f e e e e f f e e e f . . . 
+        . f e 2 2 2 2 e e f f f f . . . 
+        . f 2 e f f f f 2 2 2 e f . . . 
+        . f f f e e e f f f f f f f . . 
+        . f e e 4 4 f b e 4 4 e f f . . 
+        . . f e d d f 1 4 d 4 e e f . . 
+        . . . f d d d d 4 e e e f . . . 
+        . . . f e 4 4 4 e e f f . . . . 
+        . . . f 2 2 2 e d d 4 . . . . . 
+        . . . f 2 2 2 e d d e . . . . . 
+        . . . f 5 5 4 f e e f . . . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . . . . f f f . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . f 2 f e e e e f f . . . . 
+        . . f 2 2 2 f e e e e f f . . . 
+        . . f e e e e f f e e e f . . . 
+        . f e 2 2 2 2 e e f f f f . . . 
+        . f 2 e f f f f 2 2 2 e f . . . 
+        . f f f e e e f f f f f f f . . 
+        . f e e 4 4 f b e 4 4 e f f . . 
+        . . f e d d f 1 4 d 4 e e f . . 
+        . . . f d d d d 4 e e e f . . . 
+        . . . f e 4 4 4 e d d 4 . . . . 
+        . . . f 2 2 2 2 e d d e . . . . 
+        . . f f 5 5 4 4 f e e f . . . . 
+        . . f f f f f f f f f f . . . . 
+        . . . f f f . . . f f . . . . . 
+        `],
+    200,
+    true
+    )
 })
 controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Pressed, function () {
-    animation.attachAnimation(Character, walk_down)
-    animation.setAction(Character, ActionKind.Walking)
+    animation.runImageAnimation(
+    Character,
+    [img`
+        . . . . . . f f f f . . . . . . 
+        . . . . f f f 2 2 f f f . . . . 
+        . . . f f f 2 2 2 2 f f f . . . 
+        . . f f f e e e e e e f f f . . 
+        . . f f e 2 2 2 2 2 2 e e f . . 
+        . . f e 2 f f f f f f 2 e f . . 
+        . . f f f f e e e e f f f f . . 
+        . f f e f b f 4 4 f b f e f f . 
+        . f e e 4 1 f d d f 1 4 e e f . 
+        . . f e e d d d d d d e e f . . 
+        . . . f e e 4 4 4 4 e e f . . . 
+        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+        . . . . . f f f f f f . . . . . 
+        . . . . . f f . . f f . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . f f f f . . . . . . 
+        . . . . f f f 2 2 f f f . . . . 
+        . . . f f f 2 2 2 2 f f f . . . 
+        . . f f f e e e e e e f f f . . 
+        . . f f e 2 2 2 2 2 2 e e f . . 
+        . f f e 2 f f f f f f 2 e f f . 
+        . f f f f f e e e e f f f f f . 
+        . . f e f b f 4 4 f b f e f . . 
+        . . f e 4 1 f d d f 1 4 e f . . 
+        . . . f e 4 d d d d 4 e f e . . 
+        . . f e f 2 2 2 2 e d d 4 e . . 
+        . . e 4 f 2 2 2 2 e d d e . . . 
+        . . . . f 4 4 5 5 f e e . . . . 
+        . . . . f f f f f f f . . . . . 
+        . . . . f f f . . . . . . . . . 
+        `,img`
+        . . . . . . f f f f . . . . . . 
+        . . . . f f f 2 2 f f f . . . . 
+        . . . f f f 2 2 2 2 f f f . . . 
+        . . f f f e e e e e e f f f . . 
+        . . f f e 2 2 2 2 2 2 e e f . . 
+        . . f e 2 f f f f f f 2 e f . . 
+        . . f f f f e e e e f f f f . . 
+        . f f e f b f 4 4 f b f e f f . 
+        . f e e 4 1 f d d f 1 4 e e f . 
+        . . f e e d d d d d d e e f . . 
+        . . . f e e 4 4 4 4 e e f . . . 
+        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+        . . . . . f f f f f f . . . . . 
+        . . . . . f f . . f f . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . f f f f . . . . . . 
+        . . . . f f f 2 2 f f f . . . . 
+        . . . f f f 2 2 2 2 f f f . . . 
+        . . f f f e e e e e e f f f . . 
+        . . f e e 2 2 2 2 2 2 e f f . . 
+        . f f e 2 f f f f f f 2 e f f . 
+        . f f f f f e e e e f f f f f . 
+        . . f e f b f 4 4 f b f e f . . 
+        . . f e 4 1 f d d f 1 4 e f . . 
+        . . e f e 4 d d d d 4 e f . . . 
+        . . e 4 d d e 2 2 2 2 f e f . . 
+        . . . e d d e 2 2 2 2 f 4 e . . 
+        . . . . e e f 5 5 4 4 f . . . . 
+        . . . . . f f f f f f f . . . . 
+        . . . . . . . . . f f f . . . . 
+        `],
+    200,
+    true
+    )
 })
 let playerDeployed = 0
-let walk_right: animation.Animation = null
-let walk_left: animation.Animation = null
-let walk_down: animation.Animation = null
-let idle_right: animation.Animation = null
-let idle_down: animation.Animation = null
-let idle_up: animation.Animation = null
-let walk_up: animation.Animation = null
 let Character: Sprite = null
-let idle_left: animation.Animation = null
 generate_map()
