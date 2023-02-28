@@ -9,7 +9,10 @@
         "color-coded-tilemap": "*",
         "sprite-scaling": "*",
         "controller": "*",
-        "corgio": "*"
+        "corgio": "*",
+        "carnival": "github:microsoft/arcade-carnival#v0.0.7",
+        "Timers": "github:microsoft/arcade-timers#v1.1.0",
+        "arcade-sprite-data": "github:microsoft/arcade-sprite-data#v0.2.1"
     },
     "files": [
         "main.blocks",
