@@ -28,8 +28,7 @@ def on_player1_button_up_pressed():
     animation.run_image_animation(
         Character,
         [
-            img(
-                """
+            img("""
                 . . . . . . f f f f . . . . . .
                         . . . . f f e e e e f f . . . .
                         . . . f e e e f f e e e f . . .
@@ -46,10 +45,8 @@ def on_player1_button_up_pressed():
                         . . 4 4 f 4 4 4 4 4 4 f 4 4 . .
                         . . . . . f f f f f f . . . . .
                         . . . . . f f . . f f . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . f f f f . . . . . .
                         . . . . f f e e e e f f . . . .
@@ -66,10 +63,8 @@ def on_player1_button_up_pressed():
                         . . . 4 f 2 2 2 2 2 e d d 4 . .
                         . . . e f f f f f f e e 4 . . .
                         . . . . f f f . . . . . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . f f f f . . . . . .
                         . . . . f f e e e e f f . . . .
                         . . . f e e e f f e e e f . . .
@@ -86,10 +81,8 @@ def on_player1_button_up_pressed():
                         . . 4 4 f 4 4 4 4 4 4 f 4 4 . .
                         . . . . . f f f f f f . . . . .
                         . . . . . f f . . f f . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . f f f f . . . . . .
                         . . . . f f e e e e f f . . . .
@@ -106,8 +99,7 @@ def on_player1_button_up_pressed():
                         . . 4 d d e 2 2 2 2 2 f 4 . . .
                         . . . 4 e e f f f f f f e . . .
                         . . . . . . . . . f f f . . . .
-            """
-            ),
+            """),
         ],
         200,
         True,
@@ -115,9 +107,9 @@ def on_player1_button_up_pressed():
     walk_up = True
 
 
-controller.player1.on_button_event(
-    ControllerButton.UP, ControllerButtonEvent.PRESSED, on_player1_button_up_pressed
-)
+controller.player1.on_button_event(ControllerButton.UP,
+                                   ControllerButtonEvent.PRESSED,
+                                   on_player1_button_up_pressed)
 
 
 def on_player1_button_up_released():
@@ -127,18 +119,18 @@ def on_player1_button_up_released():
     check_direction(walk_up, walk_down, walk_left, walk_right, Character)
 
 
-controller.player1.on_button_event(
-    ControllerButton.UP, ControllerButtonEvent.RELEASED, on_player1_button_up_released
-)
+controller.player1.on_button_event(ControllerButton.UP,
+                                   ControllerButtonEvent.RELEASED,
+                                   on_player1_button_up_released)
 
 
-def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite):
+def check_direction(up: bool, down: bool, left: bool, right: bool,
+                    user: Sprite):
     if up and left or up and right or up and (left and right):
         animation.run_image_animation(
             user,
             [
-                img(
-                    """
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
                                 . . . f e e e f f e e e f . . .
@@ -155,10 +147,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 4 4 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
@@ -175,10 +165,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . 4 f 2 2 2 2 2 e d d 4 . .
                                 . . . e f f f f f f e e 4 . . .
                                 . . . . f f f . . . . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
                                 . . . f e e e f f e e e f . . .
@@ -195,10 +183,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 4 4 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
@@ -215,8 +201,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 d d e 2 2 2 2 2 f 4 . . .
                                 . . . 4 e e f f f f f f e . . .
                                 . . . . . . . . . f f f . . . .
-                """
-                ),
+                """),
             ],
             200,
             True,
@@ -225,8 +210,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
         animation.run_image_animation(
             user,
             [
-                img(
-                    """
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
                                 . . . f f f 2 2 2 2 f f f . . .
@@ -243,10 +227,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
@@ -263,10 +245,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f 4 4 5 5 f e e . . . .
                                 . . . . f f f f f f f . . . . .
                                 . . . . f f f . . . . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
                                 . . . f f f 2 2 2 2 f f f . . .
@@ -283,10 +263,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
@@ -303,8 +281,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . e e f 5 5 4 4 f . . . .
                                 . . . . . f f f f f f f . . . .
                                 . . . . . . . . . f f f . . . .
-                """
-                ),
+                """),
             ],
             200,
             True,
@@ -313,8 +290,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
         animation.run_image_animation(
             user,
             [
-                img(
-                    """
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
                                 . . . f e e e f f e e e f . . .
@@ -331,10 +307,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 4 4 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
@@ -351,10 +325,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . 4 f 2 2 2 2 2 e d d 4 . .
                                 . . . e f f f f f f e e 4 . . .
                                 . . . . f f f . . . . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
                                 . . . f e e e f f e e e f . . .
@@ -371,10 +343,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 4 4 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
@@ -391,8 +361,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 d d e 2 2 2 2 2 f 4 . . .
                                 . . . 4 e e f f f f f f e . . .
                                 . . . . . . . . . f f f . . . .
-                """
-                ),
+                """),
             ],
             200,
             True,
@@ -401,8 +370,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
         animation.run_image_animation(
             user,
             [
-                img(
-                    """
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
                                 . . . f f f 2 2 2 2 f f f . . .
@@ -419,10 +387,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
@@ -439,10 +405,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f 4 4 5 5 f e e . . . .
                                 . . . . f f f f f f f . . . . .
                                 . . . . f f f . . . . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
                                 . . . f f f 2 2 2 2 f f f . . .
@@ -459,10 +423,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
@@ -479,8 +441,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . e e f 5 5 4 4 f . . . .
                                 . . . . . f f f f f f f . . . .
                                 . . . . . . . . . f f f . . . .
-                """
-                ),
+                """),
             ],
             200,
             True,
@@ -489,8 +450,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
         animation.run_image_animation(
             user,
             [
-                img(
-                    """
+                img("""
                     . . . . f f f f f f . . . . . .
                                 . . . f 2 f e e e e f f . . . .
                                 . . f 2 2 2 f e e e e f f . . .
@@ -507,10 +467,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . f 5 5 4 f e e f . . . . .
                                 . . . . f f f f f f . . . . . .
                                 . . . . . . f f f . . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . f f f f f f . . . . . .
                                 . . . f 2 f e e e e f f . . . .
@@ -527,10 +485,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . f f 5 5 f e e f f f . . . .
                                 . . f f f f f f f f f f . . . .
                                 . . . f f f . . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . f f f f f f . . . . . .
                                 . . . f 2 f e e e e f f . . . .
                                 . . f 2 2 2 f e e e e f f . . .
@@ -547,10 +503,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . f 5 5 4 f e e f . . . . .
                                 . . . . f f f f f f . . . . . .
                                 . . . . . . f f f . . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . f f f f f f . . . . . .
                                 . . . f 2 f e e e e f f . . . .
@@ -567,8 +521,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . f f 5 5 4 4 f e e f . . . .
                                 . . f f f f f f f f f f . . . .
                                 . . . f f f . . . f f . . . . .
-                """
-                ),
+                """),
             ],
             200,
             True,
@@ -577,8 +530,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
         animation.run_image_animation(
             user,
             [
-                img(
-                    """
+                img("""
                     . . . . . . f f f f f f . . . .
                                 . . . . f f e e e e f 2 f . . .
                                 . . . f f e e e e f 2 2 2 f . .
@@ -595,10 +547,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f e e f 4 5 5 f . . .
                                 . . . . . . f f f f f f . . . .
                                 . . . . . . . f f f . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f f f . . . .
                                 . . . . f f e e e e f 2 f . . .
@@ -615,10 +565,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f f f e e f 5 5 f f . .
                                 . . . . f f f f f f f f f f . .
                                 . . . . . f f . . . f f f . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . f f f f f f . . . .
                                 . . . . f f e e e e f 2 f . . .
                                 . . . f f e e e e f 2 2 2 f . .
@@ -635,10 +583,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f e e f 4 5 5 f . . .
                                 . . . . . . f f f f f f . . . .
                                 . . . . . . . f f f . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f f f . . . .
                                 . . . . f f e e e e f 2 f . . .
@@ -655,8 +601,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f e e f 4 4 5 5 f f . .
                                 . . . . f f f f f f f f f f . .
                                 . . . . . f f . . . f f f . . .
-                """
-                ),
+                """),
             ],
             200,
             True,
@@ -684,8 +629,7 @@ def on_player1_button_right_pressed():
     animation.run_image_animation(
         Character,
         [
-            img(
-                """
+            img("""
                 . . . . . . f f f f f f . . . .
                         . . . . f f e e e e f 2 f . . .
                         . . . f f e e e e f 2 2 2 f . .
@@ -702,10 +646,8 @@ def on_player1_button_right_pressed():
                         . . . . . f e e f 4 5 5 f . . .
                         . . . . . . f f f f f f . . . .
                         . . . . . . . f f f . . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . f f f f f f . . . .
                         . . . . f f e e e e f 2 f . . .
@@ -722,10 +664,8 @@ def on_player1_button_right_pressed():
                         . . . . f f f e e f 5 5 f f . .
                         . . . . f f f f f f f f f f . .
                         . . . . . f f . . . f f f . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . f f f f f f . . . .
                         . . . . f f e e e e f 2 f . . .
                         . . . f f e e e e f 2 2 2 f . .
@@ -742,10 +682,8 @@ def on_player1_button_right_pressed():
                         . . . . . f e e f 4 5 5 f . . .
                         . . . . . . f f f f f f . . . .
                         . . . . . . . f f f . . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . f f f f f f . . . .
                         . . . . f f e e e e f 2 f . . .
@@ -762,8 +700,7 @@ def on_player1_button_right_pressed():
                         . . . . f e e f 4 4 5 5 f f . .
                         . . . . f f f f f f f f f f . .
                         . . . . . f f . . . f f f . . .
-            """
-            ),
+            """),
         ],
         200,
         True,
@@ -804,8 +741,7 @@ controller.player1.on_button_event(
 def on_player1_connected():
     global Character, statusbar
     Character = sprites.create(
-        img(
-            """
+        img("""
             . . . . . . f f f f . . . . . .
                     . . . . f f f 2 2 f f f . . . .
                     . . . f f f 2 2 2 2 f f f . . .
@@ -822,8 +758,7 @@ def on_player1_connected():
                     . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                     . . . . . f f f f f f . . . . .
                     . . . . . f f . . f f . . . . .
-        """
-        ),
+        """),
         SpriteKind.player,
     )
     controller.player1.move_sprite(Character, 100, 100)
@@ -840,17 +775,12 @@ controller.player1.on_event(ControllerEvent.CONNECTED, on_player1_connected)
 def generate_map():
     global playerDeployed
     playerDeployed = 0
-    scene.set_tile_map(
-        assets.image(
-            """
+    scene.set_tile_map(assets.image("""
         Map
-    """
-        )
-    )
+    """))
     scene.set_tile(
         14,
-        img(
-            """
+        img("""
             b d d d d d d c c d d d d d d c
                     d b b b b b c d d c b b b b b c
                     d b b b b c d b b b c b b b b c
@@ -867,14 +797,12 @@ def generate_map():
                     d b b b b c b b b c d b b b b c
                     d b b b b b c b c d b b b b b c
                     c c c c c c b c d c c c c c c a
-        """
-        ),
+        """),
         False,
     )
     scene.set_tile(
         7,
-        img(
-            """
+        img("""
             7 7 7 7 5 7 7 7 7 7 7 7 7 7 7 7
                     7 7 5 7 5 5 7 7 7 7 7 7 7 7 7 7
                     7 6 5 5 7 5 7 5 5 7 7 7 7 7 7 7
@@ -891,14 +819,12 @@ def generate_map():
                     7 7 7 7 7 7 7 7 7 7 7 7 7 5 7 7
                     7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
                     7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
-        """
-        ),
+        """),
         False,
     )
     scene.set_tile(
         3,
-        img(
-            """
+        img("""
             7 7 7 7 5 7 7 7 7 7 7 7 7 7 7 7
                     7 7 5 7 5 5 7 7 7 7 7 7 7 7 7 7
                     7 6 5 5 7 5 7 5 5 7 7 7 7 7 7 7
@@ -915,14 +841,12 @@ def generate_map():
                     7 7 7 7 7 7 7 7 7 7 7 7 7 5 7 7
                     7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
                     7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
-        """
-        ),
+        """),
         True,
     )
     scene.set_tile(
         15,
-        img(
-            """
+        img("""
             c c c c c c c c c c c c c c c c
                     c c c c c c c c c b c c c c b c
                     c c b c c c c c c c c c c c c c
@@ -939,14 +863,12 @@ def generate_map():
                     c c b c c c c c c c c c c b c c
                     c c c c c c c b c c c c c c c c
                     c c c c c c c c c c c c c c c c
-        """
-        ),
+        """),
         True,
     )
     scene.set_tile(
         12,
-        img(
-            """
+        img("""
             c c c c c c c c c c c c c c c c
                     c c c c c c c c c b c c c c b c
                     c c b c c c c c c c c c c c c c
@@ -963,14 +885,12 @@ def generate_map():
                     c c b c c c c c c c c c c b c c
                     c c c c c c c b c c c c c c c c
                     c c c c c c c c c c c c c c c c
-        """
-        ),
+        """),
         False,
     )
     scene.set_tile(
         1,
-        img(
-            """
+        img("""
             d 1 1 1 1 1 1 1 1 1 1 1 1 1 1 b
                     1 d d d d d d d d d d d d d d b
                     1 d d d d d d d d d d d d d d b
@@ -987,14 +907,12 @@ def generate_map():
                     1 d d d d d d d d d d d d d d b
                     1 d d d d d d d d d d d d d d b
                     b b b b b b b b b b b b b b b b
-        """
-        ),
+        """),
         True,
     )
     scene.set_tile(
         9,
-        img(
-            """
+        img("""
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
                     6 9 9 9 6 6 9 9 9 9 6 6 9 9 9 6
                     6 9 9 6 6 9 9 c c 9 9 6 6 9 9 6
@@ -1011,8 +929,7 @@ def generate_map():
                     6 9 9 6 6 9 9 c c 9 9 6 6 9 9 6
                     6 9 9 9 6 6 9 9 9 9 6 6 9 9 9 6
                     6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
-        """
-        ),
+        """),
         False,
     )
 
@@ -1022,8 +939,7 @@ def on_player1_button_left_pressed():
     animation.run_image_animation(
         Character,
         [
-            img(
-                """
+            img("""
                 . . . . f f f f f f . . . . . .
                         . . . f 2 f e e e e f f . . . .
                         . . f 2 2 2 f e e e e f f . . .
@@ -1040,10 +956,8 @@ def on_player1_button_left_pressed():
                         . . . f 5 5 4 f e e f . . . . .
                         . . . . f f f f f f . . . . . .
                         . . . . . . f f f . . . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . f f f f f f . . . . . .
                         . . . f 2 f e e e e f f . . . .
@@ -1060,10 +974,8 @@ def on_player1_button_left_pressed():
                         . . f f 5 5 f e e f f f . . . .
                         . . f f f f f f f f f f . . . .
                         . . . f f f . . . f f . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . f f f f f f . . . . . .
                         . . . f 2 f e e e e f f . . . .
                         . . f 2 2 2 f e e e e f f . . .
@@ -1080,10 +992,8 @@ def on_player1_button_left_pressed():
                         . . . f 5 5 4 f e e f . . . . .
                         . . . . f f f f f f . . . . . .
                         . . . . . . f f f . . . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . f f f f f f . . . . . .
                         . . . f 2 f e e e e f f . . . .
@@ -1100,8 +1010,7 @@ def on_player1_button_left_pressed():
                         . . f f 5 5 4 4 f e e f . . . .
                         . . f f f f f f f f f f . . . .
                         . . . f f f . . . f f . . . . .
-            """
-            ),
+            """),
         ],
         200,
         True,
@@ -1109,9 +1018,9 @@ def on_player1_button_left_pressed():
     walk_left = True
 
 
-controller.player1.on_button_event(
-    ControllerButton.LEFT, ControllerButtonEvent.PRESSED, on_player1_button_left_pressed
-)
+controller.player1.on_button_event(ControllerButton.LEFT,
+                                   ControllerButtonEvent.PRESSED,
+                                   on_player1_button_left_pressed)
 
 
 def on_player1_button_down_pressed():
@@ -1119,8 +1028,7 @@ def on_player1_button_down_pressed():
     animation.run_image_animation(
         Character,
         [
-            img(
-                """
+            img("""
                 . . . . . . f f f f . . . . . .
                         . . . . f f f 2 2 f f f . . . .
                         . . . f f f 2 2 2 2 f f f . . .
@@ -1137,10 +1045,8 @@ def on_player1_button_down_pressed():
                         . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                         . . . . . f f f f f f . . . . .
                         . . . . . f f . . f f . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . f f f f . . . . . .
                         . . . . f f f 2 2 f f f . . . .
@@ -1157,10 +1063,8 @@ def on_player1_button_down_pressed():
                         . . . . f 4 4 5 5 f e e . . . .
                         . . . . f f f f f f f . . . . .
                         . . . . f f f . . . . . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . f f f f . . . . . .
                         . . . . f f f 2 2 f f f . . . .
                         . . . f f f 2 2 2 2 f f f . . .
@@ -1177,10 +1081,8 @@ def on_player1_button_down_pressed():
                         . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                         . . . . . f f f f f f . . . . .
                         . . . . . f f . . f f . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . f f f f . . . . . .
                         . . . . f f f 2 2 f f f . . . .
@@ -1197,8 +1099,7 @@ def on_player1_button_down_pressed():
                         . . . . e e f 5 5 4 4 f . . . .
                         . . . . . f f f f f f f . . . .
                         . . . . . . . . . f f f . . . .
-            """
-            ),
+            """),
         ],
         200,
         True,
@@ -1206,9 +1107,9 @@ def on_player1_button_down_pressed():
     walk_down = True
 
 
-controller.player1.on_button_event(
-    ControllerButton.DOWN, ControllerButtonEvent.PRESSED, on_player1_button_down_pressed
-)
+controller.player1.on_button_event(ControllerButton.DOWN,
+                                   ControllerButtonEvent.PRESSED,
+                                   on_player1_button_down_pressed)
 
 statusbar: StatusBarSprite = None
 playerDeployed = 0
