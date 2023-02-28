@@ -1,15 +1,10 @@
-enum ActionKind {
-    Walking,
-    Idle,
-    Jumping
-}
 namespace SpriteKind {
     export const Object = SpriteKind.create()
 }
 controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
     walk_left = false
-    check_direction(walk_up, walk_down, walk_left, walk_right)
+    check_direction(walk_up, walk_down, walk_left, walk_right, Character)
 })
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -91,12 +86,12 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
     walk_up = false
-    check_direction(walk_up, walk_down, walk_left, walk_right)
+    check_direction(walk_up, walk_down, walk_left, walk_right, Character)
 })
-function check_direction (up: boolean, down: boolean, left: boolean, right: boolean) {
-    if (up && left || up && right) {
+function check_direction (up: boolean, down: boolean, left: boolean, right: boolean, user: Sprite) {
+    if (up && left || up && right || up && (left && right)) {
         animation.runImageAnimation(
-        Character,
+        user,
         [img`
             . . . . . . f f f f . . . . . . 
             . . . . f f e e e e f f . . . . 
@@ -169,9 +164,9 @@ function check_direction (up: boolean, down: boolean, left: boolean, right: bool
         200,
         true
         )
-    } else if (down && left || down && right) {
+    } else if (down && left || down && right || down && (left && right)) {
         animation.runImageAnimation(
-        Character,
+        user,
         [img`
             . . . . . . f f f f . . . . . . 
             . . . . f f f 2 2 f f f . . . . 
@@ -246,7 +241,7 @@ function check_direction (up: boolean, down: boolean, left: boolean, right: bool
         )
     } else if (up) {
         animation.runImageAnimation(
-        Character,
+        user,
         [img`
             . . . . . . f f f f . . . . . . 
             . . . . f f e e e e f f . . . . 
@@ -321,7 +316,7 @@ function check_direction (up: boolean, down: boolean, left: boolean, right: bool
         )
     } else if (down) {
         animation.runImageAnimation(
-        Character,
+        user,
         [img`
             . . . . . . f f f f . . . . . . 
             . . . . f f f 2 2 f f f . . . . 
@@ -396,7 +391,7 @@ function check_direction (up: boolean, down: boolean, left: boolean, right: bool
         )
     } else if (left) {
         animation.runImageAnimation(
-        Character,
+        user,
         [img`
             . . . . f f f f f f . . . . . . 
             . . . f 2 f e e e e f f . . . . 
@@ -471,7 +466,7 @@ function check_direction (up: boolean, down: boolean, left: boolean, right: bool
         )
     } else if (right) {
         animation.runImageAnimation(
-        Character,
+        user,
         [img`
             . . . . . . f f f f f f . . . . 
             . . . . f f e e e e f 2 f . . . 
@@ -545,13 +540,13 @@ function check_direction (up: boolean, down: boolean, left: boolean, right: bool
         true
         )
     } else {
-        animation.stopAnimation(animation.AnimationTypes.All, Character)
+        animation.stopAnimation(animation.AnimationTypes.All, user)
     }
 }
 controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
     walk_down = false
-    check_direction(walk_up, walk_down, walk_left, walk_right)
+    check_direction(walk_up, walk_down, walk_left, walk_right, Character)
 })
 controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -637,7 +632,7 @@ scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
 controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
     walk_right = false
-    check_direction(walk_up, walk_down, walk_left, walk_right)
+    check_direction(walk_up, walk_down, walk_left, walk_right, Character)
 })
 controller.player1.onEvent(ControllerEvent.Connected, function () {
     Character = sprites.create(img`
@@ -667,7 +662,16 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
 })
 function generate_map () {
     playerDeployed = 0
-    scene.setTileMap(assets.image`Map`)
+    scene.setTileMap(img`
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        . . . . . . . . . . 
+        `)
     scene.setTile(14, img`
         b d d d d d d c c d d d d d d c 
         d b b b b b c d d c b b b b b c 
