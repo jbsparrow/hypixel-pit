@@ -8,7 +8,7 @@ namespace SpriteKind {
 }
 controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
-    walk_left = 0
+    walk_left = false
 })
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -85,15 +85,18 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
     200,
     true
     )
-    walk_up = 1
+    walk_up = true
 })
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
-    walk_up = 0
+    walk_up = false
 })
+function check_direction (up: boolean, down: boolean, left: boolean, right: boolean) {
+	
+}
 controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
-    walk_down = 0
+    walk_down = false
 })
 controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -170,7 +173,7 @@ controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.P
     200,
     true
     )
-    walk_right = 1
+    walk_right = true
 })
 scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
     scene.setTile(15, img`
@@ -231,7 +234,8 @@ scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
 })
 controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
-    walk_right = 0
+    walk_right = false
+    check_direction(walk_up, walk_down, walk_left, walk_right)
 })
 controller.player1.onEvent(ControllerEvent.Connected, function () {
     Character = sprites.create(img`
@@ -554,7 +558,7 @@ controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pr
     200,
     true
     )
-    walk_left = 1
+    walk_left = true
 })
 controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -631,12 +635,12 @@ controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Pr
     200,
     true
     )
-    walk_down = 1
+    walk_down = true
 })
 let playerDeployed = 0
-let walk_right = 0
-let walk_down = 0
-let walk_up = 0
-let walk_left = 0
+let walk_right = false
+let walk_down = false
+let walk_up = false
+let walk_left = false
 let Character: Sprite = null
 generate_map()
