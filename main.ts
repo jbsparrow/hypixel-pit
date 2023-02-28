@@ -714,6 +714,9 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
     controller.player1.moveSprite(Character, 100, 100)
     scene.cameraFollowSprite(Character)
     scene.placeOnRandomTile(Character, 14)
+    statusbar = statusbars.create(20, 4, StatusBarKind.Health)
+    statusbar.attachToSprite(Character, 2, 0)
+    statusbar.setColor(7, 2)
 })
 function generate_map () {
     playerDeployed = 0
@@ -1092,6 +1095,7 @@ controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Pr
     )
     walk_down = true
 })
+let statusbar: StatusBarSprite = null
 let playerDeployed = 0
 let walk_right = false
 let walk_down = false
