@@ -9,6 +9,7 @@ namespace SpriteKind {
 controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
     walk_left = false
+    check_direction(walk_up, walk_down, walk_left, walk_right)
 })
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -90,13 +91,467 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
     walk_up = false
+    check_direction(walk_up, walk_down, walk_left, walk_right)
 })
 function check_direction (up: boolean, down: boolean, left: boolean, right: boolean) {
-	
+    if (up && left || up && right) {
+        animation.runImageAnimation(
+        Character,
+        [img`
+            . . . . . . f f f f . . . . . . 
+            . . . . f f e e e e f f . . . . 
+            . . . f e e e f f e e e f . . . 
+            . . f f f f f 2 2 f f f f f . . 
+            . . f f e 2 e 2 2 e 2 e f f . . 
+            . . f e 2 f 2 f f 2 f 2 e f . . 
+            . . f f f 2 2 e e 2 2 f f f . . 
+            . f f e f 2 f e e f 2 f e f f . 
+            . f e e f f e e e e f e e e f . 
+            . . f e e e e e e e e e e f . . 
+            . . . f e e e e e e e e f . . . 
+            . . e 4 f f f f f f f f 4 e . . 
+            . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+            . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
+            . . . . . f f f f f f . . . . . 
+            . . . . . f f . . f f . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f f f f . . . . . . 
+            . . . . f f e e e e f f . . . . 
+            . . . f e e e f f e e e f . . . 
+            . . . f f f f 2 2 f f f f . . . 
+            . . f f e 2 e 2 2 e 2 e f f . . 
+            . . f e 2 f 2 f f f 2 f e f . . 
+            . . f f f 2 f e e 2 2 f f f . . 
+            . . f e 2 f f e e 2 f e e f . . 
+            . f f e f f e e e f e e e f f . 
+            . f f e e e e e e e e e e f f . 
+            . . . f e e e e e e e e f . . . 
+            . . . e f f f f f f f f 4 e . . 
+            . . . 4 f 2 2 2 2 2 e d d 4 . . 
+            . . . e f f f f f f e e 4 . . . 
+            . . . . f f f . . . . . . . . . 
+            `,img`
+            . . . . . . f f f f . . . . . . 
+            . . . . f f e e e e f f . . . . 
+            . . . f e e e f f e e e f . . . 
+            . . f f f f f 2 2 f f f f f . . 
+            . . f f e 2 e 2 2 e 2 e f f . . 
+            . . f e 2 f 2 f f 2 f 2 e f . . 
+            . . f f f 2 2 e e 2 2 f f f . . 
+            . f f e f 2 f e e f 2 f e f f . 
+            . f e e f f e e e e f e e e f . 
+            . . f e e e e e e e e e e f . . 
+            . . . f e e e e e e e e f . . . 
+            . . e 4 f f f f f f f f 4 e . . 
+            . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+            . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
+            . . . . . f f f f f f . . . . . 
+            . . . . . f f . . f f . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f f f f . . . . . . 
+            . . . . f f e e e e f f . . . . 
+            . . . f e e e f f e e e f . . . 
+            . . . f f f f 2 2 f f f f . . . 
+            . . f f e 2 e 2 2 e 2 e f f . . 
+            . . f e f 2 f f f 2 f 2 e f . . 
+            . . f f f 2 2 e e f 2 f f f . . 
+            . . f e e f 2 e e f f 2 e f . . 
+            . f f e e e f e e e f f e f f . 
+            . f f e e e e e e e e e e f f . 
+            . . . f e e e e e e e e f . . . 
+            . . e 4 f f f f f f f f e . . . 
+            . . 4 d d e 2 2 2 2 2 f 4 . . . 
+            . . . 4 e e f f f f f f e . . . 
+            . . . . . . . . . f f f . . . . 
+            `],
+        200,
+        true
+        )
+    } else if (down && left || down && right) {
+        animation.runImageAnimation(
+        Character,
+        [img`
+            . . . . . . f f f f . . . . . . 
+            . . . . f f f 2 2 f f f . . . . 
+            . . . f f f 2 2 2 2 f f f . . . 
+            . . f f f e e e e e e f f f . . 
+            . . f f e 2 2 2 2 2 2 e e f . . 
+            . . f e 2 f f f f f f 2 e f . . 
+            . . f f f f e e e e f f f f . . 
+            . f f e f b f 4 4 f b f e f f . 
+            . f e e 4 1 f d d f 1 4 e e f . 
+            . . f e e d d d d d d e e f . . 
+            . . . f e e 4 4 4 4 e e f . . . 
+            . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+            . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+            . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+            . . . . . f f f f f f . . . . . 
+            . . . . . f f . . f f . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f f f f . . . . . . 
+            . . . . f f f 2 2 f f f . . . . 
+            . . . f f f 2 2 2 2 f f f . . . 
+            . . f f f e e e e e e f f f . . 
+            . . f f e 2 2 2 2 2 2 e e f . . 
+            . f f e 2 f f f f f f 2 e f f . 
+            . f f f f f e e e e f f f f f . 
+            . . f e f b f 4 4 f b f e f . . 
+            . . f e 4 1 f d d f 1 4 e f . . 
+            . . . f e 4 d d d d 4 e f e . . 
+            . . f e f 2 2 2 2 e d d 4 e . . 
+            . . e 4 f 2 2 2 2 e d d e . . . 
+            . . . . f 4 4 5 5 f e e . . . . 
+            . . . . f f f f f f f . . . . . 
+            . . . . f f f . . . . . . . . . 
+            `,img`
+            . . . . . . f f f f . . . . . . 
+            . . . . f f f 2 2 f f f . . . . 
+            . . . f f f 2 2 2 2 f f f . . . 
+            . . f f f e e e e e e f f f . . 
+            . . f f e 2 2 2 2 2 2 e e f . . 
+            . . f e 2 f f f f f f 2 e f . . 
+            . . f f f f e e e e f f f f . . 
+            . f f e f b f 4 4 f b f e f f . 
+            . f e e 4 1 f d d f 1 4 e e f . 
+            . . f e e d d d d d d e e f . . 
+            . . . f e e 4 4 4 4 e e f . . . 
+            . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+            . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+            . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+            . . . . . f f f f f f . . . . . 
+            . . . . . f f . . f f . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f f f f . . . . . . 
+            . . . . f f f 2 2 f f f . . . . 
+            . . . f f f 2 2 2 2 f f f . . . 
+            . . f f f e e e e e e f f f . . 
+            . . f e e 2 2 2 2 2 2 e f f . . 
+            . f f e 2 f f f f f f 2 e f f . 
+            . f f f f f e e e e f f f f f . 
+            . . f e f b f 4 4 f b f e f . . 
+            . . f e 4 1 f d d f 1 4 e f . . 
+            . . e f e 4 d d d d 4 e f . . . 
+            . . e 4 d d e 2 2 2 2 f e f . . 
+            . . . e d d e 2 2 2 2 f 4 e . . 
+            . . . . e e f 5 5 4 4 f . . . . 
+            . . . . . f f f f f f f . . . . 
+            . . . . . . . . . f f f . . . . 
+            `],
+        200,
+        true
+        )
+    } else if (up) {
+        animation.runImageAnimation(
+        Character,
+        [img`
+            . . . . . . f f f f . . . . . . 
+            . . . . f f e e e e f f . . . . 
+            . . . f e e e f f e e e f . . . 
+            . . f f f f f 2 2 f f f f f . . 
+            . . f f e 2 e 2 2 e 2 e f f . . 
+            . . f e 2 f 2 f f 2 f 2 e f . . 
+            . . f f f 2 2 e e 2 2 f f f . . 
+            . f f e f 2 f e e f 2 f e f f . 
+            . f e e f f e e e e f e e e f . 
+            . . f e e e e e e e e e e f . . 
+            . . . f e e e e e e e e f . . . 
+            . . e 4 f f f f f f f f 4 e . . 
+            . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+            . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
+            . . . . . f f f f f f . . . . . 
+            . . . . . f f . . f f . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f f f f . . . . . . 
+            . . . . f f e e e e f f . . . . 
+            . . . f e e e f f e e e f . . . 
+            . . . f f f f 2 2 f f f f . . . 
+            . . f f e 2 e 2 2 e 2 e f f . . 
+            . . f e 2 f 2 f f f 2 f e f . . 
+            . . f f f 2 f e e 2 2 f f f . . 
+            . . f e 2 f f e e 2 f e e f . . 
+            . f f e f f e e e f e e e f f . 
+            . f f e e e e e e e e e e f f . 
+            . . . f e e e e e e e e f . . . 
+            . . . e f f f f f f f f 4 e . . 
+            . . . 4 f 2 2 2 2 2 e d d 4 . . 
+            . . . e f f f f f f e e 4 . . . 
+            . . . . f f f . . . . . . . . . 
+            `,img`
+            . . . . . . f f f f . . . . . . 
+            . . . . f f e e e e f f . . . . 
+            . . . f e e e f f e e e f . . . 
+            . . f f f f f 2 2 f f f f f . . 
+            . . f f e 2 e 2 2 e 2 e f f . . 
+            . . f e 2 f 2 f f 2 f 2 e f . . 
+            . . f f f 2 2 e e 2 2 f f f . . 
+            . f f e f 2 f e e f 2 f e f f . 
+            . f e e f f e e e e f e e e f . 
+            . . f e e e e e e e e e e f . . 
+            . . . f e e e e e e e e f . . . 
+            . . e 4 f f f f f f f f 4 e . . 
+            . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+            . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
+            . . . . . f f f f f f . . . . . 
+            . . . . . f f . . f f . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f f f f . . . . . . 
+            . . . . f f e e e e f f . . . . 
+            . . . f e e e f f e e e f . . . 
+            . . . f f f f 2 2 f f f f . . . 
+            . . f f e 2 e 2 2 e 2 e f f . . 
+            . . f e f 2 f f f 2 f 2 e f . . 
+            . . f f f 2 2 e e f 2 f f f . . 
+            . . f e e f 2 e e f f 2 e f . . 
+            . f f e e e f e e e f f e f f . 
+            . f f e e e e e e e e e e f f . 
+            . . . f e e e e e e e e f . . . 
+            . . e 4 f f f f f f f f e . . . 
+            . . 4 d d e 2 2 2 2 2 f 4 . . . 
+            . . . 4 e e f f f f f f e . . . 
+            . . . . . . . . . f f f . . . . 
+            `],
+        200,
+        true
+        )
+    } else if (down) {
+        animation.runImageAnimation(
+        Character,
+        [img`
+            . . . . . . f f f f . . . . . . 
+            . . . . f f f 2 2 f f f . . . . 
+            . . . f f f 2 2 2 2 f f f . . . 
+            . . f f f e e e e e e f f f . . 
+            . . f f e 2 2 2 2 2 2 e e f . . 
+            . . f e 2 f f f f f f 2 e f . . 
+            . . f f f f e e e e f f f f . . 
+            . f f e f b f 4 4 f b f e f f . 
+            . f e e 4 1 f d d f 1 4 e e f . 
+            . . f e e d d d d d d e e f . . 
+            . . . f e e 4 4 4 4 e e f . . . 
+            . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+            . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+            . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+            . . . . . f f f f f f . . . . . 
+            . . . . . f f . . f f . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f f f f . . . . . . 
+            . . . . f f f 2 2 f f f . . . . 
+            . . . f f f 2 2 2 2 f f f . . . 
+            . . f f f e e e e e e f f f . . 
+            . . f f e 2 2 2 2 2 2 e e f . . 
+            . f f e 2 f f f f f f 2 e f f . 
+            . f f f f f e e e e f f f f f . 
+            . . f e f b f 4 4 f b f e f . . 
+            . . f e 4 1 f d d f 1 4 e f . . 
+            . . . f e 4 d d d d 4 e f e . . 
+            . . f e f 2 2 2 2 e d d 4 e . . 
+            . . e 4 f 2 2 2 2 e d d e . . . 
+            . . . . f 4 4 5 5 f e e . . . . 
+            . . . . f f f f f f f . . . . . 
+            . . . . f f f . . . . . . . . . 
+            `,img`
+            . . . . . . f f f f . . . . . . 
+            . . . . f f f 2 2 f f f . . . . 
+            . . . f f f 2 2 2 2 f f f . . . 
+            . . f f f e e e e e e f f f . . 
+            . . f f e 2 2 2 2 2 2 e e f . . 
+            . . f e 2 f f f f f f 2 e f . . 
+            . . f f f f e e e e f f f f . . 
+            . f f e f b f 4 4 f b f e f f . 
+            . f e e 4 1 f d d f 1 4 e e f . 
+            . . f e e d d d d d d e e f . . 
+            . . . f e e 4 4 4 4 e e f . . . 
+            . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+            . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+            . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+            . . . . . f f f f f f . . . . . 
+            . . . . . f f . . f f . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f f f f . . . . . . 
+            . . . . f f f 2 2 f f f . . . . 
+            . . . f f f 2 2 2 2 f f f . . . 
+            . . f f f e e e e e e f f f . . 
+            . . f e e 2 2 2 2 2 2 e f f . . 
+            . f f e 2 f f f f f f 2 e f f . 
+            . f f f f f e e e e f f f f f . 
+            . . f e f b f 4 4 f b f e f . . 
+            . . f e 4 1 f d d f 1 4 e f . . 
+            . . e f e 4 d d d d 4 e f . . . 
+            . . e 4 d d e 2 2 2 2 f e f . . 
+            . . . e d d e 2 2 2 2 f 4 e . . 
+            . . . . e e f 5 5 4 4 f . . . . 
+            . . . . . f f f f f f f . . . . 
+            . . . . . . . . . f f f . . . . 
+            `],
+        200,
+        true
+        )
+    } else if (left) {
+        animation.runImageAnimation(
+        Character,
+        [img`
+            . . . . f f f f f f . . . . . . 
+            . . . f 2 f e e e e f f . . . . 
+            . . f 2 2 2 f e e e e f f . . . 
+            . . f e e e e f f e e e f . . . 
+            . f e 2 2 2 2 e e f f f f . . . 
+            . f 2 e f f f f 2 2 2 e f . . . 
+            . f f f e e e f f f f f f f . . 
+            . f e e 4 4 f b e 4 4 e f f . . 
+            . . f e d d f 1 4 d 4 e e f . . 
+            . . . f d d d d 4 e e e f . . . 
+            . . . f e 4 4 4 e e f f . . . . 
+            . . . f 2 2 2 e d d 4 . . . . . 
+            . . . f 2 2 2 e d d e . . . . . 
+            . . . f 5 5 4 f e e f . . . . . 
+            . . . . f f f f f f . . . . . . 
+            . . . . . . f f f . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f f f f f f . . . . . . 
+            . . . f 2 f e e e e f f . . . . 
+            . . f 2 2 2 f e e e e f f . . . 
+            . . f e e e e f f e e e f . . . 
+            . f e 2 2 2 2 e e f f f f . . . 
+            . f 2 e f f f f 2 2 2 e f . . . 
+            . f f f e e e f f f f f f f . . 
+            . f e e 4 4 f b e 4 4 e f f . . 
+            . . f e d d f 1 4 d 4 e e f . . 
+            . . . f d d d e e e e e f . . . 
+            . . . f e 4 e d d 4 f . . . . . 
+            . . . f 2 2 e d d e f . . . . . 
+            . . f f 5 5 f e e f f f . . . . 
+            . . f f f f f f f f f f . . . . 
+            . . . f f f . . . f f . . . . . 
+            `,img`
+            . . . . f f f f f f . . . . . . 
+            . . . f 2 f e e e e f f . . . . 
+            . . f 2 2 2 f e e e e f f . . . 
+            . . f e e e e f f e e e f . . . 
+            . f e 2 2 2 2 e e f f f f . . . 
+            . f 2 e f f f f 2 2 2 e f . . . 
+            . f f f e e e f f f f f f f . . 
+            . f e e 4 4 f b e 4 4 e f f . . 
+            . . f e d d f 1 4 d 4 e e f . . 
+            . . . f d d d d 4 e e e f . . . 
+            . . . f e 4 4 4 e e f f . . . . 
+            . . . f 2 2 2 e d d 4 . . . . . 
+            . . . f 2 2 2 e d d e . . . . . 
+            . . . f 5 5 4 f e e f . . . . . 
+            . . . . f f f f f f . . . . . . 
+            . . . . . . f f f . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f f f f f f . . . . . . 
+            . . . f 2 f e e e e f f . . . . 
+            . . f 2 2 2 f e e e e f f . . . 
+            . . f e e e e f f e e e f . . . 
+            . f e 2 2 2 2 e e f f f f . . . 
+            . f 2 e f f f f 2 2 2 e f . . . 
+            . f f f e e e f f f f f f f . . 
+            . f e e 4 4 f b e 4 4 e f f . . 
+            . . f e d d f 1 4 d 4 e e f . . 
+            . . . f d d d d 4 e e e f . . . 
+            . . . f e 4 4 4 e d d 4 . . . . 
+            . . . f 2 2 2 2 e d d e . . . . 
+            . . f f 5 5 4 4 f e e f . . . . 
+            . . f f f f f f f f f f . . . . 
+            . . . f f f . . . f f . . . . . 
+            `],
+        200,
+        true
+        )
+    } else if (right) {
+        animation.runImageAnimation(
+        Character,
+        [img`
+            . . . . . . f f f f f f . . . . 
+            . . . . f f e e e e f 2 f . . . 
+            . . . f f e e e e f 2 2 2 f . . 
+            . . . f e e e f f e e e e f . . 
+            . . . f f f f e e 2 2 2 2 e f . 
+            . . . f e 2 2 2 f f f f e 2 f . 
+            . . f f f f f f f e e e f f f . 
+            . . f f e 4 4 e b f 4 4 e e f . 
+            . . f e e 4 d 4 1 f d d e f . . 
+            . . . f e e e 4 d d d d f . . . 
+            . . . . f f e e 4 4 4 e f . . . 
+            . . . . . 4 d d e 2 2 2 f . . . 
+            . . . . . e d d e 2 2 2 f . . . 
+            . . . . . f e e f 4 5 5 f . . . 
+            . . . . . . f f f f f f . . . . 
+            . . . . . . . f f f . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f f f f f f . . . . 
+            . . . . f f e e e e f 2 f . . . 
+            . . . f f e e e e f 2 2 2 f . . 
+            . . . f e e e f f e e e e f . . 
+            . . . f f f f e e 2 2 2 2 e f . 
+            . . . f e 2 2 2 f f f f e 2 f . 
+            . . f f f f f f f e e e f f f . 
+            . . f f e 4 4 e b f 4 4 e e f . 
+            . . f e e 4 d 4 1 f d d e f . . 
+            . . . f e e e e e d d d f . . . 
+            . . . . . f 4 d d e 4 e f . . . 
+            . . . . . f e d d e 2 2 f . . . 
+            . . . . f f f e e f 5 5 f f . . 
+            . . . . f f f f f f f f f f . . 
+            . . . . . f f . . . f f f . . . 
+            `,img`
+            . . . . . . f f f f f f . . . . 
+            . . . . f f e e e e f 2 f . . . 
+            . . . f f e e e e f 2 2 2 f . . 
+            . . . f e e e f f e e e e f . . 
+            . . . f f f f e e 2 2 2 2 e f . 
+            . . . f e 2 2 2 f f f f e 2 f . 
+            . . f f f f f f f e e e f f f . 
+            . . f f e 4 4 e b f 4 4 e e f . 
+            . . f e e 4 d 4 1 f d d e f . . 
+            . . . f e e e 4 d d d d f . . . 
+            . . . . f f e e 4 4 4 e f . . . 
+            . . . . . 4 d d e 2 2 2 f . . . 
+            . . . . . e d d e 2 2 2 f . . . 
+            . . . . . f e e f 4 5 5 f . . . 
+            . . . . . . f f f f f f . . . . 
+            . . . . . . . f f f . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f f f f f f . . . . 
+            . . . . f f e e e e f 2 f . . . 
+            . . . f f e e e e f 2 2 2 f . . 
+            . . . f e e e f f e e e e f . . 
+            . . . f f f f e e 2 2 2 2 e f . 
+            . . . f e 2 2 2 f f f f e 2 f . 
+            . . f f f f f f f e e e f f f . 
+            . . f f e 4 4 e b f 4 4 e e f . 
+            . . f e e 4 d 4 1 f d d e f . . 
+            . . . f e e e 4 d d d d f . . . 
+            . . . . 4 d d e 4 4 4 e f . . . 
+            . . . . e d d e 2 2 2 2 f . . . 
+            . . . . f e e f 4 4 5 5 f f . . 
+            . . . . f f f f f f f f f f . . 
+            . . . . . f f . . . f f f . . . 
+            `],
+        200,
+        true
+        )
+    } else {
+        animation.stopAnimation(animation.AnimationTypes.All, Character)
+    }
 }
 controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
     walk_down = false
+    check_direction(walk_up, walk_down, walk_left, walk_right)
 })
 controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
