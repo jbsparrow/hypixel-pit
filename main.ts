@@ -662,16 +662,7 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
 })
 function generate_map () {
     playerDeployed = 0
-    scene.setTileMap(img`
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        `)
+    scene.setTileMap(assets.image`Map`)
     scene.setTile(14, img`
         b d d d d d d c c d d d d d d c 
         d b b b b b c d d c b b b b b c 
