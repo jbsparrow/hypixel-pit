@@ -667,7 +667,7 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
     scene.placeOnRandomTile(Character, 14)
     statusbar = statusbars.create(20, 4, StatusBarKind.Health)
     statusbar.attachToSprite(Character, 2, 0)
-    statusbar.setColor(7, 2)
+    statusbar.setColor(2, 15, 3)
 })
 function generate_map () {
     playerDeployed = 0
