@@ -9,6 +9,56 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Map"
     },
+        "image2": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAPAPAAAAAPD///4AAAAA/+/v7g8AAP3+Lv/v/v8A8f7yIu/+Qv/v/i7y7v5C/+8v8u7u/kIP7y/y7u7+Qg/v/i7y7v5C//D+8iLv/kL/8P4u/+7+/wAA/+/v7k9NAADw///+4EQAAAAA8A8AAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Attack Facing away"
+    },
+    "image3": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "myImage"
+    },
+    "image4": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAzMwAAMwMwMwRwcwAvMwcEREcEQy83BERwRERybzMnB0RHJ0MzAzAzBnBzADAAAAAzMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Sword Attack Down"
+    },
+    "image5": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAPD/////DwAA/+/+7u8EAAD/7/JP/v8A8C/i8hsk9A/wIuLi/y30Dy8i4uLULfUPLyLi4tQt9Q/wIuLi/y30DvAv4vIb9N/tAP/v8k9O1O0A/+/+7u/uDgDw////DgAAAADw/w8AAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "attack down no sword"
+    },
+    "image7": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAP8PAAAAAPD///4AAAAA//7/7w8A/wDv/v7u/v//8O7+8kQu9P/w7v7y1C70D/Du7/JOJPQP/+7v/7st/v8v/y7v/+3k//AiLu/U7eQP8C8u79Te7QAA/y7+7t7tAADw7/L+4A4AAADw/8/MzAAAAAAAABwMAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Attack Right"
+    },
+    "image9": {
+        "data": "hwQQABAAAAAAAAAAABwMAAAA8P/PzMwAAPDv8v7gDgAA/y7+7t7tAPAvLu/U3u0A8CIu79Tt5A8v/y7v/+3k///u7/+7Lf7/8O7v8k4k9A/w7v7y1C70D/Du/vJELvT/AO/+/u7+//8A//7/7w8A/wDw///+AAAAAAAA/w8AAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "myImage0"
+    },
+    "image8": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAMDJAAAAAAAAHNEMAAAAAMAZEckAAAAAwBwRzAAAAADAwcHNAAAAAMARHMEAAAAAwBERwQAAAAAAHBEMAAAAAAAckQwAAAAAABzRDAAAAAAAHNEMAAAAAADAwQAAAAAAAMDBAAAAAAAAwMkAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Sword Attack Left"
+    },
+    "image11": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMwMAADAAAAcHMHMDMwAwBHBERHBzAAcEREcEdHJAMAZwZ0dzcwAAJyczcwMzAAAwMwMAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Sword Attack Up"
+    },
+    "image6": {
+        "data": "hwQQABAAAAAAAAAAwMkAAAAAAADAwQAAAAAAAMDBAAAAAAAAHNEMAAAAAAAc0QwAAAAAAByRDAAAAAAAHBEMAAAAAMAREcEAAAAAwBEcwQAAAADAwcHNAAAAAMAcEcwAAAAAwBkRyQAAAAAAHNEMAAAAAADAyQAAAAAAAAAMAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Sword Attack Right"
+    },
+    "image10": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAMzMzMzMzAAAEBEREcHLAAAQERERwcsAAADAzMzMzAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Unknown sword asset"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",
