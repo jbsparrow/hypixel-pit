@@ -1,3 +1,9 @@
+enum ActionKind {
+    Walking,
+    Idle,
+    Jumping,
+    Attacking
+}
 namespace SpriteKind {
     export const Object = SpriteKind.create()
 }
@@ -624,6 +630,9 @@ controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.P
     true
     )
     walk_right = true
+})
+controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+	
 })
 scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
     scene.placeOnRandomTile(Character, 12)

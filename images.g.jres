@@ -34,11 +34,6 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Attack Left"
     },
-    "image9": {
-        "data": "hwQQABAAAAAAAAAAAAAAAAAAAP8PAAAAAPD///4AAAAA//7/7w8A/wDv/v7u/v//8O7+8kQu9P/w7v7y1C70D/Du7/JOJPQP/+7v/7st/v8v/y7v/+3k//AiLu/U7eQP8C8u79Te7QAA/y7+7t7tAADw7/L+4A4AAADw/8/MzAAAAAAAABwMAA==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "Attack Right"
-    },
     "image10": {
         "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAPD/////DwAA/+/+7u8EAAD/7/JP/v8A8C/i8hsk9A/wIuLi/y30Dy8i4uLULfUPLyLi4tQt9Q/wIuLi/y30DvAv4vIb9N/tAP/v8k9O1O0A/+/+7u/uDgDw////DgAAAADw/w8AAAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
@@ -53,6 +48,11 @@
         "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAMzMzMzMzAAAEBEREcHLAAAQERERwcsAAADAzMzMzAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Katana Thing"
+    },
+    "image9": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAP8PAAAAAPD///4AAAAA//7/7w8A/wDv/v7u/v//8O7+8kQu9P/w7v7y1C70D/Du7/JOJPQP/+7v/7st/v8v/y7v/+3k//AiLu/U7eQP8C8u79Te7QAA/y7+7t7tAADw7/L+4A4AAADw/8/MzAAAAAAAABwMAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Attack Right"
     },
     "*": {
         "mimeType": "image/x-mkcd-f4",
