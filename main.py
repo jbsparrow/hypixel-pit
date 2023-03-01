@@ -2,23 +2,29 @@ class ActionKind(Enum):
     Walking = 0
     Idle = 1
     Jumping = 2
+
+
 @namespace
 class SpriteKind:
     Object = SpriteKind.create()
+
 
 def on_player1_button_left_released():
     global walk_left
     animation.stop_animation(animation.AnimationTypes.ALL, Character)
     walk_left = False
     check_direction(walk_up, walk_down, walk_left, walk_right, Character)
+
+
 controller.player1.on_button_event(ControllerButton.LEFT,
-    ControllerButtonEvent.RELEASED,
-    on_player1_button_left_released)
+                                   ControllerButtonEvent.RELEASED,
+                                   on_player1_button_left_released)
+
 
 def on_player1_button_up_pressed():
     global walk_up
     animation.run_image_animation(Character,
-        [img("""
+                                  [img("""
                 . . . . . . f f f f . . . . . . 
                         . . . . f f e e e e f f . . . . 
                         . . . f e e e f f e e e f . . . 
@@ -36,7 +42,7 @@ def on_player1_button_up_pressed():
                         . . . . . f f f f f f . . . . . 
                         . . . . . f f . . f f . . . . .
             """),
-            img("""
+                                   img("""
                 . . . . . . . . . . . . . . . . 
                         . . . . . . f f f f . . . . . . 
                         . . . . f f e e e e f f . . . . 
@@ -54,7 +60,7 @@ def on_player1_button_up_pressed():
                         . . . e f f f f f f e e 4 . . . 
                         . . . . f f f . . . . . . . . .
             """),
-            img("""
+                                      img("""
                 . . . . . . f f f f . . . . . . 
                         . . . . f f e e e e f f . . . . 
                         . . . f e e e f f e e e f . . . 
@@ -72,7 +78,7 @@ def on_player1_button_up_pressed():
                         . . . . . f f f f f f . . . . . 
                         . . . . . f f . . f f . . . . .
             """),
-            img("""
+                                      img("""
                 . . . . . . . . . . . . . . . . 
                         . . . . . . f f f f . . . . . . 
                         . . . . f f e e e e f f . . . . 
@@ -90,26 +96,32 @@ def on_player1_button_up_pressed():
                         . . . 4 e e f f f f f f e . . . 
                         . . . . . . . . . f f f . . . .
             """)],
-        200,
-        True)
+                                  200,
+                                  True)
     walk_up = True
+
+
 controller.player1.on_button_event(ControllerButton.UP,
-    ControllerButtonEvent.PRESSED,
-    on_player1_button_up_pressed)
+                                   ControllerButtonEvent.PRESSED,
+                                   on_player1_button_up_pressed)
+
 
 def on_player1_button_up_released():
     global walk_up
     animation.stop_animation(animation.AnimationTypes.ALL, Character)
     walk_up = False
     check_direction(walk_up, walk_down, walk_left, walk_right, Character)
+
+
 controller.player1.on_button_event(ControllerButton.UP,
-    ControllerButtonEvent.RELEASED,
-    on_player1_button_up_released)
+                                   ControllerButtonEvent.RELEASED,
+                                   on_player1_button_up_released)
+
 
 def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite):
     if up and left or up and right or up and (left and right):
         animation.run_image_animation(user,
-            [img("""
+                                      [img("""
                     . . . . . . f f f f . . . . . . 
                                 . . . . f f e e e e f f . . . . 
                                 . . . f e e e f f e e e f . . . 
@@ -127,7 +139,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f f f f f f . . . . . 
                                 . . . . . f f . . f f . . . . .
                 """),
-                img("""
+                                       img("""
                     . . . . . . . . . . . . . . . . 
                                 . . . . . . f f f f . . . . . . 
                                 . . . . f f e e e e f f . . . . 
@@ -145,7 +157,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . e f f f f f f e e 4 . . . 
                                 . . . . f f f . . . . . . . . .
                 """),
-                img("""
+                                          img("""
                     . . . . . . f f f f . . . . . . 
                                 . . . . f f e e e e f f . . . . 
                                 . . . f e e e f f e e e f . . . 
@@ -163,7 +175,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f f f f f f . . . . . 
                                 . . . . . f f . . f f . . . . .
                 """),
-                img("""
+                                          img("""
                     . . . . . . . . . . . . . . . . 
                                 . . . . . . f f f f . . . . . . 
                                 . . . . f f e e e e f f . . . . 
@@ -181,11 +193,11 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . 4 e e f f f f f f e . . . 
                                 . . . . . . . . . f f f . . . .
                 """)],
-            200,
-            True)
+                                      200,
+                                      True)
     elif down and left or down and right or down and (left and right):
         animation.run_image_animation(user,
-            [img("""
+                                      [img("""
                     . . . . . . f f f f . . . . . . 
                                 . . . . f f f 2 2 f f f . . . . 
                                 . . . f f f 2 2 2 2 f f f . . . 
@@ -203,7 +215,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f f f f f f . . . . . 
                                 . . . . . f f . . f f . . . . .
                 """),
-                img("""
+                                       img("""
                     . . . . . . . . . . . . . . . . 
                                 . . . . . . f f f f . . . . . . 
                                 . . . . f f f 2 2 f f f . . . . 
@@ -221,7 +233,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f f f f f f f . . . . . 
                                 . . . . f f f . . . . . . . . .
                 """),
-                img("""
+                                          img("""
                     . . . . . . f f f f . . . . . . 
                                 . . . . f f f 2 2 f f f . . . . 
                                 . . . f f f 2 2 2 2 f f f . . . 
@@ -239,7 +251,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f f f f f f . . . . . 
                                 . . . . . f f . . f f . . . . .
                 """),
-                img("""
+                                          img("""
                     . . . . . . . . . . . . . . . . 
                                 . . . . . . f f f f . . . . . . 
                                 . . . . f f f 2 2 f f f . . . . 
@@ -257,11 +269,11 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f f f f f f f . . . . 
                                 . . . . . . . . . f f f . . . .
                 """)],
-            200,
-            True)
+                                      200,
+                                      True)
     elif up:
         animation.run_image_animation(user,
-            [img("""
+                                      [img("""
                     . . . . . . f f f f . . . . . . 
                                 . . . . f f e e e e f f . . . . 
                                 . . . f e e e f f e e e f . . . 
@@ -279,7 +291,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f f f f f f . . . . . 
                                 . . . . . f f . . f f . . . . .
                 """),
-                img("""
+                                       img("""
                     . . . . . . . . . . . . . . . . 
                                 . . . . . . f f f f . . . . . . 
                                 . . . . f f e e e e f f . . . . 
@@ -297,7 +309,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . e f f f f f f e e 4 . . . 
                                 . . . . f f f . . . . . . . . .
                 """),
-                img("""
+                                          img("""
                     . . . . . . f f f f . . . . . . 
                                 . . . . f f e e e e f f . . . . 
                                 . . . f e e e f f e e e f . . . 
@@ -315,7 +327,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f f f f f f . . . . . 
                                 . . . . . f f . . f f . . . . .
                 """),
-                img("""
+                                          img("""
                     . . . . . . . . . . . . . . . . 
                                 . . . . . . f f f f . . . . . . 
                                 . . . . f f e e e e f f . . . . 
@@ -333,11 +345,11 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . 4 e e f f f f f f e . . . 
                                 . . . . . . . . . f f f . . . .
                 """)],
-            200,
-            True)
+                                      200,
+                                      True)
     elif down:
         animation.run_image_animation(user,
-            [img("""
+                                      [img("""
                     . . . . . . f f f f . . . . . . 
                                 . . . . f f f 2 2 f f f . . . . 
                                 . . . f f f 2 2 2 2 f f f . . . 
@@ -355,7 +367,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f f f f f f . . . . . 
                                 . . . . . f f . . f f . . . . .
                 """),
-                img("""
+                                       img("""
                     . . . . . . . . . . . . . . . . 
                                 . . . . . . f f f f . . . . . . 
                                 . . . . f f f 2 2 f f f . . . . 
@@ -373,7 +385,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f f f f f f f . . . . . 
                                 . . . . f f f . . . . . . . . .
                 """),
-                img("""
+                                          img("""
                     . . . . . . f f f f . . . . . . 
                                 . . . . f f f 2 2 f f f . . . . 
                                 . . . f f f 2 2 2 2 f f f . . . 
@@ -391,7 +403,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f f f f f f . . . . . 
                                 . . . . . f f . . f f . . . . .
                 """),
-                img("""
+                                          img("""
                     . . . . . . . . . . . . . . . . 
                                 . . . . . . f f f f . . . . . . 
                                 . . . . f f f 2 2 f f f . . . . 
@@ -409,11 +421,11 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f f f f f f f . . . . 
                                 . . . . . . . . . f f f . . . .
                 """)],
-            200,
-            True)
+                                      200,
+                                      True)
     elif left:
         animation.run_image_animation(user,
-            [img("""
+                                      [img("""
                     . . . . f f f f f f . . . . . . 
                                 . . . f 2 f e e e e f f . . . . 
                                 . . f 2 2 2 f e e e e f f . . . 
@@ -431,7 +443,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f f f f f f . . . . . . 
                                 . . . . . . f f f . . . . . . .
                 """),
-                img("""
+                                       img("""
                     . . . . . . . . . . . . . . . . 
                                 . . . . f f f f f f . . . . . . 
                                 . . . f 2 f e e e e f f . . . . 
@@ -449,7 +461,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . f f f f f f f f f f . . . . 
                                 . . . f f f . . . f f . . . . .
                 """),
-                img("""
+                                          img("""
                     . . . . f f f f f f . . . . . . 
                                 . . . f 2 f e e e e f f . . . . 
                                 . . f 2 2 2 f e e e e f f . . . 
@@ -467,7 +479,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f f f f f f . . . . . . 
                                 . . . . . . f f f . . . . . . .
                 """),
-                img("""
+                                          img("""
                     . . . . . . . . . . . . . . . . 
                                 . . . . f f f f f f . . . . . . 
                                 . . . f 2 f e e e e f f . . . . 
@@ -485,11 +497,11 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . f f f f f f f f f f . . . . 
                                 . . . f f f . . . f f . . . . .
                 """)],
-            200,
-            True)
+                                      200,
+                                      True)
     elif right:
         animation.run_image_animation(user,
-            [img("""
+                                      [img("""
                     . . . . . . f f f f f f . . . . 
                                 . . . . f f e e e e f 2 f . . . 
                                 . . . f f e e e e f 2 2 2 f . . 
@@ -507,7 +519,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . . f f f f f f . . . . 
                                 . . . . . . . f f f . . . . . .
                 """),
-                img("""
+                                       img("""
                     . . . . . . . . . . . . . . . . 
                                 . . . . . . f f f f f f . . . . 
                                 . . . . f f e e e e f 2 f . . . 
@@ -525,7 +537,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f f f f f f f f f f . . 
                                 . . . . . f f . . . f f f . . .
                 """),
-                img("""
+                                          img("""
                     . . . . . . f f f f f f . . . . 
                                 . . . . f f e e e e f 2 f . . . 
                                 . . . f f e e e e f 2 2 2 f . . 
@@ -543,7 +555,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . . f f f f f f . . . . 
                                 . . . . . . . f f f . . . . . .
                 """),
-                img("""
+                                          img("""
                     . . . . . . . . . . . . . . . . 
                                 . . . . . . f f f f f f . . . . 
                                 . . . . f f e e e e f 2 f . . . 
@@ -561,24 +573,28 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f f f f f f f f f f . . 
                                 . . . . . f f . . . f f f . . .
                 """)],
-            200,
-            True)
+                                      200,
+                                      True)
     else:
         animation.stop_animation(animation.AnimationTypes.ALL, user)
+
 
 def on_player1_button_down_released():
     global walk_down
     animation.stop_animation(animation.AnimationTypes.ALL, Character)
     walk_down = False
     check_direction(walk_up, walk_down, walk_left, walk_right, Character)
+
+
 controller.player1.on_button_event(ControllerButton.DOWN,
-    ControllerButtonEvent.RELEASED,
-    on_player1_button_down_released)
+                                   ControllerButtonEvent.RELEASED,
+                                   on_player1_button_down_released)
+
 
 def on_player1_button_right_pressed():
     global walk_right
     animation.run_image_animation(Character,
-        [img("""
+                                  [img("""
                 . . . . . . f f f f f f . . . . 
                         . . . . f f e e e e f 2 f . . . 
                         . . . f f e e e e f 2 2 2 f . . 
@@ -596,7 +612,7 @@ def on_player1_button_right_pressed():
                         . . . . . . f f f f f f . . . . 
                         . . . . . . . f f f . . . . . .
             """),
-            img("""
+                                   img("""
                 . . . . . . . . . . . . . . . . 
                         . . . . . . f f f f f f . . . . 
                         . . . . f f e e e e f 2 f . . . 
@@ -614,7 +630,7 @@ def on_player1_button_right_pressed():
                         . . . . f f f f f f f f f f . . 
                         . . . . . f f . . . f f f . . .
             """),
-            img("""
+                                      img("""
                 . . . . . . f f f f f f . . . . 
                         . . . . f f e e e e f 2 f . . . 
                         . . . f f e e e e f 2 2 2 f . . 
@@ -632,7 +648,7 @@ def on_player1_button_right_pressed():
                         . . . . . . f f f f f f . . . . 
                         . . . . . . . f f f . . . . . .
             """),
-            img("""
+                                      img("""
                 . . . . . . . . . . . . . . . . 
                         . . . . . . f f f f f f . . . . 
                         . . . . f f e e e e f 2 f . . . 
@@ -650,27 +666,36 @@ def on_player1_button_right_pressed():
                         . . . . f f f f f f f f f f . . 
                         . . . . . f f . . . f f f . . .
             """)],
-        200,
-        True)
+                                  200,
+                                  True)
     walk_right = True
+
+
 controller.player1.on_button_event(ControllerButton.RIGHT,
-    ControllerButtonEvent.PRESSED,
-    on_player1_button_right_pressed)
+                                   ControllerButtonEvent.PRESSED,
+                                   on_player1_button_right_pressed)
+
 
 def on_hit_tile(sprite):
     global playerDeployed
     scene.place_on_random_tile(Character, 12)
     playerDeployed = 1
+
+
 scene.on_hit_tile(SpriteKind.player, 15, on_hit_tile)
+
 
 def on_player1_button_right_released():
     global walk_right
     animation.stop_animation(animation.AnimationTypes.ALL, Character)
     walk_right = False
     check_direction(walk_up, walk_down, walk_left, walk_right, Character)
+
+
 controller.player1.on_button_event(ControllerButton.RIGHT,
-    ControllerButtonEvent.RELEASED,
-    on_player1_button_right_released)
+                                   ControllerButtonEvent.RELEASED,
+                                   on_player1_button_right_released)
+
 
 def on_player1_connected():
     global Character, statusbar
@@ -692,14 +717,17 @@ def on_player1_connected():
                     . . . . . f f f f f f . . . . . 
                     . . . . . f f . . f f . . . . .
         """),
-        SpriteKind.player)
+                               SpriteKind.player)
     controller.player1.move_sprite(Character, 100, 100)
     scene.camera_follow_sprite(Character)
     scene.place_on_random_tile(Character, 14)
     statusbar = statusbars.create(20, 4, StatusBarKind.health)
     statusbar.attach_to_sprite(Character, 2, 0)
     statusbar.set_color(7, 2)
+
+
 controller.player1.on_event(ControllerEvent.CONNECTED, on_player1_connected)
+
 
 def generate_map():
     global playerDeployed
@@ -708,7 +736,7 @@ def generate_map():
         Map
     """))
     scene.set_tile(14,
-        img("""
+                   img("""
             b d d d d d d c c d d d d d d c 
                     d b b b b b c d d c b b b b b c 
                     d b b b b c d b b b c b b b b c 
@@ -726,9 +754,9 @@ def generate_map():
                     d b b b b b c b c d b b b b b c 
                     c c c c c c b c d c c c c c c a
         """),
-        False)
+                   False)
     scene.set_tile(7,
-        img("""
+                   img("""
             7 7 7 7 5 7 7 7 7 7 7 7 7 7 7 7 
                     7 7 5 7 5 5 7 7 7 7 7 7 7 7 7 7 
                     7 6 5 5 7 5 7 5 5 7 7 7 7 7 7 7 
@@ -746,9 +774,9 @@ def generate_map():
                     7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
                     7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
         """),
-        False)
+                   False)
     scene.set_tile(3,
-        img("""
+                   img("""
             7 7 7 7 5 7 7 7 7 7 7 7 7 7 7 7 
                     7 7 5 7 5 5 7 7 7 7 7 7 7 7 7 7 
                     7 6 5 5 7 5 7 5 5 7 7 7 7 7 7 7 
@@ -766,9 +794,9 @@ def generate_map():
                     7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
                     7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
         """),
-        True)
+                   True)
     scene.set_tile(15,
-        img("""
+                   img("""
             c c c c c c c c c c c c c c c c 
                     c c c c c c c c c b c c c c b c 
                     c c b c c c c c c c c c c c c c 
@@ -786,9 +814,9 @@ def generate_map():
                     c c c c c c c b c c c c c c c c 
                     c c c c c c c c c c c c c c c c
         """),
-        True)
+                   True)
     scene.set_tile(12,
-        img("""
+                   img("""
             c c c c c c c c c c c c c c c c 
                     c c c c c c c c c b c c c c b c 
                     c c b c c c c c c c c c c c c c 
@@ -806,9 +834,9 @@ def generate_map():
                     c c c c c c c b c c c c c c c c 
                     c c c c c c c c c c c c c c c c
         """),
-        False)
+                   False)
     scene.set_tile(1,
-        img("""
+                   img("""
             d 1 1 1 1 1 1 1 1 1 1 1 1 1 1 b 
                     1 d d d d d d d d d d d d d d b 
                     1 d d d d d d d d d d d d d d b 
@@ -826,9 +854,9 @@ def generate_map():
                     1 d d d d d d d d d d d d d d b 
                     b b b b b b b b b b b b b b b b
         """),
-        True)
+                   True)
     scene.set_tile(9,
-        img("""
+                   img("""
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 
                     6 9 9 9 6 6 9 9 9 9 6 6 9 9 9 6 
                     6 9 9 6 6 9 9 c c 9 9 6 6 9 9 6 
@@ -846,12 +874,13 @@ def generate_map():
                     6 9 9 9 6 6 9 9 9 9 6 6 9 9 9 6 
                     6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
         """),
-        False)
+                   False)
+
 
 def on_player1_button_left_pressed():
     global walk_left
     animation.run_image_animation(Character,
-        [img("""
+                                  [img("""
                 . . . . f f f f f f . . . . . . 
                         . . . f 2 f e e e e f f . . . . 
                         . . f 2 2 2 f e e e e f f . . . 
@@ -869,7 +898,7 @@ def on_player1_button_left_pressed():
                         . . . . f f f f f f . . . . . . 
                         . . . . . . f f f . . . . . . .
             """),
-            img("""
+                                   img("""
                 . . . . . . . . . . . . . . . . 
                         . . . . f f f f f f . . . . . . 
                         . . . f 2 f e e e e f f . . . . 
@@ -887,7 +916,7 @@ def on_player1_button_left_pressed():
                         . . f f f f f f f f f f . . . . 
                         . . . f f f . . . f f . . . . .
             """),
-            img("""
+                                      img("""
                 . . . . f f f f f f . . . . . . 
                         . . . f 2 f e e e e f f . . . . 
                         . . f 2 2 2 f e e e e f f . . . 
@@ -905,7 +934,7 @@ def on_player1_button_left_pressed():
                         . . . . f f f f f f . . . . . . 
                         . . . . . . f f f . . . . . . .
             """),
-            img("""
+                                      img("""
                 . . . . . . . . . . . . . . . . 
                         . . . . f f f f f f . . . . . . 
                         . . . f 2 f e e e e f f . . . . 
@@ -923,17 +952,20 @@ def on_player1_button_left_pressed():
                         . . f f f f f f f f f f . . . . 
                         . . . f f f . . . f f . . . . .
             """)],
-        200,
-        True)
+                                  200,
+                                  True)
     walk_left = True
+
+
 controller.player1.on_button_event(ControllerButton.LEFT,
-    ControllerButtonEvent.PRESSED,
-    on_player1_button_left_pressed)
+                                   ControllerButtonEvent.PRESSED,
+                                   on_player1_button_left_pressed)
+
 
 def on_player1_button_down_pressed():
     global walk_down
     animation.run_image_animation(Character,
-        [img("""
+                                  [img("""
                 . . . . . . f f f f . . . . . . 
                         . . . . f f f 2 2 f f f . . . . 
                         . . . f f f 2 2 2 2 f f f . . . 
@@ -951,7 +983,7 @@ def on_player1_button_down_pressed():
                         . . . . . f f f f f f . . . . . 
                         . . . . . f f . . f f . . . . .
             """),
-            img("""
+                                   img("""
                 . . . . . . . . . . . . . . . . 
                         . . . . . . f f f f . . . . . . 
                         . . . . f f f 2 2 f f f . . . . 
@@ -969,7 +1001,7 @@ def on_player1_button_down_pressed():
                         . . . . f f f f f f f . . . . . 
                         . . . . f f f . . . . . . . . .
             """),
-            img("""
+                                      img("""
                 . . . . . . f f f f . . . . . . 
                         . . . . f f f 2 2 f f f . . . . 
                         . . . f f f 2 2 2 2 f f f . . . 
@@ -987,7 +1019,7 @@ def on_player1_button_down_pressed():
                         . . . . . f f f f f f . . . . . 
                         . . . . . f f . . f f . . . . .
             """),
-            img("""
+                                      img("""
                 . . . . . . . . . . . . . . . . 
                         . . . . . . f f f f . . . . . . 
                         . . . . f f f 2 2 f f f . . . . 
@@ -1005,12 +1037,14 @@ def on_player1_button_down_pressed():
                         . . . . . f f f f f f f . . . . 
                         . . . . . . . . . f f f . . . .
             """)],
-        200,
-        True)
+                                  200,
+                                  True)
     walk_down = True
+
+
 controller.player1.on_button_event(ControllerButton.DOWN,
-    ControllerButtonEvent.PRESSED,
-    on_player1_button_down_pressed)
+                                   ControllerButtonEvent.PRESSED,
+                                   on_player1_button_down_pressed)
 
 statusbar: StatusBarSprite = None
 playerDeployed = 0
