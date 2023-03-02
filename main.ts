@@ -7,6 +7,14 @@ enum ActionKind {
 namespace SpriteKind {
     export const Object = SpriteKind.create()
 }
+function Keeper_Cutscene (mySprite: Sprite) {
+    story.startCutscene(function () {
+        let otherSprite: Sprite = null
+        if (Character.overlapsWith(otherSprite)) {
+            story.cancelSpriteMovement(Character)
+        }
+    })
+}
 controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
     walk_left = false
@@ -644,6 +652,7 @@ controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.R
     check_direction(walk_up, walk_down, walk_left, walk_right, Character)
 })
 controller.player1.onEvent(ControllerEvent.Connected, function () {
+    let Keeper: Sprite = null
     Character = sprites.create(img`
         . . . . . . f f f f . . . . . . 
         . . . . f f f 2 2 f f f . . . . 
@@ -664,10 +673,11 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
         `, SpriteKind.Player)
     controller.player1.moveSprite(Character, 100, 100)
     scene.cameraFollowSprite(Character)
-    scene.placeOnRandomTile(Character, 14)
+    tiles.placeOnTile(Character, tiles.getTileLocation(146, 11))
+    tiles.placeOnTile(Keeper, tiles.getTileLocation(146, 8))
     statusbar = statusbars.create(20, 4, StatusBarKind.Health)
     statusbar.attachToSprite(Character, 2, 0)
-    statusbar.setColor(7, 2)
+    statusbar.setColor(2, 15, 3)
 })
 function generate_map () {
     playerDeployed = 0
