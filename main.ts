@@ -22,6 +22,83 @@ controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Re
     sprites.setDataBoolean(Character, "walk_left", false)
     check_direction(sprites.readDataBoolean(Character, "walk_up"), sprites.readDataBoolean(Character, "walk_down"), sprites.readDataBoolean(Character, "walk_left"), sprites.readDataBoolean(Character, "walk_right"), Character)
 })
+mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Pressed, function (player2) {
+    animation.runImageAnimation(
+    mp.getPlayerSprite(player2),
+    [img`
+        . . . . . . f f f f f f . . . . 
+        . . . . f f e e e e f 2 f . . . 
+        . . . f f e e e e f 2 2 2 f . . 
+        . . . f e e e f f e e e e f . . 
+        . . . f f f f e e 2 2 2 2 e f . 
+        . . . f e 2 2 2 f f f f e 2 f . 
+        . . f f f f f f f e e e f f f . 
+        . . f f e 4 4 e b f 4 4 e e f . 
+        . . f e e 4 d 4 1 f d d e f . . 
+        . . . f e e e 4 d d d d f . . . 
+        . . . . f f e e 4 4 4 e f . . . 
+        . . . . . 4 d d e 2 2 2 f . . . 
+        . . . . . e d d e 2 2 2 f . . . 
+        . . . . . f e e f 4 5 5 f . . . 
+        . . . . . . f f f f f f . . . . 
+        . . . . . . . f f f . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . f f f f f f . . . . 
+        . . . . f f e e e e f 2 f . . . 
+        . . . f f e e e e f 2 2 2 f . . 
+        . . . f e e e f f e e e e f . . 
+        . . . f f f f e e 2 2 2 2 e f . 
+        . . . f e 2 2 2 f f f f e 2 f . 
+        . . f f f f f f f e e e f f f . 
+        . . f f e 4 4 e b f 4 4 e e f . 
+        . . f e e 4 d 4 1 f d d e f . . 
+        . . . f e e e e e d d d f . . . 
+        . . . . . f 4 d d e 4 e f . . . 
+        . . . . . f e d d e 2 2 f . . . 
+        . . . . f f f e e f 5 5 f f . . 
+        . . . . f f f f f f f f f f . . 
+        . . . . . f f . . . f f f . . . 
+        `,img`
+        . . . . . . f f f f f f . . . . 
+        . . . . f f e e e e f 2 f . . . 
+        . . . f f e e e e f 2 2 2 f . . 
+        . . . f e e e f f e e e e f . . 
+        . . . f f f f e e 2 2 2 2 e f . 
+        . . . f e 2 2 2 f f f f e 2 f . 
+        . . f f f f f f f e e e f f f . 
+        . . f f e 4 4 e b f 4 4 e e f . 
+        . . f e e 4 d 4 1 f d d e f . . 
+        . . . f e e e 4 d d d d f . . . 
+        . . . . f f e e 4 4 4 e f . . . 
+        . . . . . 4 d d e 2 2 2 f . . . 
+        . . . . . e d d e 2 2 2 f . . . 
+        . . . . . f e e f 4 5 5 f . . . 
+        . . . . . . f f f f f f . . . . 
+        . . . . . . . f f f . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . f f f f f f . . . . 
+        . . . . f f e e e e f 2 f . . . 
+        . . . f f e e e e f 2 2 2 f . . 
+        . . . f e e e f f e e e e f . . 
+        . . . f f f f e e 2 2 2 2 e f . 
+        . . . f e 2 2 2 f f f f e 2 f . 
+        . . f f f f f f f e e e f f f . 
+        . . f f e 4 4 e b f 4 4 e e f . 
+        . . f e e 4 d 4 1 f d d e f . . 
+        . . . f e e e 4 d d d d f . . . 
+        . . . . 4 d d e 4 4 4 e f . . . 
+        . . . . e d d e 2 2 2 2 f . . . 
+        . . . . f e e f 4 4 5 5 f f . . 
+        . . . . f f f f f f f f f f . . 
+        . . . . . f f . . . f f f . . . 
+        `],
+    200,
+    true
+    )
+    sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_right", true)
+})
 function create_keeper () {
     Keeper = sprites.create(assets.image`The Keeper`, SpriteKind.NPC)
     tiles.placeOnTile(Keeper, tiles.getTileLocation(146, 10))
@@ -107,6 +184,9 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Rele
     animation.stopAnimation(animation.AnimationTypes.All, Character)
     sprites.setDataBoolean(Character, "walk_up", false)
     check_direction(sprites.readDataBoolean(Character, "walk_up"), sprites.readDataBoolean(Character, "walk_down"), sprites.readDataBoolean(Character, "walk_left"), sprites.readDataBoolean(Character, "walk_right"), Character)
+})
+mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function (player2) {
+	
 })
 function check_direction (up: boolean, down: boolean, left: boolean, right: boolean, user: Sprite) {
     if (up && left || up && right || up && (left && right)) {
@@ -569,81 +649,7 @@ controller.player1.onButtonEvent(ControllerButton.Down, ControllerButtonEvent.Re
     check_direction(sprites.readDataBoolean(Character, "walk_up"), sprites.readDataBoolean(Character, "walk_down"), sprites.readDataBoolean(Character, "walk_left"), sprites.readDataBoolean(Character, "walk_right"), Character)
 })
 controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
-    animation.runImageAnimation(
-    Character,
-    [img`
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e 4 d d d d f . . . 
-        . . . . f f e e 4 4 4 e f . . . 
-        . . . . . 4 d d e 2 2 2 f . . . 
-        . . . . . e d d e 2 2 2 f . . . 
-        . . . . . f e e f 4 5 5 f . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . . . . f f f . . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e e e d d d f . . . 
-        . . . . . f 4 d d e 4 e f . . . 
-        . . . . . f e d d e 2 2 f . . . 
-        . . . . f f f e e f 5 5 f f . . 
-        . . . . f f f f f f f f f f . . 
-        . . . . . f f . . . f f f . . . 
-        `,img`
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e 4 d d d d f . . . 
-        . . . . f f e e 4 4 4 e f . . . 
-        . . . . . 4 d d e 2 2 2 f . . . 
-        . . . . . e d d e 2 2 2 f . . . 
-        . . . . . f e e f 4 5 5 f . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . . . . f f f . . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e 4 d d d d f . . . 
-        . . . . 4 d d e 4 4 4 e f . . . 
-        . . . . e d d e 2 2 2 2 f . . . 
-        . . . . f e e f 4 4 5 5 f f . . 
-        . . . . f f f f f f f f f f . . 
-        . . . . . f f . . . f f f . . . 
-        `],
-    200,
-    true
-    )
-    sprites.setDataBoolean(Character, "walk_right", true)
+	
 })
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     if (!(sprites.readDataBoolean(Character, "attacking"))) {
@@ -673,6 +679,9 @@ controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
 scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
     scene.placeOnRandomTile(sprite, 12)
     sprites.setDataBoolean(sprite, "deployed", true)
+})
+mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Released, function (player2) {
+	
 })
 controller.player2.onEvent(ControllerEvent.Connected, function () {
     Character2 = sprites.create(img`
@@ -729,6 +738,24 @@ controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.R
     check_direction(sprites.readDataBoolean(Character, "walk_up"), sprites.readDataBoolean(Character, "walk_down"), sprites.readDataBoolean(Character, "walk_left"), sprites.readDataBoolean(Character, "walk_right"), Character)
 })
 controller.player1.onEvent(ControllerEvent.Connected, function () {
+    mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
+        . . . . . . f f f f . . . . . . 
+        . . . . f f f 2 2 f f f . . . . 
+        . . . f f f 2 2 2 2 f f f . . . 
+        . . f f f e e e e e e f f f . . 
+        . . f f e 2 2 2 2 2 2 e e f . . 
+        . . f e 2 f f f f f f 2 e f . . 
+        . . f f f f e e e e f f f f . . 
+        . f f e f b f 4 4 f b f e f f . 
+        . f e e 4 1 f d d f 1 4 e e f . 
+        . . f e e d d d d d d e e f . . 
+        . . . f e e 4 4 4 4 e e f . . . 
+        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+        . . . . . f f f f f f . . . . . 
+        . . . . . f f . . f f . . . . . 
+        `, SpriteKind.Player))
     Character = sprites.create(img`
         . . . . . . f f f f . . . . . . 
         . . . . f f f 2 2 f f f . . . . 
@@ -747,12 +774,12 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
         . . . . . f f f f f f . . . . . 
         . . . . . f f . . f f . . . . . 
         `, SpriteKind.Player)
-    sprites.setDataBoolean(Character, "deployed", false)
-    sprites.setDataNumber(Character, "speed", 100)
-    controller.player1.moveSprite(Character, sprites.readDataNumber(Character, "speed"), sprites.readDataNumber(Character, "speed"))
-    scene.cameraFollowSprite(Character)
-    tiles.placeOnTile(Character, tiles.getTileLocation(146, 11))
-    sprites.setDataSprite(Character, "sword", sprites.create(img`
+    sprites.setDataBoolean(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "deployed", false)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed", 100)
+    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"))
+    scene.cameraFollowSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)))
+    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(146, 11))
+    sprites.setDataSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "sword", sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -771,7 +798,7 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Weapon))
     statusbar = statusbars.create(20, 4, StatusBarKind.Health)
-    statusbar.attachToSprite(Character, 2, 0)
+    statusbar.attachToSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), 2, 0)
     statusbar.setColor(2, 15, 3)
 })
 function generate_map () {
