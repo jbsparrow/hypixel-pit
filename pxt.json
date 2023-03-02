@@ -26,15 +26,11 @@
     "images.g.jres",
     "images.g.ts"
   ],
-  "testFiles": [
-    "test.ts"
-  ],
+  "testFiles": ["test.ts"],
   "targetVersions": {
     "target": "1.12.22",
     "targetId": "arcade"
   },
-  "supportedTargets": [
-    "arcade"
-  ],
+  "supportedTargets": ["arcade"],
   "preferredEditor": "blocksprj"
 }
