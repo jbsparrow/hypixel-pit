@@ -54,6 +54,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Attack Right"
     },
+    "image11": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQEQHg3QAAABHRHtDSAAAQ0d7tEQAgANHd3RERIiIA0R3/8SEi0gDR3d3xESEiANHd3fERISIA0R3/8SEi0gAR3d0RESIiABDR3e0RACAAANHdHtHSAAAAEBEB4N0AAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "myImage"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",
