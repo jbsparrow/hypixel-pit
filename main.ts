@@ -7,6 +7,7 @@ enum ActionKind {
 namespace SpriteKind {
     export const Object = SpriteKind.create()
     export const Weapon = SpriteKind.create()
+    export const NPC = SpriteKind.create()
 }
 function Keeper_Cutscene (mySprite: Sprite) {
     story.startCutscene(function () {
@@ -21,6 +22,10 @@ controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Re
     sprites.setDataBoolean(Character, "walk_left", false)
     check_direction(sprites.readDataBoolean(Character, "walk_up"), sprites.readDataBoolean(Character, "walk_down"), sprites.readDataBoolean(Character, "walk_left"), sprites.readDataBoolean(Character, "walk_right"), Character)
 })
+function create_keeper () {
+    Keeper = sprites.create(assets.image`The Keeper`, SpriteKind.NPC)
+    tiles.placeOnTile(Keeper, tiles.getTileLocation(146, 10))
+}
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     Character,
@@ -715,6 +720,9 @@ controller.player2.onEvent(ControllerEvent.Connected, function () {
     statusbar2.attachToSprite(Character2, 2, 0)
     statusbar2.setColor(2, 15, 3)
 })
+controller.player1.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
+	
+})
 controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, Character)
     sprites.setDataBoolean(Character, "walk_right", false)
@@ -762,7 +770,6 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Weapon))
-    tiles.placeOnTile(Keeper, tiles.getTileLocation(146, 8))
     statusbar = statusbars.create(20, 4, StatusBarKind.Health)
     statusbar.attachToSprite(Character, 2, 0)
     statusbar.setColor(2, 15, 3)
@@ -1055,11 +1062,11 @@ let playerDeployed = 0
 let statusbar: StatusBarSprite = null
 let statusbar2: StatusBarSprite = null
 let Character2: Sprite = null
-let Character: Sprite = null
 let Keeper: Sprite = null
+let Character: Sprite = null
 generate_map()
+create_keeper()
 mp.setPlayerIndicatorsVisible(true)
-tiles.placeOnTile(Keeper, tiles.getTileLocation(146, 8))
 game.onUpdate(function () {
     for (let value of sprites.allOfKind(SpriteKind.Player)) {
         if (sprites.readDataBoolean(value, "attacking")) {

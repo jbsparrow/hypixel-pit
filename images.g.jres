@@ -14,11 +14,6 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Katana Thing"
     },
-    "image11": {
-        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQEQHg3QAAABHRHtDSAAAQ0d7tEQAgANHd3RERIiIA0R3/8SEi0gDR3d3xESEiANHd3fERISIA0R3/8SEi0gAR3d0RESIiABDR3e0RACAAANHdHtHSAAAAEBEB4N0AAAAAAAAAAAAAAAAAAAAAAA==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "myImage"
-    },
     "image7": {
         "data": "hwQQABAAAAAAAAAAwMkAAAAAAADAwQAAAAAAAMDBAAAAAAAAHNEMAAAAAAAc0QwAAAAAAByRDAAAAAAAHBEMAAAAAMAREcEAAAAAwBEcwQAAAADAwcHNAAAAAMAcEcwAAAAAwBkRyQAAAAAAHNEMAAAAAADAyQAAAAAAAAAMAAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
@@ -58,6 +53,11 @@
         "data": "hwQQABAAAAAAAAAAAAAAAAAAAPAPAAAAAPD///4AAAAA/+/v7g8AAP3+Lv/v/v8A8f7yIu/+Qv/v/i7y7v5C/+8v8u7u/kIP7y/y7u7+Qg/v/i7y7v5C//D+8iLv/kL/8P4u/+7+/wAA/+/v7k9NAADw///+4EQAAAAA8A8AAAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Attack Up"
+    },
+    "image12": {
+        "data": "hwQSABIAAAAAAAAAAAAAAAAAAAAAAAAA0N0NAAAAAAAAAAAAIiIiAAAAAAAAAAAgIiIiAgAAAAAAAAAiESIiAAIAAAAA0S0RIQIAIgIAAADQ3R0RIiIiIg0AAADQ8d/xESEiIg0AAADQ3d3xEREiIgIAAADQ3d3xEREiIgIAAADQ8d/xESEiIg0AAADQ3R0RIiIiIg0AAAAA0S0RIQIAIgIAAAAAAAAiESIiAAIAAAAAAAAgIiIiAgAAAAAAAAAAIiIiAAAAAAAAAAAA0N0NAAAAAAAAAAAAAAAAAAAAAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "The Keeper"
     },
     "*": {
         "mimeType": "image/x-mkcd-f4",
