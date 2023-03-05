@@ -147,13 +147,26 @@ events.spriteEvent(SpriteKind.Player, SpriteKind.NPC, events.SpriteEvent.StartOv
             if (story.checkLastAnswer("I Dont Care Leave Me Alone!")) {
                 story.cancelAllCutscenes()
             }
+            if (story.checkLastAnswer("What do I gain?")) {
+                story.spriteSayText(Keeper, "The treasure of course")
+                story.printCharacterText("What treasure?")
+                story.spriteSayText(Keeper, "Isnt that why you are here in the first place? Thats the whole point of the game, to get the treasure and win!")
+                story.showPlayerChoices("What does Gold and Xp do?", "")
+            }
             if (story.checkLastAnswer("Thats Boring")) {
                 story.spriteSayText(Keeper, "Very Rude, but it is meant to be. It deters silly adventurers such as yourself from obtaining the hidden treasure")
                 story.printCharacterText("What treasure?")
                 story.spriteSayText(Keeper, "Isnt that why you are here in the first place? Thats the whole point of the game, to get the treasure and win!")
+                story.showPlayerChoices("What does Gold and Xp do?", "")
             }
+            if (story.checkLastAnswer("What does Gold and Xp do?")) {
+                story.spriteSayText(Keeper, "Xp is needed to level up, and Gold allows you to buy better upgrades. You will need both of these to be able to prestige.")
+                story.printCharacterText("Prestige?")
+                story.spriteSayText(Keeper, "Yes you will need to complete some simple requirements to prestige, in turn unlocking the treasure. Come back when you are level 10.")
+                Keeper_Quest_Phase = 1
+            }
+            story.cancelAllCutscenes()
         })
-        story.cancelAllCutscenes()
     }
 })
 function check_direction (up: boolean, down: boolean, left: boolean, right: boolean, user: Sprite) {
