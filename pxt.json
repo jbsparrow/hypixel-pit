@@ -13,7 +13,8 @@
         "carnival": "github:microsoft/arcade-carnival#v0.0.7",
         "Timers": "github:microsoft/arcade-timers#v1.1.0",
         "arcade-sprite-data": "github:microsoft/arcade-sprite-data#v0.2.1",
-        "arcade-story": "github:microsoft/arcade-storytelling#v1.0.3"
+        "arcade-story": "github:microsoft/arcade-storytelling#v1.0.3",
+        "Inventory": "github:UnsignedArduino/Inventory#v1.1.1"
     },
     "files": [
         "main.blocks",
