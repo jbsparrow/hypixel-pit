@@ -20,7 +20,8 @@
         "pxt-zoom": "github:kiwiphoenix364/pxt-zoom#v2.0.1",
         "arcade-split-screen": "github:riknoll/arcade-split-screen#c932ef6b9f21320f2b6307dc01c75bbd8179b278",
         "Achievements": "github:UnsignedArduino/Achievements#a578c77dd75467b9b0b5238a9a31c5fdc427cb9d",
-        "pxt-sight": "github:felixtsu/pxt-sight#v0.2.2"
+        "pxt-sight": "github:felixtsu/pxt-sight#v0.2.2",
+        "FastRandomBlocks": "github:UnsignedArduino/Fast-Random-Blocks#8c985a77e5c4278e43a7bc375db095c67afb58ed"
     },
     "files": [
         "main.blocks",
