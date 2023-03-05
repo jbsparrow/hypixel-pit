@@ -14,14 +14,6 @@ mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Released, func
     sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_left", false)
     check_direction(sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_up"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_down"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_left"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_right"), mp.getPlayerSprite(player2))
 })
-function Keeper_Cutscene (mySprite: Sprite) {
-    story.startCutscene(function () {
-        let otherSprite: Sprite = null
-        if (Character.overlapsWith(otherSprite)) {
-            story.cancelSpriteMovement(Character)
-        }
-    })
-}
 mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Pressed, function (player2) {
     animation.runImageAnimation(
     mp.getPlayerSprite(player2),
@@ -136,6 +128,32 @@ mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             `)
+    }
+})
+events.spriteEvent(SpriteKind.Player, SpriteKind.NPC, events.SpriteEvent.StartOverlapping, function (sprite, otherSprite) {
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed", 0)
+    if (otherSprite == Keeper && Keeper_Quest_Phase == 0) {
+        story.startCutscene(function () {
+            mp.setPlayerIndicatorsVisible(false)
+            story.cancelSpriteMovement(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)))
+            story.spriteSayText(Keeper, "Careful there. This is no place for an unskilled player such as yourself.")
+            story.showPlayerChoices("Who Are You?", "I Dont Care Leave Me Alone!")
+            if (story.checkLastAnswer("Who Are You?")) {
+                story.spriteSayText(Keeper, "I am the Keeper, I have watched over these lands for thousands of years.")
+                story.printCharacterText("Can you teach me how to play?")
+                story.spriteSayText(Keeper, "Of Course! You can use the space bar to attack. Killing enemy's in that pit behind you will give Xp and Gold")
+                story.showPlayerChoices("What do I gain?", "Thats Boring")
+            }
+            if (story.checkLastAnswer("I Dont Care Leave Me Alone!")) {
+                story.cancelAllCutscenes()
+            }
+            if (story.checkLastAnswer("Thats Boring")) {
+                story.spriteSayText(Keeper, "Very Rude, but it is meant to be. It deters silly adventurers such as yourself from obtaining the hidden treasure")
+                story.printCharacterText("What treasure?")
+                story.spriteSayText(Keeper, "Isnt that why you are here in the first place? Thats the whole point of the game, to get the treasure and win!")
+            }
+        })
+        story.cancelAllCutscenes()
     }
 })
 function check_direction (up: boolean, down: boolean, left: boolean, right: boolean, user: Sprite) {
@@ -920,7 +938,7 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
     sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed", 100)
     mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"))
     scene.cameraFollowSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)))
-    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(146, 11))
+    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(145, 11))
     sprites.setDataSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "sword", sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -942,6 +960,11 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
     statusbar = statusbars.create(20, 4, StatusBarKind.Health)
     statusbar.attachToSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), 2, 0)
     statusbar.setColor(2, 15, 3)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Gold", 0)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "XP", 0)
+    story.spriteSayText(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "\"I should walk around using WASD\"", 15, 1, story.TextSpeed.Normal)
+    mp.setPlayerIndicatorsVisible(true)
+    Keeper_Quest_Phase = 0
 })
 function generate_map () {
     playerDeployed = 0
@@ -1075,13 +1098,13 @@ function generate_map () {
 }
 let playerDeployed = 0
 let statusbar: StatusBarSprite = null
+let Character: Sprite = null
 let statusbar2: StatusBarSprite = null
 let Character2: Sprite = null
+let Keeper_Quest_Phase = 0
 let Keeper: Sprite = null
-let Character: Sprite = null
 generate_map()
 create_keeper()
-mp.setPlayerIndicatorsVisible(true)
 game.onUpdate(function () {
     for (let value of sprites.allOfKind(SpriteKind.Player)) {
         if (sprites.readDataBoolean(value, "attacking")) {
