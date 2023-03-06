@@ -14,6 +14,9 @@ mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Released, func
     sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_left", false)
     check_direction(sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_up"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_down"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_left"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_right"), mp.getPlayerSprite(player2))
 })
+events.spriteEvent(SpriteKind.Weapon, SpriteKind.Enemy, events.SpriteEvent.StartOverlapping, function (sprite, otherSprite) {
+    damage_enemy(otherSprite, sprites.readDataSprite(sprite, "Owner"))
+})
 mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Pressed, function (player2) {
     animation.runImageAnimation(
     mp.getPlayerSprite(player2),
@@ -792,8 +795,9 @@ function spawn_enemy (targetPlayer: Sprite) {
         sprites.setDataSprite(new_enemy, "Target", targetPlayer)
         sprites.changeDataNumberBy(targetPlayer, "Enemies", 1)
         enemy_spawn_position = Generate_Position(targetPlayer, -50, 50)
-        new_enemy.setPosition(enemy_spawn_position[0], enemy_spawn_position[1])
+        new_enemy.follow(targetPlayer, 80)
         Enemies.push(new_enemy)
+        new_enemy.setPosition(enemy_spawn_position[0], enemy_spawn_position[1])
     }
 }
 scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
@@ -997,6 +1001,7 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Weapon))
+    sprites.setDataSprite(sprites.readDataSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "sword"), "Owner", mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)))
     sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Gold", 0)
     sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "XP", 0)
     sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Enemies", 0)
@@ -1141,7 +1146,6 @@ function generate_map () {
         `, false)
 }
 let spawnTarget: Sprite = null
-let target: Sprite = null
 let playerDeployed = 0
 let statusbar: StatusBarSprite = null
 let Character: Sprite = null
@@ -1207,16 +1211,29 @@ game.onUpdate(function () {
         }
     }
 })
-game.onUpdateInterval(1000, function () {
-    target = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
-    while (sprites.readDataNumber(target, "Enemies") >= 4) {
-        target = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
+game.onUpdate(function () {
+    for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
+        if (value.vx > 0) {
+            sprites.setDataNumber(value, "vertical", 0)
+            sprites.setDataNumber(value, "horizontal", 1)
+        }
+        if (value.vx < 0) {
+            sprites.setDataNumber(value, "vertical", 0)
+            sprites.setDataNumber(value, "horizontal", -1)
+        }
+        if (value.vy < 0) {
+            sprites.setDataNumber(value, "vertical", -1)
+            sprites.setDataNumber(value, "horizontal", 0)
+        }
+        if (value.vy > 0) {
+            sprites.setDataNumber(value, "vertical", 1)
+            sprites.setDataNumber(value, "horizontal", 0)
+        }
     }
-    spawn_enemy(target)
 })
-game.onUpdateInterval(1000, function () {
+game.onUpdateInterval(5000, function () {
     spawnTarget = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
-    while (sprites.readDataNumber(spawnTarget, "Enemies") >= 4) {
+    while (sprites.readDataNumber(spawnTarget, "Enemies") >= 100) {
         spawnTarget = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
     }
     spawn_enemy(spawnTarget)
