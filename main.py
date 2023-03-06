@@ -161,15 +161,19 @@ mp.on_button_event(mp.MultiplayerButton.A,
     on_button_multiplayer_a_pressed)
 
 def on_sprite_start_overlapping(sprite, otherSprite):
-    sprites.set_data_number(mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
-        "speed",
-        0)
     if otherSprite == Keeper and Keeper_Quest_Phase == 0:
         
         def on_start_cutscene():
             global Keeper_Quest_Phase
             mp.set_player_indicators_visible(False)
-            story.cancel_sprite_movement(mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)))
+            sprites.set_data_number(mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+                "speed",
+                0)
+            mp.move_with_buttons(mp.player_selector(mp.PlayerNumber.ONE),
+                sprites.read_data_number(mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+                    "speed"),
+                sprites.read_data_number(mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+                    "speed"))
             story.sprite_say_text(Keeper,
                 "Careful there. This is no place for an unskilled player such as yourself.")
             story.show_player_choices("Who Are You?", "I Dont Care Leave Me Alone!")
@@ -202,7 +206,14 @@ def on_sprite_start_overlapping(sprite, otherSprite):
                 story.sprite_say_text(Keeper,
                     "Yes you will need to complete some simple requirements to prestige, in turn unlocking the treasure. Come back when you are level 10.")
                 Keeper_Quest_Phase = 1
-            story.cancel_all_cutscenes()
+                sprites.set_data_number(mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+                    "speed",
+                    100)
+                mp.move_with_buttons(mp.player_selector(mp.PlayerNumber.ONE),
+                    sprites.read_data_number(mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+                        "speed"),
+                    sprites.read_data_number(mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+                        "speed"))
         story.start_cutscene(on_start_cutscene)
         
 events.sprite_event(SpriteKind.player,
@@ -669,6 +680,50 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
             True)
     else:
         animation.stop_animation(animation.AnimationTypes.ALL, user)
+def setup_items():
+    global bow, sword_inv_item, Potion
+    bow = Inventory.create_item("Bow",
+        img("""
+            . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . .
+        """))
+    sword_inv_item = Inventory.create_item("Sword",
+        img("""
+            . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . .
+        """))
+    Potion = Inventory.create_item("Potion (Instant Regen II)",
+        assets.image("""
+            Potion of regen
+        """))
 
 def on_button_multiplayer_down_pressed(player26):
     animation.run_image_animation(mp.get_player_sprite(player26),
@@ -832,37 +887,6 @@ mp.on_button_event(mp.MultiplayerButton.LEFT,
     ControllerButtonEvent.PRESSED,
     on_button_multiplayer_left_pressed)
 
-def spawn_enemy():
-    global target2, temp_enemy_sprite
-    if len(sprites.all_of_kind(SpriteKind.enemy)) < 10:
-        target2 = mp.get_player_sprite(mp.all_players()._pick_random())
-        while not (sprites.read_data_boolean(target2, "deployed")):
-            target2 = mp.get_player_sprite(mp.all_players()._pick_random())
-        temp_enemy_sprite = sprites.create(img("""
-                . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . .
-            """),
-            SpriteKind.enemy)
-        sprites.set_data_number(temp_enemy_sprite, "Health", 100)
-        sprites.set_data_number(temp_enemy_sprite, "Damage", 5)
-        sprites.set_data_number(temp_enemy_sprite, "speed", 100)
-        temp_enemy_sprite.set_position(0, 0)
-        Enemies.append(temp_enemy_sprite)
-
 def on_hit_tile(sprite2):
     scene.place_on_random_tile(sprite2, 12)
     sprites.set_data_boolean(sprite2, "deployed", True)
@@ -1014,11 +1038,6 @@ def on_button_multiplayer_up_pressed(player29):
 mp.on_button_event(mp.MultiplayerButton.UP,
     ControllerButtonEvent.PRESSED,
     on_button_multiplayer_up_pressed)
-
-def generate_close_position(target: Sprite, min_range: number = -10, max_range: number = 10):
-    """Generates a random position near a specific sprite within the specified range."""
-    return [target.x + rng.random_range(min_range, max_range),
-        target.y + rng.random_range(min_range, max_range)]
 
 def on_player1_connected():
     global Character, statusbar, Keeper_Quest_Phase
@@ -1267,16 +1286,14 @@ statusbar: StatusBarSprite = None
 Character: Sprite = None
 statusbar2: StatusBarSprite = None
 Character2: Sprite = None
-temp_enemy_sprite: Sprite = None
-target2: Sprite = None
+Potion: Inventory.Item = None
+sword_inv_item: Inventory.Item = None
+bow: Inventory.Item = None
 Keeper_Quest_Phase = 0
 Keeper: Sprite = None
-Enemies: List[Sprite] = []
-rng: FastRandomBlocks = None
-rng = Random.create_rng(game.runtime())
-Enemies = []
 generate_map()
 create_keeper()
+setup_items()
 
 def on_on_update():
     for value in sprites.all_of_kind(SpriteKind.player):
@@ -1334,3 +1351,519 @@ def on_on_update2():
             sprites.set_data_number(value2, "vertical", 1)
             sprites.set_data_number(value2, "horizontal", 0)
 game.on_update(on_on_update2)
+
+def on_up_pressed():
+    if in_inventory:
+        move_up_in_inventory_toolbar()
+controller.up.on_event(ControllerButtonEvent.PRESSED, on_up_pressed)
+
+def on_b_pressed():
+    handle_b_key_in_inventory_toolbar()
+controller.B.on_event(ControllerButtonEvent.PRESSED, on_b_pressed)
+
+def remove_item_from_toolbar(index: number):
+    global item3
+    item3 = toolbar.get_items()[index]
+    if not (item3):
+        return [][0]
+    if item3.get_text(ItemTextAttribute.TOOLTIP) == "":
+        if toolbar.get_items().remove_at(index):
+            pass
+    elif item3.get_text(ItemTextAttribute.TOOLTIP) == "2":
+        item3.set_text(ItemTextAttribute.TOOLTIP, "")
+    else:
+        item3.set_text(ItemTextAttribute.TOOLTIP,
+            convert_to_text(parse_float(item3.get_text(ItemTextAttribute.TOOLTIP)) - 1))
+    toolbar.update()
+    return Inventory.create_item(item3.get_text(ItemTextAttribute.NAME), item3.get_image())
+
+def on_up_repeated():
+    if in_inventory:
+        move_up_in_inventory_toolbar()
+controller.up.on_event(ControllerButtonEvent.REPEATED, on_up_repeated)
+
+def on_a_pressed():
+    global item3
+    if in_inventory:
+        handle_a_key_in_inventory_toolbar()
+    else:
+        item3 = remove_item_from_toolbar(toolbar.get_number(ToolbarNumberAttribute.SELECTED_INDEX))
+        if item3:
+            the_player.say_text("That " + item3.get_text(ItemTextAttribute.NAME) + " was delicious!",
+                2000,
+                True)
+controller.A.on_event(ControllerButtonEvent.PRESSED, on_a_pressed)
+
+def on_right_repeated():
+    if in_inventory:
+        move_right_in_inventory_toolbar()
+controller.right.on_event(ControllerButtonEvent.REPEATED, on_right_repeated)
+
+def on_left_pressed():
+    if in_inventory:
+        move_left_in_inventory_toolbar()
+controller.left.on_event(ControllerButtonEvent.PRESSED, on_left_pressed)
+
+def spawn_item():
+    global the_food
+    the_food = sprites.create(all_food._pick_random(), SpriteKind.food)
+    the_food.set_position(randint(0, scene.screen_width()),
+        randint(0, scene.screen_height()))
+    the_food.lifespan = 5000
+def move_down_in_inventory_toolbar():
+    if cursor_in_inventory:
+        if inventory.get_number(InventoryNumberAttribute.SELECTED_INDEX) < len(inventory.get_items()) - 8:
+            inventory.change_number(InventoryNumberAttribute.SELECTED_INDEX, 8)
+    else:
+        toolbar.set_number(ToolbarNumberAttribute.SELECTED_INDEX,
+            toolbar.get_number(ToolbarNumberAttribute.MAX_ITEMS) - 1)
+def enable_movement(en: bool):
+    if en:
+        controller.move_sprite(the_player)
+    else:
+        controller.move_sprite(the_player, 0, 0)
+
+def on_right_pressed():
+    if in_inventory:
+        move_right_in_inventory_toolbar()
+controller.right.on_event(ControllerButtonEvent.PRESSED, on_right_pressed)
+
+def give_item(idx: number):
+    global the_food
+    the_food = sprites.create(all_food[idx], SpriteKind.food)
+    the_food.set_position(the_player.x, the_player.y)
+    the_food.lifespan = 5000
+def handle_a_key_in_inventory_toolbar():
+    if cursor_in_inventory:
+        if len(toolbar.get_items()) < toolbar.get_number(ToolbarNumberAttribute.MAX_ITEMS):
+            toolbar.get_items().append(inventory.get_items().remove_at(inventory.get_number(InventoryNumberAttribute.SELECTED_INDEX)))
+            handle_b_key_in_inventory_toolbar()
+            toolbar.set_number(ToolbarNumberAttribute.SELECTED_INDEX,
+                len(toolbar.get_items()) - 1)
+    else:
+        if len(inventory.get_items()) < inventory.get_number(InventoryNumberAttribute.MAX_ITEMS) and toolbar.get_number(ToolbarNumberAttribute.SELECTED_INDEX) < len(toolbar.get_items()):
+            inventory.get_items().append(toolbar.get_items().remove_at(toolbar.get_number(ToolbarNumberAttribute.SELECTED_INDEX)))
+            handle_b_key_in_inventory_toolbar()
+            inventory.set_number(InventoryNumberAttribute.SELECTED_INDEX,
+                len(inventory.get_items()) - 1)
+    toolbar.update()
+    inventory.update()
+def make_player():
+    global the_player
+    the_player = sprites.create(img("""
+            . . . . . . f f f f . . . . . .
+                    . . . . f f f 2 2 f f f . . . .
+                    . . . f f f 2 2 2 2 f f f . . .
+                    . . f f f e e e e e e f f f . .
+                    . . f f e 2 2 2 2 2 2 e e f . .
+                    . . f e 2 f f f f f f 2 e f . .
+                    . . f f f f e e e e f f f f . .
+                    . f f e f b f 4 4 f b f e f f .
+                    . f e e 4 1 f d d f 1 4 e e f .
+                    . . f e e d d d d d d e e f . .
+                    . . . f e e 4 4 4 4 e e f . . .
+                    . . e 4 f 2 2 2 2 2 2 f 4 e . .
+                    . . 4 d f 2 2 2 2 2 2 f d 4 . .
+                    . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
+                    . . . . . f f f f f f . . . . .
+                    . . . . . f f . . f f . . . . .
+        """),
+        SpriteKind.player)
+    the_player.set_flag(SpriteFlag.STAY_IN_SCREEN, True)
+    the_player.z = 10
+    enable_movement(True)
+
+def on_down_repeated():
+    if in_inventory:
+        move_down_in_inventory_toolbar()
+controller.down.on_event(ControllerButtonEvent.REPEATED, on_down_repeated)
+
+def on_down_pressed():
+    if in_inventory:
+        move_down_in_inventory_toolbar()
+controller.down.on_event(ControllerButtonEvent.PRESSED, on_down_pressed)
+
+def move_left_in_inventory_toolbar():
+    if cursor_in_inventory:
+        if inventory.get_number(InventoryNumberAttribute.SELECTED_INDEX) % 8 > 0:
+            inventory.change_number(InventoryNumberAttribute.SELECTED_INDEX, -1)
+    else:
+        if toolbar.get_number(ToolbarNumberAttribute.SELECTED_INDEX) > 0:
+            toolbar.change_number(ToolbarNumberAttribute.SELECTED_INDEX, -1)
+def move_right_in_inventory_toolbar():
+    if cursor_in_inventory:
+        if inventory.get_number(InventoryNumberAttribute.SELECTED_INDEX) % 8 < 7 and inventory.get_number(InventoryNumberAttribute.SELECTED_INDEX) < len(inventory.get_items()) - 1:
+            inventory.change_number(InventoryNumberAttribute.SELECTED_INDEX, 1)
+    else:
+        if toolbar.get_number(ToolbarNumberAttribute.SELECTED_INDEX) < toolbar.get_number(ToolbarNumberAttribute.MAX_ITEMS) - 1:
+            toolbar.change_number(ToolbarNumberAttribute.SELECTED_INDEX, 1)
+
+def on_menu_pressed():
+    handle_menu_key_in_inventory_toolbar()
+controller.menu.on_event(ControllerButtonEvent.PRESSED, on_menu_pressed)
+
+def on_on_overlap(sprite, otherSprite):
+    index2 = 0
+    while index2 <= len(all_food) - 1:
+        if otherSprite.image.equals(all_food[index2]):
+            if add_item([Inventory.create_item(all_labels[index2], all_food[index2])]):
+                otherSprite.destroy()
+                break
+        index2 += 1
+sprites.on_overlap(SpriteKind.player, SpriteKind.food, on_on_overlap)
+
+def handle_menu_key_in_inventory_toolbar():
+    global in_inventory, cursor_in_inventory, last_toolbar_select, last_inventory_select
+    in_inventory = not (in_inventory)
+    inventory.set_flag(SpriteFlag.INVISIBLE, not (in_inventory))
+    enable_movement(not (in_inventory))
+    cursor_in_inventory = False
+    if in_inventory:
+        inventory.set_number(InventoryNumberAttribute.SELECTED_INDEX, -1)
+        last_toolbar_select = toolbar.get_number(ToolbarNumberAttribute.SELECTED_INDEX)
+    else:
+        toolbar.set_number(ToolbarNumberAttribute.SELECTED_INDEX, last_toolbar_select)
+        if inventory.get_number(InventoryNumberAttribute.SELECTED_INDEX) != -1:
+            last_inventory_select = inventory.get_number(InventoryNumberAttribute.SELECTED_INDEX)
+def move_up_in_inventory_toolbar():
+    if cursor_in_inventory:
+        if inventory.get_number(InventoryNumberAttribute.SELECTED_INDEX) > 7:
+            inventory.change_number(InventoryNumberAttribute.SELECTED_INDEX, -8)
+    else:
+        toolbar.set_number(ToolbarNumberAttribute.SELECTED_INDEX, 0)
+def make_toolbar():
+    global toolbar
+    toolbar = Inventory.create_toolbar([], 3)
+    toolbar.set_flag(SpriteFlag.RELATIVE_TO_CAMERA, True)
+    toolbar.left = 4
+    toolbar.bottom = scene.screen_height() - 4
+    toolbar.z = 50
+def prepare_environment():
+    scene.set_background_color(7)
+def make_inventory_toolbar():
+    global in_inventory, cursor_in_inventory, last_toolbar_select, last_inventory_select
+    in_inventory = False
+    cursor_in_inventory = False
+    last_toolbar_select = 0
+    last_inventory_select = 0
+    make_toolbar()
+    make_inventory()
+def add_item(item_in_list: List[Inventory.Item]):
+    for item in toolbar.get_items():
+        if item.get_image().equals(item_in_list[0].get_image()):
+            if item.get_text(ItemTextAttribute.TOOLTIP) == "":
+                item.set_text(ItemTextAttribute.TOOLTIP, "2")
+            else:
+                item.set_text(ItemTextAttribute.TOOLTIP,
+                    convert_to_text(parse_float(item.get_text(ItemTextAttribute.TOOLTIP)) + 1))
+            toolbar.update()
+            return True
+    for item2 in inventory.get_items():
+        if item2.get_image().equals(item_in_list[0].get_image()):
+            if item2.get_text(ItemTextAttribute.TOOLTIP) == "":
+                item2.set_text(ItemTextAttribute.TOOLTIP, "2")
+            else:
+                item2.set_text(ItemTextAttribute.TOOLTIP,
+                    convert_to_text(parse_float(item2.get_text(ItemTextAttribute.TOOLTIP)) + 1))
+            inventory.update()
+            return True
+    if len(toolbar.get_items()) < toolbar.get_number(ToolbarNumberAttribute.MAX_ITEMS):
+        toolbar.get_items().append(item_in_list[0])
+        item_in_list[0].set_text(ItemTextAttribute.TOOLTIP, "")
+        toolbar.update()
+        return True
+    if len(inventory.get_items()) < inventory.get_number(InventoryNumberAttribute.MAX_ITEMS):
+        inventory.get_items().append(item_in_list[0])
+        item_in_list[0].set_text(ItemTextAttribute.TOOLTIP, "")
+        inventory.update()
+        return True
+    return False
+def handle_b_key_in_inventory_toolbar():
+    global cursor_in_inventory, last_inventory_select, last_toolbar_select
+    if in_inventory:
+        cursor_in_inventory = not (cursor_in_inventory)
+        if len(inventory.get_items()) == 0:
+            cursor_in_inventory = False
+        if cursor_in_inventory:
+            if last_inventory_select == -1:
+                last_inventory_select = 0
+            inventory.set_number(InventoryNumberAttribute.SELECTED_INDEX,
+                Math.constrain(last_inventory_select, 0, len(inventory.get_items()) - 1))
+            last_toolbar_select = toolbar.get_number(ToolbarNumberAttribute.SELECTED_INDEX)
+            toolbar.set_number(ToolbarNumberAttribute.SELECTED_INDEX, -1)
+        else:
+            if last_toolbar_select == -1:
+                last_toolbar_select = 0
+            toolbar.set_number(ToolbarNumberAttribute.SELECTED_INDEX, last_toolbar_select)
+            last_inventory_select = inventory.get_number(InventoryNumberAttribute.SELECTED_INDEX)
+            inventory.set_number(InventoryNumberAttribute.SELECTED_INDEX, -1)
+    else:
+        toolbar.change_number(ToolbarNumberAttribute.SELECTED_INDEX, 1)
+        if toolbar.get_number(ToolbarNumberAttribute.SELECTED_INDEX) == toolbar.get_number(ToolbarNumberAttribute.MAX_ITEMS):
+            toolbar.set_number(ToolbarNumberAttribute.SELECTED_INDEX, 0)
+def make_inventory():
+    global inventory
+    inventory = Inventory.create_inventory([], 32)
+    inventory.set_flag(SpriteFlag.RELATIVE_TO_CAMERA, True)
+    inventory.set_flag(SpriteFlag.INVISIBLE, True)
+    inventory.left = 4
+    inventory.top = 4
+    inventory.z = 50
+
+def on_left_repeated():
+    if in_inventory:
+        move_left_in_inventory_toolbar()
+controller.left.on_event(ControllerButtonEvent.REPEATED, on_left_repeated)
+
+last_inventory_select = 0
+last_toolbar_select = 0
+inventory: Inventory.Inventory = None
+cursor_in_inventory = False
+the_food: Sprite = None
+the_player: Sprite = None
+toolbar: Inventory.Toolbar = None
+item3: Inventory.Item = None
+in_inventory = False
+all_labels: List[str] = []
+all_food: List[Image] = []
+prepare_environment()
+make_player()
+make_inventory_toolbar()
+controller.configure_repeat_event_defaults(333, 50)
+all_food = [img("""
+        . . . . c c c b b b b b . . . .
+            . . c c b 4 4 4 4 4 4 b b b . .
+            . c c 4 4 4 4 4 5 4 4 4 4 b c .
+            . e 4 4 4 4 4 4 4 4 4 5 4 4 e .
+            e b 4 5 4 4 5 4 4 4 4 4 4 4 b c
+            e b 4 4 4 4 4 4 4 4 4 4 5 4 4 e
+            e b b 4 4 4 4 4 4 4 4 4 4 4 b e
+            . e b 4 4 4 4 4 5 4 4 4 4 b e .
+            8 7 e e b 4 4 4 4 4 4 b e e 6 8
+            8 7 2 e e e e e e e e e e 2 7 8
+            e 6 6 2 2 2 2 2 2 2 2 2 2 6 c e
+            e c 6 7 6 6 7 7 7 6 6 7 6 c c e
+            e b e 8 8 c c 8 8 c c c 8 e b e
+            e e b e c c e e e e e c e b e e
+            . e e b b 4 4 4 4 4 4 4 4 e e .
+            . . . c c c c c e e e e e . . .
+    """),
+    img("""
+        . . . . . . . e c 7 . . . . . .
+            . . . . e e e c 7 7 e e . . . .
+            . . c e e e e c 7 e 2 2 e e . .
+            . c e e e e e c 6 e e 2 2 2 e .
+            . c e e e 2 e c c 2 4 5 4 2 e .
+            c e e e 2 2 2 2 2 2 4 5 5 2 2 e
+            c e e 2 2 2 2 2 2 2 2 4 4 2 2 e
+            c e e 2 2 2 2 2 2 2 2 2 2 2 2 e
+            c e e 2 2 2 2 2 2 2 2 2 2 2 2 e
+            c e e 2 2 2 2 2 2 2 2 2 2 2 2 e
+            c e e 2 2 2 2 2 2 2 2 2 2 4 2 e
+            . e e e 2 2 2 2 2 2 2 2 2 4 e .
+            . 2 e e 2 2 2 2 2 2 2 2 4 2 e .
+            . . 2 e e 2 2 2 2 2 4 4 2 e . .
+            . . . 2 2 e e 4 4 4 2 e e . . .
+            . . . . . 2 2 e e e e . . . . .
+    """),
+    img("""
+        4 4 4 . . 4 4 4 4 4 . . . . . .
+            4 5 5 4 4 5 5 5 5 5 4 4 . . . .
+            b 4 5 5 1 5 1 1 1 5 5 5 4 . . .
+            . b 5 5 5 5 1 1 5 5 1 1 5 4 . .
+            . b d 5 5 5 5 5 5 5 5 1 1 5 4 .
+            b 4 5 5 5 5 5 5 5 5 5 5 1 5 4 .
+            c d 5 5 5 5 5 5 5 5 5 5 5 5 5 4
+            c d 4 5 5 5 5 5 5 5 5 5 5 1 5 4
+            c 4 5 5 5 d 5 5 5 5 5 5 5 5 5 4
+            c 4 d 5 4 5 d 5 5 5 5 5 5 5 5 4
+            . c 4 5 5 5 5 d d d 5 5 5 5 5 b
+            . c 4 d 5 4 5 d 4 4 d 5 5 5 4 c
+            . . c 4 4 d 4 4 4 4 4 d d 5 d c
+            . . . c 4 4 4 4 4 4 4 4 5 5 5 4
+            . . . . c c b 4 4 4 b b 4 5 4 4
+            . . . . . . c c c c c c b b 4 .
+    """),
+    img("""
+        . . 2 2 b b b b b . . . . . . .
+            . 2 b 4 4 4 4 4 4 b . . . . . .
+            2 2 4 4 4 4 d d 4 4 b . . . . .
+            2 b 4 4 4 4 4 4 d 4 b . . . . .
+            2 b 4 4 4 4 4 4 4 d 4 b . . . .
+            2 b 4 4 4 4 4 4 4 4 4 b . . . .
+            2 b 4 4 4 4 4 4 4 4 4 e . . . .
+            2 2 b 4 4 4 4 4 4 4 b e . . . .
+            . 2 b b b 4 4 4 b b b e . . . .
+            . . e b b b b b b b e e . . . .
+            . . . e e b 4 4 b e e e b . . .
+            . . . . . e e e e e e b d b b .
+            . . . . . . . . . . . b 1 1 1 b
+            . . . . . . . . . . . c 1 d d b
+            . . . . . . . . . . . c 1 b c .
+            . . . . . . . . . . . . c c . .
+    """),
+    img("""
+        . . . . . . 2 2 2 2 . . . . . .
+            . . . . 2 2 3 3 3 3 2 e . . . .
+            . . . 2 3 d 1 1 d d 3 2 e . . .
+            . . 2 3 1 d 3 3 3 d d 3 e . . .
+            . 2 3 1 3 3 3 3 3 d 1 3 b e . .
+            . 2 1 d 3 3 3 3 d 3 3 1 3 b b .
+            2 3 1 d 3 3 1 1 3 3 3 1 3 4 b b
+            2 d 3 3 d 1 3 1 3 3 3 1 3 4 4 b
+            2 d 3 3 3 1 3 1 3 3 3 1 b 4 4 e
+            2 d 3 3 3 1 1 3 3 3 3 1 b 4 4 e
+            e d 3 3 3 3 d 3 3 3 d d b 4 4 e
+            e d d 3 3 3 d 3 3 3 1 3 b 4 b e
+            e 3 d 3 3 1 d d 3 d 1 b b e e .
+            . e 3 1 1 d d 1 1 1 b b e e e .
+            . . e 3 3 3 3 3 3 b e e e e . .
+            . . . e e e e e e e e e e . . .
+    """),
+    img("""
+        . . . . . . b b b b . . . . . .
+            . . . . . . b 4 4 4 b . . . . .
+            . . . . . . b b 4 4 4 b . . . .
+            . . . . . b 4 b b b 4 4 b . . .
+            . . . . b d 5 5 5 4 b 4 4 b . .
+            . . . . b 3 2 3 5 5 4 e 4 4 b .
+            . . . b d 2 2 2 5 7 5 4 e 4 4 e
+            . . . b 5 3 2 3 5 5 5 5 e e e e
+            . . b d 7 5 5 5 3 2 3 5 5 e e e
+            . . b 5 5 5 5 5 2 2 2 5 5 d e e
+            . b 3 2 3 5 7 5 3 2 3 5 d d e 4
+            . b 2 2 2 5 5 5 5 5 5 d d e 4 .
+            b d 3 2 d 5 5 5 d d d 4 4 . . .
+            b 5 5 5 5 d d 4 4 4 4 . . . . .
+            4 d d d 4 4 4 . . . . . . . . .
+            4 4 4 4 . . . . . . . . . . . .
+    """),
+    img("""
+        . . . . . . b b b b a a . . . .
+            . . . . b b d d d 3 3 3 a a . .
+            . . . b d d d 3 3 3 3 3 3 a a .
+            . . b d d 3 3 3 3 3 3 3 3 3 a .
+            . b 3 d 3 3 3 3 3 b 3 3 3 3 a b
+            . b 3 3 3 3 3 a a 3 3 3 3 3 a b
+            b 3 3 3 3 3 a a 3 3 3 3 d a 4 b
+            b 3 3 3 3 b a 3 3 3 3 3 d a 4 b
+            b 3 3 3 3 3 3 3 3 3 3 d a 4 4 e
+            a 3 3 3 3 3 3 3 3 3 d a 4 4 4 e
+            a 3 3 3 3 3 3 3 d d a 4 4 4 e .
+            a a 3 3 3 d d d a a 4 4 4 e e .
+            . e a a a a a a 4 4 4 4 e e . .
+            . . e e b b 4 4 4 4 b e e . . .
+            . . . e e e e e e e e . . . . .
+            . . . . . . . . . . . . . . . .
+    """),
+    img("""
+        . . . . . . . . . . b b b . . .
+            . . . . . . . . b e e 3 3 b . .
+            . . . . . . b b e 3 2 e 3 a . .
+            . . . . b b 3 3 e 2 2 e 3 3 a .
+            . . b b 3 3 3 3 3 e e 3 3 3 a .
+            b b 3 3 3 3 3 3 3 3 3 3 3 3 3 a
+            b 3 3 3 d d d d 3 3 3 3 3 d d a
+            b b b b b b b 3 d d d d d d 3 a
+            b d 5 5 5 5 d b b b a a a a a a
+            b 3 d d 5 5 5 5 5 5 5 d d d d a
+            b 3 3 3 3 3 3 d 5 5 5 d d d d a
+            b 3 d 5 5 5 3 3 3 3 3 3 b b b a
+            b b b 3 d 5 5 5 5 5 5 5 d d b a
+            . . . b b b 3 d 5 5 5 5 d d 3 a
+            . . . . . . b b b b 3 d d d b a
+            . . . . . . . . . . b b b a a .
+    """),
+    img("""
+        . . . . . 3 3 b 3 3 d d 3 3 . .
+            . . . . 3 1 1 d 3 d 1 1 1 1 3 .
+            . . . 3 d 1 1 1 d 1 1 1 d 3 1 3
+            . . 3 d d 1 1 1 d d 1 1 1 3 3 3
+            . 3 1 1 d 1 1 1 1 d d 1 1 b . .
+            . 3 1 1 1 d 1 1 1 1 1 d 1 1 3 .
+            . b d 1 1 1 d 1 1 1 1 1 1 1 3 .
+            . 4 b 1 1 1 1 d d 1 1 1 1 d 3 .
+            . 4 4 d 1 1 1 1 1 1 d d d b b .
+            . 4 d b d 1 1 1 1 1 1 1 1 3 . .
+            4 d d 5 b d 1 1 1 1 1 1 1 3 . .
+            4 5 d 5 5 b b d 1 1 1 1 d 3 . .
+            4 5 5 d 5 5 d b b b d d 3 . . .
+            4 5 5 5 d d d d 4 4 b 3 . . . .
+            . 4 5 5 5 4 4 4 . . . . . . . .
+            . . 4 4 4 . . . . . . . . . . .
+    """),
+    img("""
+        . . . . . . . 6 . . . . . . . .
+            . . . . . . 8 6 6 . . . 6 8 . .
+            . . . e e e 8 8 6 6 . 6 7 8 . .
+            . . e 2 2 2 2 e 8 6 6 7 6 . . .
+            . e 2 2 4 4 2 7 7 7 7 7 8 6 . .
+            . e 2 4 4 2 6 7 7 7 6 7 6 8 8 .
+            e 2 4 5 2 2 6 7 7 6 2 7 7 6 . .
+            e 2 4 4 2 2 6 7 6 2 2 6 7 7 6 .
+            e 2 4 2 2 2 6 6 2 2 2 e 7 7 6 .
+            e 2 4 2 2 4 2 2 2 4 2 2 e 7 6 .
+            e 2 4 2 2 2 2 2 2 2 2 2 e c 6 .
+            e 2 2 2 2 2 2 2 4 e 2 e e c . .
+            e e 2 e 2 2 4 2 2 e e e c . . .
+            e e e e 2 e 2 2 e e e c . . . .
+            e e e 2 e e c e c c c . . . . .
+            . c c c c c c c . . . . . . . .
+    """),
+    img("""
+        . . . . . . . . . . . 6 6 6 6 6
+            . . . . . . . . . 6 6 7 7 7 7 8
+            . . . . . . 8 8 8 7 7 8 8 6 8 8
+            . . e e e e c 6 6 8 8 . 8 7 8 .
+            . e 2 5 4 2 e c 8 . . . 6 7 8 .
+            e 2 4 2 2 2 2 2 c . . . 6 7 8 .
+            e 2 2 2 2 2 2 2 c . . . 8 6 8 .
+            e 2 e e 2 2 2 2 e e e e c 6 8 .
+            c 2 e e 2 2 2 2 e 2 5 4 2 c 8 .
+            . c 2 e e e 2 e 2 4 2 2 2 2 c .
+            . . c 2 2 2 e e 2 2 2 2 2 2 2 e
+            . . . e c c e c 2 2 2 2 2 2 2 e
+            . . . . . . . c 2 e e 2 2 e 2 c
+            . . . . . . . c e e e e e e 2 c
+            . . . . . . . . c e 2 2 2 2 c .
+            . . . . . . . . . c c c c c . .
+    """),
+    img("""
+        . . . . . . . e e e e . . . . .
+            . . . . . e e 4 5 5 5 e e . . .
+            . . . . e 4 5 6 2 2 7 6 6 e . .
+            . . . e 5 6 6 7 2 2 6 4 4 4 e .
+            . . e 5 2 2 7 6 6 4 5 5 5 5 4 .
+            . e 5 6 2 2 8 8 5 5 5 5 5 4 5 4
+            . e 5 6 7 7 8 5 4 5 4 5 5 5 5 4
+            e 4 5 8 6 6 5 5 5 5 5 5 4 5 5 4
+            e 5 c e 8 5 5 5 4 5 5 5 5 5 5 4
+            e 5 c c e 5 4 5 5 5 4 5 5 5 e .
+            e 5 c c 5 5 5 5 5 5 5 5 4 e . .
+            e 5 e c 5 4 5 4 5 5 5 e e . . .
+            e 5 e e 5 5 5 5 5 4 e . . . . .
+            4 5 4 e 5 5 5 5 e e . . . . . .
+            . 4 5 4 5 5 4 e . . . . . . . .
+            . . 4 4 e e e . . . . . . . . .
+    """)]
+all_labels = ["Burger",
+    "Apple",
+    "Lemon",
+    "Drumstick",
+    "Ham",
+    "Pizza",
+    "Donut",
+    "Cake",
+    "Ice cream",
+    "Strawberry",
+    "Cherries",
+    "Taco"]
+index3 = 0
+while index3 <= len(all_food) - 1:
+    for index22 in range(3):
+        give_item(index3)
+    index3 += 1
+
+def on_update_interval():
+    spawn_item()
+game.on_update_interval(1000, on_update_interval)
