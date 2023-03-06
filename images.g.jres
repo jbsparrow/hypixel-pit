@@ -64,6 +64,51 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "The Keeper"
     },
+    "image13": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAPAP8PAADwf/fwd/cAAH93d3+H+QDwd1t7d4L5APB3d/cih/8A8CJ393KHmQ/wM1J7J4KZDwAzcnd/h5kPAPB/9/B39wAAAPAPAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "zombie forward walk"
+    },
+    "image14": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAPAP8PAADwf/fwd/cAAH93d3+HmQ/wd1t7d4KZD/B3d/cih/8A8CJ393KH/wDwM1J7J4KZDwAzcnd/h5kPAPB/9/B39wAAAPAPAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "zombie forward no walk"
+    },
+    "image15": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAPAP8PAADwf/fwd/cAADNyd3+HmQ/wMyInd4eZD/Aid3d3h/8A8Hcnd3eH/wDwd3d3d4eZDwB/d3d/h5kPAPB/9/B39wAAAPAPAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "zombie backward no walk"
+    },
+    "image16": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAPAP8PAADwf/fwd/cAAH93d3+HmQ/wd1t7d4KZD/B3d/cih/8A8CJ393KH/wDwM1J7J4L5AAAzcnd/h/kAAPB/9/B3/wAAAPAPAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "zombie forward walk 2"
+    },
+    "image17": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAPAP8PAADwf/fwd/8AADNyd3+H+QDwMyInd4f5APAid3d3h/8A8Hcnd3eH/wDwd3d3d4eZDwB/d3d/h5kPAPB/9/B39wAAAPAPAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "zombie backwards walk 1"
+    },
+    "image18": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAPAP8PAADwf/fwd/cAADNyd3+HmQ/wMyInd4eZD/Aid3d3h/8A8Hcnd3eH/wDwd3d3d4f5AAB/d3d/h/kAAPB/9/B39wAAAPAPAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "zombie backwards walk 2"
+    },
+    "image19": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPD/AAAAAAAAf3cPAPAPAPB3d/L/nw8Af7e1J4JpD/B3d3f3j4gP8CJ3d3ePmA/wM3J39/f4AAAzcnf/f/8PAPB39wD/iA8AAP8PAPD/DwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Zombie walking left 1"
+    },
+    "image20": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPD/AAAAAAAAf3cPAPAPAPC3tfL/nw8Af3d3J3+PD/B3d3d394gP8CJ3d3eP+A/wM3J3d4f4AAAzcnf3//8PAPB3dw+fZg8AAP//APBpDwAAAAAAAP8AAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Zombie walking left 2"
+    },
+    "image21": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPD/AAAAAAAAf3cPAAAAAPB3d/L/DwAAf7e1J4L4D/B3d3f3/2kP8CJ3d3d3nw/wM3J3d//4DwAzcnf///8AAPB39wAAAAAAAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Zombie left"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",
