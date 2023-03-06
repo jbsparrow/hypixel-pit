@@ -782,7 +782,7 @@ mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Pressed, funct
     sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_left", true)
 })
 function spawn_enemy (targetPlayer: Sprite) {
-    if (Enemies.length < 10 && sprites.readDataBoolean(targetPlayer, "deployed")) {
+    if (Enemies.length < maxEnemies && sprites.readDataBoolean(targetPlayer, "deployed")) {
         new_enemy = sprites.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -1157,6 +1157,7 @@ function generate_map () {
         6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 
         `, false)
 }
+let target: Sprite = null
 let playerDeployed = 0
 let statusbar: StatusBarSprite = null
 let Character: Sprite = null
@@ -1166,15 +1167,12 @@ let enemy_spawn_position: number[] = []
 let new_enemy: Sprite = null
 let Keeper_Quest_Phase = 0
 let Keeper: Sprite = null
+let maxEnemies = 0
 let Enemies: Sprite[] = []
 Enemies = []
+maxEnemies = 10
 generate_map()
 create_keeper()
-game.onUpdate(function () {
-    for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
-    	
-    }
-})
 game.onUpdate(function () {
     for (let value of sprites.allOfKind(SpriteKind.Player)) {
         if (sprites.readDataBoolean(value, "attacking")) {
@@ -1224,6 +1222,13 @@ game.onUpdate(function () {
             sprites.setDataNumber(value, "horizontal", 0)
         }
     }
+})
+game.onUpdateInterval(1000, function () {
+    target = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
+    while (sprites.readDataNumber(target, "Enemies") >= 4) {
+        target = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
+    }
+    spawn_enemy(target)
 })
 game.onUpdateInterval(500, function () {
 	
