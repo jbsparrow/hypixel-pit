@@ -783,24 +783,7 @@ mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Pressed, funct
 })
 function spawn_enemy (targetPlayer: Sprite) {
     if (Enemies.length < maxEnemies && sprites.readDataBoolean(targetPlayer, "deployed")) {
-        new_enemy = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Enemy)
+        new_enemy = sprites.create(assets.image`Zombie Idle Down`, SpriteKind.Enemy)
         sprites.setDataNumber(new_enemy, "Health", 100)
         sprites.setDataNumber(new_enemy, "Damage", 10)
         sprites.setDataNumber(new_enemy, "speed", 100)

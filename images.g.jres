@@ -64,11 +64,6 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "The Keeper"
     },
-    "image15": {
-        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAPAP8PAADwf/fwd/cAAH93d3+HmQ/wd1t7d4KZD/B3d/cih/8A8CJ393KH/wDwM1J7J4KZDwAzcnd/h5kPAPB/9/B39wAAAPAPAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "Zombie Idle Down"
-    },
     "image16": {
         "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAPAP8PAADwf/fwd/cAADNyd3+HmQ/wMyInd4eZD/Aid3d3h/8A8Hcnd3eH/wDwd3d3d4eZDwB/d3d/h5kPAPB/9/B39wAAAPAPAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
@@ -83,6 +78,11 @@
         "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8PAAAAAADwd/cAAAAAADNyd////wDwM3J3d//4D/Aid3d3d58P8Hd3d/f/aQ8Af7e1J4L4DwDwd3fy/w8AAAB/dw8AAAAAAPD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Zombie Idle Right"
+    },
+    "image15": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAPAP8PAADwf/fwd/cAAH93d3+HmQ/wd1t7d4KZD/B3d/cih/8A8CJ393KH/wDwM1J7J4KZDwAzcnd/h5kPAPB/9/B39wAAAPAPAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Zombie Idle Down"
     },
     "anim1": {
         "namespace": "myAnimations",
