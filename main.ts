@@ -624,6 +624,9 @@ function check_direction (up: boolean, down: boolean, left: boolean, right: bool
         animation.stopAnimation(animation.AnimationTypes.All, user)
     }
 }
+function Generate_Position (Player: Sprite, min_range: number, max_range: number) {
+    return [Player.x + randint(min_range, max_range), Player.y + randint(min_range, max_range)]
+}
 mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Pressed, function (player2) {
     animation.runImageAnimation(
     mp.getPlayerSprite(player2),
