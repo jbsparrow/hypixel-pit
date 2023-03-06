@@ -807,6 +807,7 @@ function spawn_enemy (targetPlayer: Sprite) {
         sprites.setDataNumber(new_enemy, "XP", 10)
         sprites.setDataNumber(new_enemy, "Gold", 10)
         sprites.setDataSprite(new_enemy, "Target", targetPlayer)
+        sprites.changeDataNumberBy(targetPlayer, "Enemies", 1)
         enemy_spawn_position = Generate_Position(targetPlayer, -10, 10)
         new_enemy.setPosition(enemy_spawn_position[0], enemy_spawn_position[1])
         Enemies.push(new_enemy)
@@ -944,6 +945,18 @@ mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Pressed, functio
     )
     sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_up", true)
 })
+function damage_enemy (enemy: Sprite, player2: Sprite) {
+    if (sprites.readDataNumber(enemy, "Health") > 0) {
+        sprites.setDataNumber(enemy, "Health", sprites.readDataNumber(enemy, "Health") - sprites.readDataNumber(player2, "Damage"))
+        if (sprites.readDataNumber(enemy, "Health") <= 0) {
+            sprites.changeDataNumberBy(player2, "Kills", 1)
+            sprites.changeDataNumberBy(player2, "Gold", sprites.readDataNumber(enemy, "Gold"))
+            sprites.changeDataNumberBy(player2, "XP", sprites.readDataNumber(enemy, "XP"))
+            Enemies.removeAt(Enemies.indexOf(enemy))
+            sprites.destroy(enemy)
+        }
+    }
+}
 controller.player1.onEvent(ControllerEvent.Connected, function () {
     mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
         . . . . . . f f f f . . . . . . 
@@ -1003,11 +1016,12 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
         `, SpriteKind.Weapon))
     sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Gold", 0)
     sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "XP", 0)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Enemies", 0)
     mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"))
     scene.cameraFollowSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)))
     tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(145, 11))
     statusbar = statusbars.create(20, 4, StatusBarKind.Health)
-    statusbar.attachToSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), 2, 0)
+    statusbar.attachToSprite(Character, 2, 0)
     statusbar.setColor(2, 15, 3)
     story.spriteSayText(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "\"I should walk around using WASD\"", 15, 1, story.TextSpeed.Normal)
     mp.setPlayerIndicatorsVisible(false)
@@ -1156,6 +1170,11 @@ let Enemies: Sprite[] = []
 Enemies = []
 generate_map()
 create_keeper()
+game.onUpdate(function () {
+    for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
+    	
+    }
+})
 game.onUpdate(function () {
     for (let value of sprites.allOfKind(SpriteKind.Player)) {
         if (sprites.readDataBoolean(value, "attacking")) {
