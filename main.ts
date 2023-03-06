@@ -791,7 +791,7 @@ function spawn_enemy (targetPlayer: Sprite) {
         sprites.setDataNumber(new_enemy, "Gold", 10)
         sprites.setDataSprite(new_enemy, "Target", targetPlayer)
         sprites.changeDataNumberBy(targetPlayer, "Enemies", 1)
-        enemy_spawn_position = Generate_Position(targetPlayer, -10, 10)
+        enemy_spawn_position = Generate_Position(targetPlayer, -50, 50)
         new_enemy.setPosition(enemy_spawn_position[0], enemy_spawn_position[1])
         Enemies.push(new_enemy)
     }
