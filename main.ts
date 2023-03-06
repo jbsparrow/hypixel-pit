@@ -1,3 +1,9 @@
+enum ActionKind {
+    Walking,
+    Idle,
+    Jumping,
+    Attacking
+}
 namespace SpriteKind {
     export const Object = SpriteKind.create()
     export const Weapon = SpriteKind.create()
@@ -8,107 +14,103 @@ mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Released, func
     sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_left", false)
     check_direction(sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_up"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_down"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_left"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_right"), mp.getPlayerSprite(player2))
 })
-scene.onHitTile(SpriteKind.Player, 15, function (sprite2) {
-    scene.placeOnRandomTile(sprite2, 12)
-    sprites.setDataBoolean(sprite2, "deployed", true)
+mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Pressed, function (player2) {
+    animation.runImageAnimation(
+    mp.getPlayerSprite(player2),
+    [img`
+        . . . . . . f f f f f f . . . . 
+        . . . . f f e e e e f 2 f . . . 
+        . . . f f e e e e f 2 2 2 f . . 
+        . . . f e e e f f e e e e f . . 
+        . . . f f f f e e 2 2 2 2 e f . 
+        . . . f e 2 2 2 f f f f e 2 f . 
+        . . f f f f f f f e e e f f f . 
+        . . f f e 4 4 e b f 4 4 e e f . 
+        . . f e e 4 d 4 1 f d d e f . . 
+        . . . f e e e 4 d d d d f . . . 
+        . . . . f f e e 4 4 4 e f . . . 
+        . . . . . 4 d d e 2 2 2 f . . . 
+        . . . . . e d d e 2 2 2 f . . . 
+        . . . . . f e e f 4 5 5 f . . . 
+        . . . . . . f f f f f f . . . . 
+        . . . . . . . f f f . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . f f f f f f . . . . 
+        . . . . f f e e e e f 2 f . . . 
+        . . . f f e e e e f 2 2 2 f . . 
+        . . . f e e e f f e e e e f . . 
+        . . . f f f f e e 2 2 2 2 e f . 
+        . . . f e 2 2 2 f f f f e 2 f . 
+        . . f f f f f f f e e e f f f . 
+        . . f f e 4 4 e b f 4 4 e e f . 
+        . . f e e 4 d 4 1 f d d e f . . 
+        . . . f e e e e e d d d f . . . 
+        . . . . . f 4 d d e 4 e f . . . 
+        . . . . . f e d d e 2 2 f . . . 
+        . . . . f f f e e f 5 5 f f . . 
+        . . . . f f f f f f f f f f . . 
+        . . . . . f f . . . f f f . . . 
+        `,img`
+        . . . . . . f f f f f f . . . . 
+        . . . . f f e e e e f 2 f . . . 
+        . . . f f e e e e f 2 2 2 f . . 
+        . . . f e e e f f e e e e f . . 
+        . . . f f f f e e 2 2 2 2 e f . 
+        . . . f e 2 2 2 f f f f e 2 f . 
+        . . f f f f f f f e e e f f f . 
+        . . f f e 4 4 e b f 4 4 e e f . 
+        . . f e e 4 d 4 1 f d d e f . . 
+        . . . f e e e 4 d d d d f . . . 
+        . . . . f f e e 4 4 4 e f . . . 
+        . . . . . 4 d d e 2 2 2 f . . . 
+        . . . . . e d d e 2 2 2 f . . . 
+        . . . . . f e e f 4 5 5 f . . . 
+        . . . . . . f f f f f f . . . . 
+        . . . . . . . f f f . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . f f f f f f . . . . 
+        . . . . f f e e e e f 2 f . . . 
+        . . . f f e e e e f 2 2 2 f . . 
+        . . . f e e e f f e e e e f . . 
+        . . . f f f f e e 2 2 2 2 e f . 
+        . . . f e 2 2 2 f f f f e 2 f . 
+        . . f f f f f f f e e e f f f . 
+        . . f f e 4 4 e b f 4 4 e e f . 
+        . . f e e 4 d 4 1 f d d e f . . 
+        . . . f e e e 4 d d d d f . . . 
+        . . . . 4 d d e 4 4 4 e f . . . 
+        . . . . e d d e 2 2 2 2 f . . . 
+        . . . . f e e f 4 4 5 5 f f . . 
+        . . . . f f f f f f f f f f . . 
+        . . . . . f f . . . f f f . . . 
+        `],
+    200,
+    true
+    )
+    sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_right", true)
 })
 function create_keeper () {
     Keeper = sprites.create(assets.image`The Keeper`, SpriteKind.NPC)
     tiles.placeOnTile(Keeper, tiles.getTileLocation(146, 10))
 }
-mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Released, function (player23) {
-    animation.stopAnimation(animation.AnimationTypes.All, mp.getPlayerSprite(player23))
-    sprites.setDataBoolean(mp.getPlayerSprite(player23), "walk_up", false)
-    check_direction(sprites.readDataBoolean(mp.getPlayerSprite(player23), "walk_up"), sprites.readDataBoolean(mp.getPlayerSprite(player23), "walk_down"), sprites.readDataBoolean(mp.getPlayerSprite(player23), "walk_left"), sprites.readDataBoolean(mp.getPlayerSprite(player23), "walk_right"), mp.getPlayerSprite(player23))
+mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Released, function (player2) {
+    animation.stopAnimation(animation.AnimationTypes.All, mp.getPlayerSprite(player2))
+    sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_up", false)
+    check_direction(sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_up"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_down"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_left"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_right"), mp.getPlayerSprite(player2))
 })
-mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Released, function (player24) {
-    animation.stopAnimation(animation.AnimationTypes.All, mp.getPlayerSprite(player24))
-    sprites.setDataBoolean(mp.getPlayerSprite(player24), "walk_right", false)
-    check_direction(sprites.readDataBoolean(mp.getPlayerSprite(player24), "walk_up"), sprites.readDataBoolean(mp.getPlayerSprite(player24), "walk_down"), sprites.readDataBoolean(mp.getPlayerSprite(player24), "walk_left"), sprites.readDataBoolean(mp.getPlayerSprite(player24), "walk_right"), mp.getPlayerSprite(player24))
+mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Released, function (player2) {
+    animation.stopAnimation(animation.AnimationTypes.All, mp.getPlayerSprite(player2))
+    sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_right", false)
+    check_direction(sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_up"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_down"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_left"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_right"), mp.getPlayerSprite(player2))
 })
-mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Pressed, function (player29) {
-    animation.runImageAnimation(
-    mp.getPlayerSprite(player29),
-    [img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . f f f f f 2 2 f f f f f . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e 2 f 2 f f 2 f 2 e f . . 
-        . . f f f 2 2 e e 2 2 f f f . . 
-        . f f e f 2 f e e f 2 f e f f . 
-        . f e e f f e e e e f e e e f . 
-        . . f e e e e e e e e e e f . . 
-        . . . f e e e e e e e e f . . . 
-        . . e 4 f f f f f f f f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . . f f f f 2 2 f f f f . . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e 2 f 2 f f f 2 f e f . . 
-        . . f f f 2 f e e 2 2 f f f . . 
-        . . f e 2 f f e e 2 f e e f . . 
-        . f f e f f e e e f e e e f f . 
-        . f f e e e e e e e e e e f f . 
-        . . . f e e e e e e e e f . . . 
-        . . . e f f f f f f f f 4 e . . 
-        . . . 4 f 2 2 2 2 2 e d d 4 . . 
-        . . . e f f f f f f e e 4 . . . 
-        . . . . f f f . . . . . . . . . 
-        `,img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . f f f f f 2 2 f f f f f . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e 2 f 2 f f 2 f 2 e f . . 
-        . . f f f 2 2 e e 2 2 f f f . . 
-        . f f e f 2 f e e f 2 f e f f . 
-        . f e e f f e e e e f e e e f . 
-        . . f e e e e e e e e e e f . . 
-        . . . f e e e e e e e e f . . . 
-        . . e 4 f f f f f f f f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . . f f f f 2 2 f f f f . . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e f 2 f f f 2 f 2 e f . . 
-        . . f f f 2 2 e e f 2 f f f . . 
-        . . f e e f 2 e e f f 2 e f . . 
-        . f f e e e f e e e f f e f f . 
-        . f f e e e e e e e e e e f f . 
-        . . . f e e e e e e e e f . . . 
-        . . e 4 f f f f f f f f e . . . 
-        . . 4 d d e 2 2 2 2 2 f 4 . . . 
-        . . . 4 e e f f f f f f e . . . 
-        . . . . . . . . . f f f . . . . 
-        `],
-    200,
-    true
-    )
-    sprites.setDataBoolean(mp.getPlayerSprite(player29), "walk_up", true)
-})
-mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function (player25) {
-    if (!(sprites.readDataBoolean(mp.getPlayerSprite(player25), "attacking"))) {
-        sprites.setDataBoolean(mp.getPlayerSprite(player25), "attacking", true)
+mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function (player2) {
+    if (!(sprites.readDataBoolean(mp.getPlayerSprite(player2), "attacking"))) {
+        sprites.setDataBoolean(mp.getPlayerSprite(player2), "attacking", true)
         pause(200)
-        sprites.setDataBoolean(mp.getPlayerSprite(player25), "attacking", false)
-        sprites.readDataSprite(mp.getPlayerSprite(player25), "sword").setImage(img`
+        sprites.setDataBoolean(mp.getPlayerSprite(player2), "attacking", false)
+        sprites.readDataSprite(mp.getPlayerSprite(player2), "sword").setImage(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -622,86 +624,9 @@ function check_direction (up: boolean, down: boolean, left: boolean, right: bool
         animation.stopAnimation(animation.AnimationTypes.All, user)
     }
 }
-mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Pressed, function (player27) {
+mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Pressed, function (player2) {
     animation.runImageAnimation(
-    mp.getPlayerSprite(player27),
-    [img`
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d d 4 e e e f . . . 
-        . . . f e 4 4 4 e e f f . . . . 
-        . . . f 2 2 2 e d d 4 . . . . . 
-        . . . f 2 2 2 e d d e . . . . . 
-        . . . f 5 5 4 f e e f . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . . . . f f f . . . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d e e e e e f . . . 
-        . . . f e 4 e d d 4 f . . . . . 
-        . . . f 2 2 e d d e f . . . . . 
-        . . f f 5 5 f e e f f f . . . . 
-        . . f f f f f f f f f f . . . . 
-        . . . f f f . . . f f . . . . . 
-        `,img`
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d d 4 e e e f . . . 
-        . . . f e 4 4 4 e e f f . . . . 
-        . . . f 2 2 2 e d d 4 . . . . . 
-        . . . f 2 2 2 e d d e . . . . . 
-        . . . f 5 5 4 f e e f . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . . . . f f f . . . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . f f f f f f . . . . . . 
-        . . . f 2 f e e e e f f . . . . 
-        . . f 2 2 2 f e e e e f f . . . 
-        . . f e e e e f f e e e f . . . 
-        . f e 2 2 2 2 e e f f f f . . . 
-        . f 2 e f f f f 2 2 2 e f . . . 
-        . f f f e e e f f f f f f f . . 
-        . f e e 4 4 f b e 4 4 e f f . . 
-        . . f e d d f 1 4 d 4 e e f . . 
-        . . . f d d d d 4 e e e f . . . 
-        . . . f e 4 4 4 e d d 4 . . . . 
-        . . . f 2 2 2 2 e d d e . . . . 
-        . . f f 5 5 4 4 f e e f . . . . 
-        . . f f f f f f f f f f . . . . 
-        . . . f f f . . . f f . . . . . 
-        `],
-    200,
-    true
-    )
-    sprites.setDataBoolean(mp.getPlayerSprite(player27), "walk_left", true)
-})
-mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Pressed, function (player26) {
-    animation.runImageAnimation(
-    mp.getPlayerSprite(player26),
+    mp.getPlayerSprite(player2),
     [img`
         . . . . . . f f f f . . . . . . 
         . . . . f f f 2 2 f f f . . . . 
@@ -774,124 +699,93 @@ mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Pressed, funct
     200,
     true
     )
-    sprites.setDataBoolean(mp.getPlayerSprite(player26), "walk_down", true)
+    sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_down", true)
 })
-function Generate_Position (object: Sprite, min_range: number, max_range: number) {
-    return [object.x + rng.randomRange(min_range, max_range), object.y + rng.randomRange(min_range, max_range)]
-}
-function spawn_enemy () {
-    if (sprites.allOfKind(SpriteKind.Enemy).length < 10) {
-        target2 = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
-        while (!(sprites.readDataBoolean(target2, "deployed"))) {
-            target2 = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
-        }
-        temp_enemy_sprite = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Enemy)
-        sprites.setDataNumber(temp_enemy_sprite, "Health", 100)
-        sprites.setDataNumber(temp_enemy_sprite, "Damage", 5)
-        sprites.setDataNumber(temp_enemy_sprite, "speed", 100)
-        ClosePosition = Generate_Position(target2, -10, 10)
-        temp_enemy_sprite.setPosition(ClosePosition[0], ClosePosition[1])
-        Enemies.push(temp_enemy_sprite)
-    }
-}
-mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Pressed, function (player22) {
+mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Pressed, function (player2) {
     animation.runImageAnimation(
-    mp.getPlayerSprite(player22),
+    mp.getPlayerSprite(player2),
     [img`
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e 4 d d d d f . . . 
-        . . . . f f e e 4 4 4 e f . . . 
-        . . . . . 4 d d e 2 2 2 f . . . 
-        . . . . . e d d e 2 2 2 f . . . 
-        . . . . . f e e f 4 5 5 f . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . . . . f f f . . . . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . f 2 f e e e e f f . . . . 
+        . . f 2 2 2 f e e e e f f . . . 
+        . . f e e e e f f e e e f . . . 
+        . f e 2 2 2 2 e e f f f f . . . 
+        . f 2 e f f f f 2 2 2 e f . . . 
+        . f f f e e e f f f f f f f . . 
+        . f e e 4 4 f b e 4 4 e f f . . 
+        . . f e d d f 1 4 d 4 e e f . . 
+        . . . f d d d d 4 e e e f . . . 
+        . . . f e 4 4 4 e e f f . . . . 
+        . . . f 2 2 2 e d d 4 . . . . . 
+        . . . f 2 2 2 e d d e . . . . . 
+        . . . f 5 5 4 f e e f . . . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . . . . f f f . . . . . . . 
         `,img`
         . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e e e d d d f . . . 
-        . . . . . f 4 d d e 4 e f . . . 
-        . . . . . f e d d e 2 2 f . . . 
-        . . . . f f f e e f 5 5 f f . . 
-        . . . . f f f f f f f f f f . . 
-        . . . . . f f . . . f f f . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . f 2 f e e e e f f . . . . 
+        . . f 2 2 2 f e e e e f f . . . 
+        . . f e e e e f f e e e f . . . 
+        . f e 2 2 2 2 e e f f f f . . . 
+        . f 2 e f f f f 2 2 2 e f . . . 
+        . f f f e e e f f f f f f f . . 
+        . f e e 4 4 f b e 4 4 e f f . . 
+        . . f e d d f 1 4 d 4 e e f . . 
+        . . . f d d d e e e e e f . . . 
+        . . . f e 4 e d d 4 f . . . . . 
+        . . . f 2 2 e d d e f . . . . . 
+        . . f f 5 5 f e e f f f . . . . 
+        . . f f f f f f f f f f . . . . 
+        . . . f f f . . . f f . . . . . 
         `,img`
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e 4 d d d d f . . . 
-        . . . . f f e e 4 4 4 e f . . . 
-        . . . . . 4 d d e 2 2 2 f . . . 
-        . . . . . e d d e 2 2 2 f . . . 
-        . . . . . f e e f 4 5 5 f . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . . . . f f f . . . . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . f 2 f e e e e f f . . . . 
+        . . f 2 2 2 f e e e e f f . . . 
+        . . f e e e e f f e e e f . . . 
+        . f e 2 2 2 2 e e f f f f . . . 
+        . f 2 e f f f f 2 2 2 e f . . . 
+        . f f f e e e f f f f f f f . . 
+        . f e e 4 4 f b e 4 4 e f f . . 
+        . . f e d d f 1 4 d 4 e e f . . 
+        . . . f d d d d 4 e e e f . . . 
+        . . . f e 4 4 4 e e f f . . . . 
+        . . . f 2 2 2 e d d 4 . . . . . 
+        . . . f 2 2 2 e d d e . . . . . 
+        . . . f 5 5 4 f e e f . . . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . . . . f f f . . . . . . . 
         `,img`
         . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f f f . . . . 
-        . . . . f f e e e e f 2 f . . . 
-        . . . f f e e e e f 2 2 2 f . . 
-        . . . f e e e f f e e e e f . . 
-        . . . f f f f e e 2 2 2 2 e f . 
-        . . . f e 2 2 2 f f f f e 2 f . 
-        . . f f f f f f f e e e f f f . 
-        . . f f e 4 4 e b f 4 4 e e f . 
-        . . f e e 4 d 4 1 f d d e f . . 
-        . . . f e e e 4 d d d d f . . . 
-        . . . . 4 d d e 4 4 4 e f . . . 
-        . . . . e d d e 2 2 2 2 f . . . 
-        . . . . f e e f 4 4 5 5 f f . . 
-        . . . . f f f f f f f f f f . . 
-        . . . . . f f . . . f f f . . . 
+        . . . . f f f f f f . . . . . . 
+        . . . f 2 f e e e e f f . . . . 
+        . . f 2 2 2 f e e e e f f . . . 
+        . . f e e e e f f e e e f . . . 
+        . f e 2 2 2 2 e e f f f f . . . 
+        . f 2 e f f f f 2 2 2 e f . . . 
+        . f f f e e e f f f f f f f . . 
+        . f e e 4 4 f b e 4 4 e f f . . 
+        . . f e d d f 1 4 d 4 e e f . . 
+        . . . f d d d d 4 e e e f . . . 
+        . . . f e 4 4 4 e d d 4 . . . . 
+        . . . f 2 2 2 2 e d d e . . . . 
+        . . f f 5 5 4 4 f e e f . . . . 
+        . . f f f f f f f f f f . . . . 
+        . . . f f f . . . f f . . . . . 
         `],
     200,
     true
     )
-    sprites.setDataBoolean(mp.getPlayerSprite(player22), "walk_right", true)
+    sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_left", true)
 })
-mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Released, function (player28) {
-    animation.stopAnimation(animation.AnimationTypes.All, mp.getPlayerSprite(player28))
-    sprites.setDataBoolean(mp.getPlayerSprite(player28), "walk_down", false)
-    check_direction(sprites.readDataBoolean(mp.getPlayerSprite(player28), "walk_up"), sprites.readDataBoolean(mp.getPlayerSprite(player28), "walk_down"), sprites.readDataBoolean(mp.getPlayerSprite(player28), "walk_left"), sprites.readDataBoolean(mp.getPlayerSprite(player28), "walk_right"), mp.getPlayerSprite(player28))
+scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
+    scene.placeOnRandomTile(sprite, 12)
+    sprites.setDataBoolean(sprite, "deployed", true)
+})
+mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Released, function (player2) {
+    animation.stopAnimation(animation.AnimationTypes.All, mp.getPlayerSprite(player2))
+    sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_down", false)
+    check_direction(sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_up"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_down"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_left"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_right"), mp.getPlayerSprite(player2))
 })
 controller.player2.onEvent(ControllerEvent.Connected, function () {
     Character2 = sprites.create(img`
@@ -938,6 +832,83 @@ controller.player2.onEvent(ControllerEvent.Connected, function () {
     statusbar2 = statusbars.create(20, 4, StatusBarKind.Health)
     statusbar2.attachToSprite(Character2, 2, 0)
     statusbar2.setColor(2, 15, 3)
+})
+mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Pressed, function (player2) {
+    animation.runImageAnimation(
+    mp.getPlayerSprite(player2),
+    [img`
+        . . . . . . f f f f . . . . . . 
+        . . . . f f e e e e f f . . . . 
+        . . . f e e e f f e e e f . . . 
+        . . f f f f f 2 2 f f f f f . . 
+        . . f f e 2 e 2 2 e 2 e f f . . 
+        . . f e 2 f 2 f f 2 f 2 e f . . 
+        . . f f f 2 2 e e 2 2 f f f . . 
+        . f f e f 2 f e e f 2 f e f f . 
+        . f e e f f e e e e f e e e f . 
+        . . f e e e e e e e e e e f . . 
+        . . . f e e e e e e e e f . . . 
+        . . e 4 f f f f f f f f 4 e . . 
+        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+        . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
+        . . . . . f f f f f f . . . . . 
+        . . . . . f f . . f f . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . f f f f . . . . . . 
+        . . . . f f e e e e f f . . . . 
+        . . . f e e e f f e e e f . . . 
+        . . . f f f f 2 2 f f f f . . . 
+        . . f f e 2 e 2 2 e 2 e f f . . 
+        . . f e 2 f 2 f f f 2 f e f . . 
+        . . f f f 2 f e e 2 2 f f f . . 
+        . . f e 2 f f e e 2 f e e f . . 
+        . f f e f f e e e f e e e f f . 
+        . f f e e e e e e e e e e f f . 
+        . . . f e e e e e e e e f . . . 
+        . . . e f f f f f f f f 4 e . . 
+        . . . 4 f 2 2 2 2 2 e d d 4 . . 
+        . . . e f f f f f f e e 4 . . . 
+        . . . . f f f . . . . . . . . . 
+        `,img`
+        . . . . . . f f f f . . . . . . 
+        . . . . f f e e e e f f . . . . 
+        . . . f e e e f f e e e f . . . 
+        . . f f f f f 2 2 f f f f f . . 
+        . . f f e 2 e 2 2 e 2 e f f . . 
+        . . f e 2 f 2 f f 2 f 2 e f . . 
+        . . f f f 2 2 e e 2 2 f f f . . 
+        . f f e f 2 f e e f 2 f e f f . 
+        . f e e f f e e e e f e e e f . 
+        . . f e e e e e e e e e e f . . 
+        . . . f e e e e e e e e f . . . 
+        . . e 4 f f f f f f f f 4 e . . 
+        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+        . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
+        . . . . . f f f f f f . . . . . 
+        . . . . . f f . . f f . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . f f f f . . . . . . 
+        . . . . f f e e e e f f . . . . 
+        . . . f e e e f f e e e f . . . 
+        . . . f f f f 2 2 f f f f . . . 
+        . . f f e 2 e 2 2 e 2 e f f . . 
+        . . f e f 2 f f f 2 f 2 e f . . 
+        . . f f f 2 2 e e f 2 f f f . . 
+        . . f e e f 2 e e f f 2 e f . . 
+        . f f e e e f e e e f f e f f . 
+        . f f e e e e e e e e e e f f . 
+        . . . f e e e e e e e e f . . . 
+        . . e 4 f f f f f f f f e . . . 
+        . . 4 d d e 2 2 2 2 2 f 4 . . . 
+        . . . 4 e e f f f f f f e . . . 
+        . . . . . . . . . f f f . . . . 
+        `],
+    200,
+    true
+    )
+    sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_up", true)
 })
 controller.player1.onEvent(ControllerEvent.Connected, function () {
     mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
@@ -1010,16 +981,7 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
 })
 function generate_map () {
     playerDeployed = 0
-    scene.setTileMap(img`
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        . . . . . . . . . . 
-        `)
+    scene.setTileMap(assets.image`Map`)
     scene.setTile(14, img`
         b d d d d d d c c d d d d d d c 
         d b b b b b c d d c b b b b b c 
@@ -1152,73 +1114,8 @@ let statusbar: StatusBarSprite = null
 let Character: Sprite = null
 let statusbar2: StatusBarSprite = null
 let Character2: Sprite = null
-let ClosePosition: number[] = []
-let temp_enemy_sprite: Sprite = null
-let target2: Sprite = null
 let Keeper_Quest_Phase = 0
 let Keeper: Sprite = null
-let Enemies: Sprite[] = []
-let rng : FastRandomBlocks = null
-class ActionKind {
-    static Walking: number
-    private ___Walking_is_set: boolean
-    private ___Walking: number
-    get Walking(): number {
-        return this.___Walking_is_set ? this.___Walking : ActionKind.Walking
-    }
-    set Walking(value: number) {
-        this.___Walking_is_set = true
-        this.___Walking = value
-    }
-    
-    static Idle: number
-    private ___Idle_is_set: boolean
-    private ___Idle: number
-    get Idle(): number {
-        return this.___Idle_is_set ? this.___Idle : ActionKind.Idle
-    }
-    set Idle(value: number) {
-        this.___Idle_is_set = true
-        this.___Idle = value
-    }
-    
-    static Jumping: number
-    private ___Jumping_is_set: boolean
-    private ___Jumping: number
-    get Jumping(): number {
-        return this.___Jumping_is_set ? this.___Jumping : ActionKind.Jumping
-    }
-    set Jumping(value: number) {
-        this.___Jumping_is_set = true
-        this.___Jumping = value
-    }
-    
-    static Attacking: number
-    private ___Attacking_is_set: boolean
-    private ___Attacking: number
-    get Attacking(): number {
-        return this.___Attacking_is_set ? this.___Attacking : ActionKind.Attacking
-    }
-    set Attacking(value: number) {
-        this.___Attacking_is_set = true
-        this.___Attacking = value
-    }
-    
-    public static __initActionKind() {
-        ActionKind.Walking = 0
-        ActionKind.Idle = 1
-        ActionKind.Jumping = 2
-        ActionKind.Attacking = 3
-    }
-    
-}
-ActionKind.__initActionKind()
-function generate_close_position(target: Sprite, min_range: number = -10, max_range: number = 10): any[] {
-    /** Generates a random position near a specific sprite within the specified range. */
-    return [target.x + rng.randomRange(min_range, max_range), target.y + rng.randomRange(min_range, max_range)]
-}
-rng = Random.createRNG(game.runtime())
-Enemies = []
 generate_map()
 create_keeper()
 game.onUpdate(function () {
@@ -1252,22 +1149,22 @@ game.onUpdate(function () {
     }
 })
 game.onUpdate(function () {
-    for (let value2 of sprites.allOfKind(SpriteKind.Player)) {
-        if (value2.vx > 0) {
-            sprites.setDataNumber(value2, "vertical", 0)
-            sprites.setDataNumber(value2, "horizontal", 1)
+    for (let value of sprites.allOfKind(SpriteKind.Player)) {
+        if (value.vx > 0) {
+            sprites.setDataNumber(value, "vertical", 0)
+            sprites.setDataNumber(value, "horizontal", 1)
         }
-        if (value2.vx < 0) {
-            sprites.setDataNumber(value2, "vertical", 0)
-            sprites.setDataNumber(value2, "horizontal", -1)
+        if (value.vx < 0) {
+            sprites.setDataNumber(value, "vertical", 0)
+            sprites.setDataNumber(value, "horizontal", -1)
         }
-        if (value2.vy < 0) {
-            sprites.setDataNumber(value2, "vertical", -1)
-            sprites.setDataNumber(value2, "horizontal", 0)
+        if (value.vy < 0) {
+            sprites.setDataNumber(value, "vertical", -1)
+            sprites.setDataNumber(value, "horizontal", 0)
         }
-        if (value2.vy > 0) {
-            sprites.setDataNumber(value2, "vertical", 1)
-            sprites.setDataNumber(value2, "horizontal", 0)
+        if (value.vy > 0) {
+            sprites.setDataNumber(value, "vertical", 1)
+            sprites.setDataNumber(value, "horizontal", 0)
         }
     }
 })
