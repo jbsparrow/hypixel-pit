@@ -64,6 +64,54 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "The Keeper"
     },
+    "image16": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAPAP8PAADwf/fwd/cAADNyd3+HmQ/wMyInd4eZD/Aid3d3h/8A8Hcnd3eH/wDwd3d3d4eZDwB/d3d/h5kPAPB/9/B39wAAAPAPAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Zombie Idle Up"
+    },
+    "image17": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPD/AAAAAAAAf3cPAAAAAPB3d/L/DwAAf7e1J4L4D/B3d3f3/2kP8CJ3d3d3nw/wM3J3d//4DwAzcnf///8AAPB39wAAAAAAAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Zombie Idle Left"
+    },
+    "image18": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8PAAAAAADwd/cAAAAAADNyd////wDwM3J3d//4D/Aid3d3d58P8Hd3d/f/aQ8Af7e1J4L4DwDwd3fy/w8AAAB/dw8AAAAAAPD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Zombie Idle Right"
+    },
+    "image15": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAPAP8PAADwf/fwd/cAAH93d3+HmQ/wd1t7d4KZD/B3d/cih/8A8CJ393KH/wDwM1J7J4KZDwAzcnd/h5kPAPB/9/B39wAAAPAPAP8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Zombie Idle Down"
+    },
+    "anim3": {
+        "namespace": "myAnimations",
+        "id": "anim3",
+        "mimeType": "application/mkcd-animation",
+        "data": "YzgwMDEwMDAxMDAwMDIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDBmMGZmMDAwMDAwMDAwMDAwN2YzMjAzMDAwMDAwMDBmMDc3MzJmMzAwMDAwMDAwN2Y3NzI3NzIwZjAwMDBmMDc3N2I3Nzc3MGYwMDAwZjA3Nzc1Nzc3NzBmMDAwMGYwNzc3Yjc3ZjcwMDAwMDAwMDJmNzc3NzBmMDAwMDAwMDBmMGYyZjcwZjAwMDAwMDAwZjBmMjdmZmYwMDAwMDAwMGYwODhmOGY3MGYwMDAwMDBmMDg5ODg4ZjBmMDAwMDAwOWY4NmY5OGYwZjAwMDAwMGZmZmYwZmZmMGYwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwZjBmZjAwMDAwMDAwMDAwMDdmMzIwMzAwMDAwMDAwZjA3NzMyZjMwMDAwMDAwMDdmNzcyNzcyMGYwMDAwZjA3NzdiNzc3NzBmMDAwMGYwNzc3NTc3NzcwZjAwMDBmMDc3N2I3N2Y3MDAwMDAwMDAyZjc3NzcwZjAwMDAwMDAwZjA3Mjc3MGYwMDAwMDAwMGYwN2Y3ZmZmMDAwMDAwMDBmMGY3ODg5ZjBmMDAwMDAwZjA4Zjg4NmZmOTAwMDAwMDlmODhmZjZmZjYwMDAwMDBmZmZmMGZmZjBmMDAwMDAwMDAwMDAwMDAwMDAw",
+        "displayName": "Zombie Walk Left"
+    },
+    "anim4": {
+        "namespace": "myAnimations",
+        "id": "anim4",
+        "mimeType": "application/mkcd-animation",
+        "data": "YzgwMDEwMDAxMDAwMDIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDBmZjBmMDAwMDAwMDAwMDMwMjNmNzAwMDAwMDAwMDAzZjIzNzcwZjAwMDAwMGYwMjc3Mjc3ZjcwMDAwMDBmMDc3NzdiNzc3MGYwMDAwZjA3Nzc3NTc3NzBmMDAwMDAwN2Y3N2I3NzcwZjAwMDAwMGYwNzc3N2YyMDAwMDAwMDBmMDdmMmYwZjAwMDAwMDAwZmZmNzJmMGYwMDAwMDBmMDdmOGY4ODBmMDAwMDAwZjBmODg4OTgwZjAwMDAwMGYwZjg5ZjY4ZjkwMDAwMDBmMGZmZjBmZmZmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwZmYwZjAwMDAwMDAwMDAzMDIzZjcwMDAwMDAwMDAwM2YyMzc3MGYwMDAwMDBmMDI3NzI3N2Y3MDAwMDAwZjA3Nzc3Yjc3NzBmMDAwMGYwNzc3NzU3NzcwZjAwMDAwMDdmNzdiNzc3MGYwMDAwMDBmMDc3NzdmMjAwMDAwMDAwZjA3NzI3MGYwMDAwMDAwMGZmZjdmNzBmMDAwMDAwZjBmOTg4N2YwZjAwMDAwMDlmZjY4OGY4MGYwMDAwMDA2ZmY2ZmY4OGY5MDAwMDAwZjBmZmYwZmZmZjAwMDAwMDAwMDAwMDAwMDAwMDAw",
+        "displayName": "Zombie Walk Right"
+    },
+    "anim1": {
+        "namespace": "myAnimations",
+        "id": "anim1",
+        "mimeType": "application/mkcd-animation",
+        "data": "YzgwMDEwMDAxMDAwMDIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDBmZmZmMDAwMDAwMDAwMGYwNzczMjAzMDAwMDAwMDA3Zjc3MzJmMzAwMDAwMDAwN2Y3YjI3ZjIwMDAwMDBmMDc3NzU1Nzc3MGYwMDAwZjA3NzdiYjc3NzBmMDAwMDAwN2ZmNzdmZjcwMDAwMDAwMGYwMjc3MjBmMDAwMDAwMDA3ZjI3MjdmNzAwMDAwMGYwNzc3MjI3NzcwZjAwMDBmMDg3ODg4ODc4MGYwMDAwZjA5N2Y5OWY3OTBmMDAwMDAwZmZmZjlmZjkwMDAwMDAwMDAwMDBmMDBmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwZmZmZjAwMDAwMDAwMDBmMDc3MzIwMzAwMDAwMDAwN2Y3NzMyZjMwMDAwMDAwMDdmN2IyN2YyMDAwMDAwZjA3Nzc1NTc3NzBmMDAwMGYwNzc3YmI3NzcwZjAwMDAwMDdmZjc3ZmY3MDAwMDAwMDBmMDI3NzIwZjAwMDAwMDAwN2YyNzI3ZjcwMDAwMDBmMDc3NzIyNzc3MGYwMDAwZjA4Nzg4ODg3ODBmMDAwMGYwOTdmOTlmNzkwZjAwMDAwMDlmZjlmZmZmMDAwMDAwMDBmMDBmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw",
+        "displayName": "Zombie Walk Down"
+    },
+    "anim2": {
+        "namespace": "myAnimations",
+        "id": "anim2",
+        "mimeType": "application/mkcd-animation",
+        "data": "YzgwMDEwMDAxMDAwMDIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDBmZmZmMDAwMDAwMDAwMDMwMjM3NzBmMDAwMDAwMDAzZjIzNzdmNzAwMDAwMDAwMmY3Mjc3ZjcwMDAwMDBmMDc3NzI3Mjc3MGYwMDAwZjA3Nzc3Nzc3NzBmMDAwMDAwN2Y3Mjc3ZjcwMDAwMDAwMGYwNzc3NzBmMDAwMDAwMDA3Zjc3NzdmNzAwMDAwMGYwNzc3Nzc3NzcwZjAwMDBmMDg3ODg4ODc4MGYwMDAwZjA5N2Y5OWY3OTBmMDAwMDAwZmZmZjlmZjkwMDAwMDAwMDAwMDBmMDBmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwZmZmZjAwMDAwMDAwMDAzMDIzNzcwZjAwMDAwMDAwM2YyMzc3ZjcwMDAwMDAwMDJmNzI3N2Y3MDAwMDAwZjA3NzcyNzI3NzBmMDAwMGYwNzc3Nzc3NzcwZjAwMDAwMDdmNzI3N2Y3MDAwMDAwMDBmMDc3NzcwZjAwMDAwMDAwN2Y3Nzc3ZjcwMDAwMDBmMDc3Nzc3Nzc3MGYwMDAwZjA4Nzg4ODg3ODBmMDAwMGYwOTdmOTlmNzkwZjAwMDAwMDlmZjlmZmZmMDAwMDAwMDBmMDBmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw",
+        "displayName": "Zombie Walk Up"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",

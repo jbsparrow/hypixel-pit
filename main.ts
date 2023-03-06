@@ -14,6 +14,9 @@ mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Released, func
     sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_left", false)
     check_direction(sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_up"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_down"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_left"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_right"), mp.getPlayerSprite(player2))
 })
+events.spriteEvent(SpriteKind.Weapon, SpriteKind.Enemy, events.SpriteEvent.StartOverlapping, function (sprite, otherSprite) {
+    damage_enemy(otherSprite, sprites.readDataSprite(sprite, "Owner"))
+})
 mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Pressed, function (player2) {
     animation.runImageAnimation(
     mp.getPlayerSprite(player2),
@@ -782,32 +785,19 @@ mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Pressed, funct
     sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_left", true)
 })
 function spawn_enemy (targetPlayer: Sprite) {
-    if (Enemies.length < 10 && sprites.readDataBoolean(targetPlayer, "deployed")) {
-        new_enemy = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Enemy)
+    if (Enemies.length < maxEnemies && sprites.readDataBoolean(targetPlayer, "deployed")) {
+        new_enemy = sprites.create(assets.image`Zombie Idle Down`, SpriteKind.Enemy)
         sprites.setDataNumber(new_enemy, "Health", 100)
         sprites.setDataNumber(new_enemy, "Damage", 10)
         sprites.setDataNumber(new_enemy, "speed", 100)
+        sprites.setDataNumber(new_enemy, "XP", 10)
+        sprites.setDataNumber(new_enemy, "Gold", 10)
         sprites.setDataSprite(new_enemy, "Target", targetPlayer)
-        enemy_spawn_position = Generate_Position(targetPlayer, -10, 10)
-        new_enemy.setPosition(enemy_spawn_position[0], enemy_spawn_position[1])
+        sprites.changeDataNumberBy(targetPlayer, "Enemies", 1)
+        enemy_spawn_position = Generate_Position(targetPlayer, -50, 50)
+        new_enemy.follow(targetPlayer, 80)
         Enemies.push(new_enemy)
+        new_enemy.setPosition(enemy_spawn_position[0], enemy_spawn_position[1])
     }
 }
 scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
@@ -942,6 +932,18 @@ mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Pressed, functio
     )
     sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_up", true)
 })
+function damage_enemy (enemy: Sprite, player2: Sprite) {
+    if (sprites.readDataNumber(enemy, "Health") > 0) {
+        sprites.setDataNumber(enemy, "Health", sprites.readDataNumber(enemy, "Health") - sprites.readDataNumber(player2, "Damage"))
+        if (sprites.readDataNumber(enemy, "Health") <= 0) {
+            sprites.changeDataNumberBy(player2, "Kills", 1)
+            sprites.changeDataNumberBy(player2, "Gold", sprites.readDataNumber(enemy, "Gold"))
+            sprites.changeDataNumberBy(player2, "XP", sprites.readDataNumber(enemy, "XP"))
+            Enemies.removeAt(Enemies.indexOf(enemy))
+            sprites.destroy(enemy)
+        }
+    }
+}
 controller.player1.onEvent(ControllerEvent.Connected, function () {
     mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
         . . . . . . f f f f . . . . . . 
@@ -981,9 +983,6 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
         `, SpriteKind.Player)
     sprites.setDataBoolean(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "deployed", false)
     sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed", 100)
-    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"))
-    scene.cameraFollowSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)))
-    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(145, 11))
     sprites.setDataSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "sword", sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -1002,13 +1001,18 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Weapon))
-    statusbar = statusbars.create(20, 4, StatusBarKind.Health)
-    statusbar.attachToSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), 2, 0)
-    statusbar.setColor(2, 15, 3)
+    sprites.setDataSprite(sprites.readDataSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "sword"), "Owner", mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)))
     sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Gold", 0)
     sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "XP", 0)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Enemies", 0)
+    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"))
+    scene.cameraFollowSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)))
+    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(145, 11))
+    statusbar = statusbars.create(20, 4, StatusBarKind.Health)
+    statusbar.attachToSprite(Character, 2, 0)
+    statusbar.setColor(2, 15, 3)
     story.spriteSayText(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "\"I should walk around using WASD\"", 15, 1, story.TextSpeed.Normal)
-    mp.setPlayerIndicatorsVisible(true)
+    mp.setPlayerIndicatorsVisible(false)
     Keeper_Quest_Phase = 0
 })
 function generate_map () {
@@ -1141,6 +1145,7 @@ function generate_map () {
         6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 
         `, false)
 }
+let spawnTarget: Sprite = null
 let playerDeployed = 0
 let statusbar: StatusBarSprite = null
 let Character: Sprite = null
@@ -1150,8 +1155,10 @@ let enemy_spawn_position: number[] = []
 let new_enemy: Sprite = null
 let Keeper_Quest_Phase = 0
 let Keeper: Sprite = null
+let maxEnemies = 0
 let Enemies: Sprite[] = []
 Enemies = []
+maxEnemies = 10
 generate_map()
 create_keeper()
 game.onUpdate(function () {
@@ -1203,4 +1210,31 @@ game.onUpdate(function () {
             sprites.setDataNumber(value, "horizontal", 0)
         }
     }
+})
+game.onUpdate(function () {
+    for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
+        if (value.vx > 0) {
+            sprites.setDataNumber(value, "vertical", 0)
+            sprites.setDataNumber(value, "horizontal", 1)
+        }
+        if (value.vx < 0) {
+            sprites.setDataNumber(value, "vertical", 0)
+            sprites.setDataNumber(value, "horizontal", -1)
+        }
+        if (value.vy < 0) {
+            sprites.setDataNumber(value, "vertical", -1)
+            sprites.setDataNumber(value, "horizontal", 0)
+        }
+        if (value.vy > 0) {
+            sprites.setDataNumber(value, "vertical", 1)
+            sprites.setDataNumber(value, "horizontal", 0)
+        }
+    }
+})
+game.onUpdateInterval(5000, function () {
+    spawnTarget = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
+    while (sprites.readDataNumber(spawnTarget, "Enemies") >= 100) {
+        spawnTarget = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
+    }
+    spawn_enemy(spawnTarget)
 })
