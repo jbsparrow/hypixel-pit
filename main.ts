@@ -1157,6 +1157,7 @@ function generate_map () {
         6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 
         `, false)
 }
+let spawnTarget: Sprite = null
 let target: Sprite = null
 let playerDeployed = 0
 let statusbar: StatusBarSprite = null
@@ -1230,6 +1231,10 @@ game.onUpdateInterval(1000, function () {
     }
     spawn_enemy(target)
 })
-game.onUpdateInterval(500, function () {
-	
+game.onUpdateInterval(1000, function () {
+    spawnTarget = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
+    while (sprites.readDataNumber(spawnTarget, "Enemies") >= 4) {
+        spawnTarget = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
+    }
+    spawn_enemy(spawnTarget)
 })
