@@ -776,9 +776,6 @@ mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Pressed, funct
     )
     sprites.setDataBoolean(mp.getPlayerSprite(player26), "walk_down", true)
 })
-function Generate_Position (object: Sprite, min_range: number, max_range: number) {
-    return [object.x + rng.randomRange(min_range, max_range), object.y + rng.randomRange(min_range, max_range)]
-}
 function spawn_enemy () {
     if (sprites.allOfKind(SpriteKind.Enemy).length < 10) {
         target2 = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
@@ -806,8 +803,7 @@ function spawn_enemy () {
         sprites.setDataNumber(temp_enemy_sprite, "Health", 100)
         sprites.setDataNumber(temp_enemy_sprite, "Damage", 5)
         sprites.setDataNumber(temp_enemy_sprite, "speed", 100)
-        ClosePosition = Generate_Position(target2, -10, 10)
-        temp_enemy_sprite.setPosition(ClosePosition[0], ClosePosition[1])
+        temp_enemy_sprite.setPosition(0, 0)
         Enemies.push(temp_enemy_sprite)
     }
 }
@@ -1152,7 +1148,6 @@ let statusbar: StatusBarSprite = null
 let Character: Sprite = null
 let statusbar2: StatusBarSprite = null
 let Character2: Sprite = null
-let ClosePosition: number[] = []
 let temp_enemy_sprite: Sprite = null
 let target2: Sprite = null
 let Keeper_Quest_Phase = 0
