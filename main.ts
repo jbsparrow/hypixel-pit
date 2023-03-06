@@ -804,6 +804,8 @@ function spawn_enemy (targetPlayer: Sprite) {
         sprites.setDataNumber(new_enemy, "Health", 100)
         sprites.setDataNumber(new_enemy, "Damage", 10)
         sprites.setDataNumber(new_enemy, "speed", 100)
+        sprites.setDataNumber(new_enemy, "XP", 10)
+        sprites.setDataNumber(new_enemy, "Gold", 10)
         sprites.setDataSprite(new_enemy, "Target", targetPlayer)
         enemy_spawn_position = Generate_Position(targetPlayer, -10, 10)
         new_enemy.setPosition(enemy_spawn_position[0], enemy_spawn_position[1])
@@ -981,9 +983,6 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
         `, SpriteKind.Player)
     sprites.setDataBoolean(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "deployed", false)
     sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed", 100)
-    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"))
-    scene.cameraFollowSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)))
-    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(145, 11))
     sprites.setDataSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "sword", sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -1002,13 +1001,16 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Weapon))
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Gold", 0)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "XP", 0)
+    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed"))
+    scene.cameraFollowSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)))
+    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(145, 11))
     statusbar = statusbars.create(20, 4, StatusBarKind.Health)
     statusbar.attachToSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), 2, 0)
     statusbar.setColor(2, 15, 3)
-    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Gold", 0)
-    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "XP", 0)
     story.spriteSayText(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "\"I should walk around using WASD\"", 15, 1, story.TextSpeed.Normal)
-    mp.setPlayerIndicatorsVisible(true)
+    mp.setPlayerIndicatorsVisible(false)
     Keeper_Quest_Phase = 0
 })
 function generate_map () {
@@ -1203,4 +1205,7 @@ game.onUpdate(function () {
             sprites.setDataNumber(value, "horizontal", 0)
         }
     }
+})
+game.onUpdateInterval(500, function () {
+	
 })
