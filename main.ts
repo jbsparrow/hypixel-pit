@@ -782,7 +782,7 @@ mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Pressed, funct
     sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_left", true)
 })
 function spawn_enemy (targetPlayer: Sprite) {
-    if (Enemies.length < 10) {
+    if (Enemies.length < 10 && sprites.readDataBoolean(targetPlayer, "deployed")) {
         new_enemy = sprites.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
