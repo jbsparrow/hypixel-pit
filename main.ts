@@ -781,6 +781,35 @@ mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Pressed, funct
     )
     sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_left", true)
 })
+function spawn_enemy (targetPlayer: Sprite) {
+    if (Enemies.length < 10) {
+        new_enemy = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Enemy)
+        sprites.setDataNumber(new_enemy, "Health", 100)
+        sprites.setDataNumber(new_enemy, "Damage", 10)
+        sprites.setDataNumber(new_enemy, "speed", 100)
+        sprites.setDataSprite(new_enemy, "Target", targetPlayer)
+        enemy_spawn_position = Generate_Position(targetPlayer, -10, 10)
+        new_enemy.setPosition(enemy_spawn_position[0], enemy_spawn_position[1])
+        Enemies.push(new_enemy)
+    }
+}
 scene.onHitTile(SpriteKind.Player, 15, function (sprite) {
     scene.placeOnRandomTile(sprite, 12)
     sprites.setDataBoolean(sprite, "deployed", true)
@@ -1117,8 +1146,12 @@ let statusbar: StatusBarSprite = null
 let Character: Sprite = null
 let statusbar2: StatusBarSprite = null
 let Character2: Sprite = null
+let enemy_spawn_position: number[] = []
+let new_enemy: Sprite = null
 let Keeper_Quest_Phase = 0
 let Keeper: Sprite = null
+let Enemies: Sprite[] = []
+Enemies = []
 generate_map()
 create_keeper()
 game.onUpdate(function () {
