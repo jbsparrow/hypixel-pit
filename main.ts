@@ -630,6 +630,20 @@ function check_direction (up: boolean, down: boolean, left: boolean, right: bool
 function Generate_Position (Player: Sprite, min_range: number, max_range: number) {
     return [Player.x + randint(min_range, max_range), Player.y + randint(min_range, max_range)]
 }
+events.spriteEvent(SpriteKind.Enemy, SpriteKind.Player, events.SpriteEvent.StartOverlapping, function (sprite, otherSprite) {
+    sprites.setDataNumber(otherSprite, "Health", sprites.readDataNumber(otherSprite, "Health") - sprites.readDataNumber(sprite, "Damage"))
+    statusbar.value = sprites.readDataNumber(otherSprite, "Health")
+    if (sprites.readDataNumber(otherSprite, "Health") <= 0) {
+        for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
+            Enemies.removeAt(Enemies.indexOf(value))
+            sprites.destroy(value, effects.spray, 500)
+        }
+        sprites.setDataBoolean(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "deployed", false)
+        sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Enemies", 0)
+        sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Health", 100)
+        tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(145, 11))
+    }
+})
 mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Pressed, function (player2) {
     animation.runImageAnimation(
     mp.getPlayerSprite(player2),
@@ -983,6 +997,8 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
         `, SpriteKind.Player)
     sprites.setDataBoolean(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "deployed", false)
     sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed", 100)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Health", 100)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Damage", 100)
     sprites.setDataSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "sword", sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -1009,8 +1025,10 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
     scene.cameraFollowSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)))
     tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(145, 11))
     statusbar = statusbars.create(20, 4, StatusBarKind.Health)
-    statusbar.attachToSprite(Character, 2, 0)
+    statusbar.attachToSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), 2, 0)
     statusbar.setColor(2, 15, 3)
+    statusbar.max = 100
+    statusbar.value = 100
     story.spriteSayText(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "\"I should walk around using WASD\"", 15, 1, story.TextSpeed.Normal)
     mp.setPlayerIndicatorsVisible(false)
     Keeper_Quest_Phase = 0
@@ -1147,12 +1165,12 @@ function generate_map () {
 }
 let spawnTarget: Sprite = null
 let playerDeployed = 0
-let statusbar: StatusBarSprite = null
 let Character: Sprite = null
 let statusbar2: StatusBarSprite = null
 let Character2: Sprite = null
 let enemy_spawn_position: number[] = []
 let new_enemy: Sprite = null
+let statusbar: StatusBarSprite = null
 let Keeper_Quest_Phase = 0
 let Keeper: Sprite = null
 let maxEnemies = 0
@@ -1231,7 +1249,7 @@ game.onUpdate(function () {
         }
     }
 })
-game.onUpdateInterval(5000, function () {
+game.onUpdateInterval(2000, function () {
     spawnTarget = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
     while (sprites.readDataNumber(spawnTarget, "Enemies") >= 100) {
         spawnTarget = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
