@@ -824,6 +824,24 @@ mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Released, func
     check_direction(sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_up"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_down"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_left"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_right"), mp.getPlayerSprite(player2))
 })
 controller.player2.onEvent(ControllerEvent.Connected, function () {
+    mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two), sprites.create(img`
+        . . . . . . f f f f . . . . . . 
+        . . . . f f f 2 2 f f f . . . . 
+        . . . f f f 2 2 2 2 f f f . . . 
+        . . f f f e e e e e e f f f . . 
+        . . f f e 2 2 2 2 2 2 e e f . . 
+        . . f e 2 f f f f f f 2 e f . . 
+        . . f f f f e e e e f f f f . . 
+        . f f e f b f 4 4 f b f e f f . 
+        . f e e 4 1 f d d f 1 4 e e f . 
+        . . f e e d d d d d d e e f . . 
+        . . . f e e 4 4 4 4 e e f . . . 
+        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+        . . . . . f f f f f f . . . . . 
+        . . . . . f f . . f f . . . . . 
+        `, SpriteKind.Player))
     Character2 = sprites.create(img`
         . . . . . . f f f f . . . . . . 
         . . . . f f f 2 2 f f f . . . . 
@@ -842,12 +860,11 @@ controller.player2.onEvent(ControllerEvent.Connected, function () {
         . . . . . f f f f f f . . . . . 
         . . . . . f f . . f f . . . . . 
         `, SpriteKind.Player)
-    sprites.setDataBoolean(Character2, "deployed", false)
-    sprites.setDataNumber(Character2, "speed", 100)
-    controller.player2.moveSprite(Character2, sprites.readDataNumber(Character2, "speed"), sprites.readDataNumber(Character2, "speed"))
-    scene.cameraFollowSprite(Character2)
-    tiles.placeOnTile(Character2, tiles.getTileLocation(146, 11))
-    sprites.setDataSprite(Character2, "sword", sprites.create(img`
+    sprites.setDataBoolean(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), "deployed", false)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), "speed", 100)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), "Health", 100)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), "Damage", 100)
+    sprites.setDataSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), "sword", sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -865,9 +882,21 @@ controller.player2.onEvent(ControllerEvent.Connected, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Weapon))
+    sprites.setDataSprite(sprites.readDataSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), "sword"), "Owner", mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)))
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), "Gold", 0)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), "XP", 0)
+    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), "Enemies", 0)
+    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Two), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), "speed"), sprites.readDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), "speed"))
+    scene.cameraFollowSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)))
+    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), tiles.getTileLocation(145, 11))
     statusbar2 = statusbars.create(20, 4, StatusBarKind.Health)
-    statusbar2.attachToSprite(Character2, 2, 0)
+    statusbar2.attachToSprite(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), 2, 0)
     statusbar2.setColor(2, 15, 3)
+    statusbar2.max = 100
+    statusbar2.value = 100
+    story.spriteSayText(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), "\"I should walk around using WASD\"", 15, 1, story.TextSpeed.Normal)
+    mp.setPlayerIndicatorsVisible(false)
+    Keeper_Quest_Phase = 0
 })
 mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Pressed, function (player2) {
     animation.runImageAnimation(
