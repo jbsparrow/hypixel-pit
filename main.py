@@ -13,9 +13,8 @@ class SpriteKind:
 
 
 def on_button_multiplayer_left_released(player2):
-    animation.stop_animation(
-        animation.AnimationTypes.ALL, mp.get_player_sprite(player2)
-    )
+    animation.stop_animation(animation.AnimationTypes.ALL,
+                             mp.get_player_sprite(player2))
     sprites.set_data_boolean(mp.get_player_sprite(player2), "walk_left", False)
     check_direction(
         sprites.read_data_boolean(mp.get_player_sprite(player2), "walk_up"),
@@ -49,8 +48,7 @@ def on_button_multiplayer_right_pressed(player22):
     animation.run_image_animation(
         mp.get_player_sprite(player22),
         [
-            img(
-                """
+            img("""
                 . . . . . . f f f f f f . . . .
                         . . . . f f e e e e f 2 f . . .
                         . . . f f e e e e f 2 2 2 f . .
@@ -67,10 +65,8 @@ def on_button_multiplayer_right_pressed(player22):
                         . . . . . f e e f 4 5 5 f . . .
                         . . . . . . f f f f f f . . . .
                         . . . . . . . f f f . . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . f f f f f f . . . .
                         . . . . f f e e e e f 2 f . . .
@@ -87,10 +83,8 @@ def on_button_multiplayer_right_pressed(player22):
                         . . . . f f f e e f 5 5 f f . .
                         . . . . f f f f f f f f f f . .
                         . . . . . f f . . . f f f . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . f f f f f f . . . .
                         . . . . f f e e e e f 2 f . . .
                         . . . f f e e e e f 2 2 2 f . .
@@ -107,10 +101,8 @@ def on_button_multiplayer_right_pressed(player22):
                         . . . . . f e e f 4 5 5 f . . .
                         . . . . . . f f f f f f . . . .
                         . . . . . . . f f f . . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . f f f f f f . . . .
                         . . . . f f e e e e f 2 f . . .
@@ -127,13 +119,13 @@ def on_button_multiplayer_right_pressed(player22):
                         . . . . f e e f 4 4 5 5 f f . .
                         . . . . f f f f f f f f f f . .
                         . . . . . f f . . . f f f . . .
-            """
-            ),
+            """),
         ],
         200,
         True,
     )
-    sprites.set_data_boolean(mp.get_player_sprite(player22), "walk_right", True)
+    sprites.set_data_boolean(mp.get_player_sprite(player22), "walk_right",
+                             True)
 
 
 mp.on_button_event(
@@ -146,26 +138,24 @@ mp.on_button_event(
 def create_keeper():
     global Keeper
     Keeper = sprites.create(
-        assets.image(
-            """
+        assets.image("""
         The Keeper
-    """
-        ),
+    """),
         SpriteKind.NPC,
     )
     tiles.place_on_tile(Keeper, tiles.get_tile_location(146, 10))
 
 
 def on_button_multiplayer_up_released(player23):
-    animation.stop_animation(
-        animation.AnimationTypes.ALL, mp.get_player_sprite(player23)
-    )
+    animation.stop_animation(animation.AnimationTypes.ALL,
+                             mp.get_player_sprite(player23))
     sprites.set_data_boolean(mp.get_player_sprite(player23), "walk_up", False)
     check_direction(
         sprites.read_data_boolean(mp.get_player_sprite(player23), "walk_up"),
         sprites.read_data_boolean(mp.get_player_sprite(player23), "walk_down"),
         sprites.read_data_boolean(mp.get_player_sprite(player23), "walk_left"),
-        sprites.read_data_boolean(mp.get_player_sprite(player23), "walk_right"),
+        sprites.read_data_boolean(mp.get_player_sprite(player23),
+                                  "walk_right"),
         mp.get_player_sprite(player23),
     )
 
@@ -178,15 +168,16 @@ mp.on_button_event(
 
 
 def on_button_multiplayer_right_released(player24):
-    animation.stop_animation(
-        animation.AnimationTypes.ALL, mp.get_player_sprite(player24)
-    )
-    sprites.set_data_boolean(mp.get_player_sprite(player24), "walk_right", False)
+    animation.stop_animation(animation.AnimationTypes.ALL,
+                             mp.get_player_sprite(player24))
+    sprites.set_data_boolean(mp.get_player_sprite(player24), "walk_right",
+                             False)
     check_direction(
         sprites.read_data_boolean(mp.get_player_sprite(player24), "walk_up"),
         sprites.read_data_boolean(mp.get_player_sprite(player24), "walk_down"),
         sprites.read_data_boolean(mp.get_player_sprite(player24), "walk_left"),
-        sprites.read_data_boolean(mp.get_player_sprite(player24), "walk_right"),
+        sprites.read_data_boolean(mp.get_player_sprite(player24),
+                                  "walk_right"),
         mp.get_player_sprite(player24),
     )
 
@@ -199,13 +190,16 @@ mp.on_button_event(
 
 
 def on_button_multiplayer_a_pressed(player25):
-    if not (sprites.read_data_boolean(mp.get_player_sprite(player25), "attacking")):
-        sprites.set_data_boolean(mp.get_player_sprite(player25), "attacking", True)
+    if not (sprites.read_data_boolean(mp.get_player_sprite(player25),
+                                      "attacking")):
+        sprites.set_data_boolean(mp.get_player_sprite(player25), "attacking",
+                                 True)
         pause(200)
-        sprites.set_data_boolean(mp.get_player_sprite(player25), "attacking", False)
-        sprites.read_data_sprite(mp.get_player_sprite(player25), "sword").set_image(
-            img(
-                """
+        sprites.set_data_boolean(mp.get_player_sprite(player25), "attacking",
+                                 False)
+        sprites.read_data_sprite(mp.get_player_sprite(player25),
+                                 "sword").set_image(
+                                     img("""
             . . . . . . . . . . . . . . . .
                         . . . . . . . . . . . . . . . .
                         . . . . . . . . . . . . . . . .
@@ -222,9 +216,7 @@ def on_button_multiplayer_a_pressed(player25):
                         . . . . . . . . . . . . . . . .
                         . . . . . . . . . . . . . . . .
                         . . . . . . . . . . . . . . . .
-        """
-            )
-        )
+        """))
 
 
 mp.on_button_event(
@@ -236,21 +228,21 @@ mp.on_button_event(
 
 def on_sprite_start_overlapping2(sprite2, otherSprite2):
     sprites.set_data_number(
-        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "speed", 0
-    )
+        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "speed",
+        0)
     if otherSprite2 == Keeper and Keeper_Quest_Phase == 0:
 
         def on_start_cutscene():
             global Keeper_Quest_Phase
             mp.set_player_indicators_visible(False)
             story.cancel_sprite_movement(
-                mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE))
-            )
+                mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)))
             story.sprite_say_text(
                 Keeper,
                 "Careful there. This is no place for an unskilled player such as yourself.",
             )
-            story.show_player_choices("Who Are You?", "I Dont Care Leave Me Alone!")
+            story.show_player_choices("Who Are You?",
+                                      "I Dont Care Leave Me Alone!")
             if story.check_last_answer("Who Are You?"):
                 story.sprite_say_text(
                     Keeper,
@@ -307,13 +299,13 @@ events.sprite_event(
 )
 
 
-def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite):
+def check_direction(up: bool, down: bool, left: bool, right: bool,
+                    user: Sprite):
     if up and left or up and right or up and (left and right):
         animation.run_image_animation(
             user,
             [
-                img(
-                    """
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
                                 . . . f e e e f f e e e f . . .
@@ -330,10 +322,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 4 4 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
@@ -350,10 +340,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . 4 f 2 2 2 2 2 e d d 4 . .
                                 . . . e f f f f f f e e 4 . . .
                                 . . . . f f f . . . . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
                                 . . . f e e e f f e e e f . . .
@@ -370,10 +358,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 4 4 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
@@ -390,8 +376,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 d d e 2 2 2 2 2 f 4 . . .
                                 . . . 4 e e f f f f f f e . . .
                                 . . . . . . . . . f f f . . . .
-                """
-                ),
+                """),
             ],
             200,
             True,
@@ -400,8 +385,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
         animation.run_image_animation(
             user,
             [
-                img(
-                    """
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
                                 . . . f f f 2 2 2 2 f f f . . .
@@ -418,10 +402,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
@@ -438,10 +420,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f 4 4 5 5 f e e . . . .
                                 . . . . f f f f f f f . . . . .
                                 . . . . f f f . . . . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
                                 . . . f f f 2 2 2 2 f f f . . .
@@ -458,10 +438,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
@@ -478,8 +456,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . e e f 5 5 4 4 f . . . .
                                 . . . . . f f f f f f f . . . .
                                 . . . . . . . . . f f f . . . .
-                """
-                ),
+                """),
             ],
             200,
             True,
@@ -488,8 +465,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
         animation.run_image_animation(
             user,
             [
-                img(
-                    """
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
                                 . . . f e e e f f e e e f . . .
@@ -506,10 +482,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 4 4 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
@@ -526,10 +500,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . 4 f 2 2 2 2 2 e d d 4 . .
                                 . . . e f f f f f f e e 4 . . .
                                 . . . . f f f . . . . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
                                 . . . f e e e f f e e e f . . .
@@ -546,10 +518,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 4 4 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f e e e e f f . . . .
@@ -566,8 +536,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 d d e 2 2 2 2 2 f 4 . . .
                                 . . . 4 e e f f f f f f e . . .
                                 . . . . . . . . . f f f . . . .
-                """
-                ),
+                """),
             ],
             200,
             True,
@@ -576,8 +545,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
         animation.run_image_animation(
             user,
             [
-                img(
-                    """
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
                                 . . . f f f 2 2 2 2 f f f . . .
@@ -594,10 +562,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
@@ -614,10 +580,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f 4 4 5 5 f e e . . . .
                                 . . . . f f f f f f f . . . . .
                                 . . . . f f f . . . . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
                                 . . . f f f 2 2 2 2 f f f . . .
@@ -634,10 +598,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                                 . . . . . f f f f f f . . . . .
                                 . . . . . f f . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f . . . . . .
                                 . . . . f f f 2 2 f f f . . . .
@@ -654,8 +616,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . e e f 5 5 4 4 f . . . .
                                 . . . . . f f f f f f f . . . .
                                 . . . . . . . . . f f f . . . .
-                """
-                ),
+                """),
             ],
             200,
             True,
@@ -664,8 +625,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
         animation.run_image_animation(
             user,
             [
-                img(
-                    """
+                img("""
                     . . . . f f f f f f . . . . . .
                                 . . . f 2 f e e e e f f . . . .
                                 . . f 2 2 2 f e e e e f f . . .
@@ -682,10 +642,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . f 5 5 4 f e e f . . . . .
                                 . . . . f f f f f f . . . . . .
                                 . . . . . . f f f . . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . f f f f f f . . . . . .
                                 . . . f 2 f e e e e f f . . . .
@@ -702,10 +660,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . f f 5 5 f e e f f f . . . .
                                 . . f f f f f f f f f f . . . .
                                 . . . f f f . . . f f . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . f f f f f f . . . . . .
                                 . . . f 2 f e e e e f f . . . .
                                 . . f 2 2 2 f e e e e f f . . .
@@ -722,10 +678,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . f 5 5 4 f e e f . . . . .
                                 . . . . f f f f f f . . . . . .
                                 . . . . . . f f f . . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . f f f f f f . . . . . .
                                 . . . f 2 f e e e e f f . . . .
@@ -742,8 +696,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . f f 5 5 4 4 f e e f . . . .
                                 . . f f f f f f f f f f . . . .
                                 . . . f f f . . . f f . . . . .
-                """
-                ),
+                """),
             ],
             200,
             True,
@@ -752,8 +705,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
         animation.run_image_animation(
             user,
             [
-                img(
-                    """
+                img("""
                     . . . . . . f f f f f f . . . .
                                 . . . . f f e e e e f 2 f . . .
                                 . . . f f e e e e f 2 2 2 f . .
@@ -770,10 +722,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f e e f 4 5 5 f . . .
                                 . . . . . . f f f f f f . . . .
                                 . . . . . . . f f f . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f f f . . . .
                                 . . . . f f e e e e f 2 f . . .
@@ -790,10 +740,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f f f e e f 5 5 f f . .
                                 . . . . f f f f f f f f f f . .
                                 . . . . . f f . . . f f f . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . f f f f f f . . . .
                                 . . . . f f e e e e f 2 f . . .
                                 . . . f f e e e e f 2 2 2 f . .
@@ -810,10 +758,8 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . . f e e f 4 5 5 f . . .
                                 . . . . . . f f f f f f . . . .
                                 . . . . . . . f f f . . . . . .
-                """
-                ),
-                img(
-                    """
+                """),
+                img("""
                     . . . . . . . . . . . . . . . .
                                 . . . . . . f f f f f f . . . .
                                 . . . . f f e e e e f 2 f . . .
@@ -830,8 +776,7 @@ def check_direction(up: bool, down: bool, left: bool, right: bool, user: Sprite)
                                 . . . . f e e f 4 4 5 5 f f . .
                                 . . . . f f f f f f f f f f . .
                                 . . . . . f f . . . f f f . . .
-                """
-                ),
+                """),
             ],
             200,
             True,
@@ -851,8 +796,8 @@ def on_sprite_start_overlapping3(sprite3, otherSprite3):
     sprites.set_data_number(
         otherSprite3,
         "Health",
-        sprites.read_data_number(otherSprite3, "Health")
-        - sprites.read_data_number(sprite3, "Damage"),
+        sprites.read_data_number(otherSprite3, "Health") -
+        sprites.read_data_number(sprite3, "Damage"),
     )
     statusbar.value = sprites.read_data_number(otherSprite3, "Health")
     if sprites.read_data_number(otherSprite3, "Health") <= 0:
@@ -865,11 +810,11 @@ def on_sprite_start_overlapping3(sprite3, otherSprite3):
             False,
         )
         sprites.set_data_number(
-            mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "Enemies", 0
-        )
+            mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+            "Enemies", 0)
         sprites.set_data_number(
-            mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "Health", 100
-        )
+            mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+            "Health", 100)
         tiles.place_on_tile(
             mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
             tiles.get_tile_location(145, 11),
@@ -888,8 +833,7 @@ def on_button_multiplayer_down_pressed(player26):
     animation.run_image_animation(
         mp.get_player_sprite(player26),
         [
-            img(
-                """
+            img("""
                 . . . . . . f f f f . . . . . .
                         . . . . f f f 2 2 f f f . . . .
                         . . . f f f 2 2 2 2 f f f . . .
@@ -906,10 +850,8 @@ def on_button_multiplayer_down_pressed(player26):
                         . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                         . . . . . f f f f f f . . . . .
                         . . . . . f f . . f f . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . f f f f . . . . . .
                         . . . . f f f 2 2 f f f . . . .
@@ -926,10 +868,8 @@ def on_button_multiplayer_down_pressed(player26):
                         . . . . f 4 4 5 5 f e e . . . .
                         . . . . f f f f f f f . . . . .
                         . . . . f f f . . . . . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . f f f f . . . . . .
                         . . . . f f f 2 2 f f f . . . .
                         . . . f f f 2 2 2 2 f f f . . .
@@ -946,10 +886,8 @@ def on_button_multiplayer_down_pressed(player26):
                         . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                         . . . . . f f f f f f . . . . .
                         . . . . . f f . . f f . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . f f f f . . . . . .
                         . . . . f f f 2 2 f f f . . . .
@@ -966,8 +904,7 @@ def on_button_multiplayer_down_pressed(player26):
                         . . . . e e f 5 5 4 4 f . . . .
                         . . . . . f f f f f f f . . . .
                         . . . . . . . . . f f f . . . .
-            """
-            ),
+            """),
         ],
         200,
         True,
@@ -986,8 +923,7 @@ def on_button_multiplayer_left_pressed(player27):
     animation.run_image_animation(
         mp.get_player_sprite(player27),
         [
-            img(
-                """
+            img("""
                 . . . . f f f f f f . . . . . .
                         . . . f 2 f e e e e f f . . . .
                         . . f 2 2 2 f e e e e f f . . .
@@ -1004,10 +940,8 @@ def on_button_multiplayer_left_pressed(player27):
                         . . . f 5 5 4 f e e f . . . . .
                         . . . . f f f f f f . . . . . .
                         . . . . . . f f f . . . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . f f f f f f . . . . . .
                         . . . f 2 f e e e e f f . . . .
@@ -1024,10 +958,8 @@ def on_button_multiplayer_left_pressed(player27):
                         . . f f 5 5 f e e f f f . . . .
                         . . f f f f f f f f f f . . . .
                         . . . f f f . . . f f . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . f f f f f f . . . . . .
                         . . . f 2 f e e e e f f . . . .
                         . . f 2 2 2 f e e e e f f . . .
@@ -1044,10 +976,8 @@ def on_button_multiplayer_left_pressed(player27):
                         . . . f 5 5 4 f e e f . . . . .
                         . . . . f f f f f f . . . . . .
                         . . . . . . f f f . . . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . f f f f f f . . . . . .
                         . . . f 2 f e e e e f f . . . .
@@ -1064,8 +994,7 @@ def on_button_multiplayer_left_pressed(player27):
                         . . f f 5 5 4 4 f e e f . . . .
                         . . f f f f f f f f f f . . . .
                         . . . f f f . . . f f . . . . .
-            """
-            ),
+            """),
         ],
         200,
         True,
@@ -1083,14 +1012,11 @@ mp.on_button_event(
 def spawn_enemy(targetPlayer: Sprite):
     global new_enemy, enemy_spawn_position
     if len(Enemies) < maxEnemies and sprites.read_data_boolean(
-        targetPlayer, "deployed"
-    ):
+            targetPlayer, "deployed"):
         new_enemy = sprites.create(
-            assets.image(
-                """
+            assets.image("""
             Zombie Idle Down
-        """
-            ),
+        """),
             SpriteKind.enemy,
         )
         sprites.set_data_number(new_enemy, "Health", 100)
@@ -1103,7 +1029,8 @@ def spawn_enemy(targetPlayer: Sprite):
         enemy_spawn_position = Generate_Position(targetPlayer, -50, 50)
         new_enemy.follow(targetPlayer, 80)
         Enemies.append(new_enemy)
-        new_enemy.set_position(enemy_spawn_position[0], enemy_spawn_position[1])
+        new_enemy.set_position(enemy_spawn_position[0],
+                               enemy_spawn_position[1])
 
 
 def on_hit_tile(sprite4):
@@ -1115,15 +1042,16 @@ scene.on_hit_tile(SpriteKind.player, 15, on_hit_tile)
 
 
 def on_button_multiplayer_down_released(player28):
-    animation.stop_animation(
-        animation.AnimationTypes.ALL, mp.get_player_sprite(player28)
-    )
-    sprites.set_data_boolean(mp.get_player_sprite(player28), "walk_down", False)
+    animation.stop_animation(animation.AnimationTypes.ALL,
+                             mp.get_player_sprite(player28))
+    sprites.set_data_boolean(mp.get_player_sprite(player28), "walk_down",
+                             False)
     check_direction(
         sprites.read_data_boolean(mp.get_player_sprite(player28), "walk_up"),
         sprites.read_data_boolean(mp.get_player_sprite(player28), "walk_down"),
         sprites.read_data_boolean(mp.get_player_sprite(player28), "walk_left"),
-        sprites.read_data_boolean(mp.get_player_sprite(player28), "walk_right"),
+        sprites.read_data_boolean(mp.get_player_sprite(player28),
+                                  "walk_right"),
         mp.get_player_sprite(player28),
     )
 
@@ -1138,8 +1066,7 @@ mp.on_button_event(
 def on_player2_connected():
     global Character2, statusbar2
     Character2 = sprites.create(
-        img(
-            """
+        img("""
             . . . . . . f f f f . . . . . .
                     . . . . f f f 2 2 f f f . . . .
                     . . . f f f 2 2 2 2 f f f . . .
@@ -1156,8 +1083,7 @@ def on_player2_connected():
                     . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                     . . . . . f f f f f f . . . . .
                     . . . . . f f . . f f . . . . .
-        """
-        ),
+        """),
         SpriteKind.player,
     )
     sprites.set_data_boolean(Character2, "deployed", False)
@@ -1173,8 +1099,7 @@ def on_player2_connected():
         Character2,
         "sword",
         sprites.create(
-            img(
-                """
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . . . . . . . . . . .
                         . . . . . . . . . . . . . . . .
@@ -1191,8 +1116,7 @@ def on_player2_connected():
                         . . . . . . . . . . . . . . . .
                         . . . . . . . . . . . . . . . .
                         . . . . . . . . . . . . . . . .
-            """
-            ),
+            """),
             SpriteKind.Weapon,
         ),
     )
@@ -1208,8 +1132,7 @@ def on_button_multiplayer_up_pressed(player29):
     animation.run_image_animation(
         mp.get_player_sprite(player29),
         [
-            img(
-                """
+            img("""
                 . . . . . . f f f f . . . . . .
                         . . . . f f e e e e f f . . . .
                         . . . f e e e f f e e e f . . .
@@ -1226,10 +1149,8 @@ def on_button_multiplayer_up_pressed(player29):
                         . . 4 4 f 4 4 4 4 4 4 f 4 4 . .
                         . . . . . f f f f f f . . . . .
                         . . . . . f f . . f f . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . f f f f . . . . . .
                         . . . . f f e e e e f f . . . .
@@ -1246,10 +1167,8 @@ def on_button_multiplayer_up_pressed(player29):
                         . . . 4 f 2 2 2 2 2 e d d 4 . .
                         . . . e f f f f f f e e 4 . . .
                         . . . . f f f . . . . . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . f f f f . . . . . .
                         . . . . f f e e e e f f . . . .
                         . . . f e e e f f e e e f . . .
@@ -1266,10 +1185,8 @@ def on_button_multiplayer_up_pressed(player29):
                         . . 4 4 f 4 4 4 4 4 4 f 4 4 . .
                         . . . . . f f f f f f . . . . .
                         . . . . . f f . . f f . . . . .
-            """
-            ),
-            img(
-                """
+            """),
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . f f f f . . . . . .
                         . . . . f f e e e e f f . . . .
@@ -1286,8 +1203,7 @@ def on_button_multiplayer_up_pressed(player29):
                         . . 4 d d e 2 2 2 2 2 f 4 . . .
                         . . . 4 e e f f f f f f e . . .
                         . . . . . . . . . f f f . . . .
-            """
-            ),
+            """),
         ],
         200,
         True,
@@ -1307,17 +1223,15 @@ def damage_enemy(enemy: Sprite, player210: Sprite):
         sprites.set_data_number(
             enemy,
             "Health",
-            sprites.read_data_number(enemy, "Health")
-            - sprites.read_data_number(player210, "Damage"),
+            sprites.read_data_number(enemy, "Health") -
+            sprites.read_data_number(player210, "Damage"),
         )
         if sprites.read_data_number(enemy, "Health") <= 0:
             sprites.change_data_number_by(player210, "Kills", 1)
             sprites.change_data_number_by(
-                player210, "Gold", sprites.read_data_number(enemy, "Gold")
-            )
+                player210, "Gold", sprites.read_data_number(enemy, "Gold"))
             sprites.change_data_number_by(
-                player210, "XP", sprites.read_data_number(enemy, "XP")
-            )
+                player210, "XP", sprites.read_data_number(enemy, "XP"))
             Enemies.remove_at(Enemies.index(enemy))
             sprites.destroy(enemy)
 
@@ -1327,8 +1241,7 @@ def on_player1_connected():
     mp.set_player_sprite(
         mp.player_selector(mp.PlayerNumber.ONE),
         sprites.create(
-            img(
-                """
+            img("""
                 . . . . . . f f f f . . . . . .
                         . . . . f f f 2 2 f f f . . . .
                         . . . f f f 2 2 2 2 f f f . . .
@@ -1345,14 +1258,12 @@ def on_player1_connected():
                         . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                         . . . . . f f f f f f . . . . .
                         . . . . . f f . . f f . . . . .
-            """
-            ),
+            """),
             SpriteKind.player,
         ),
     )
     Character = sprites.create(
-        img(
-            """
+        img("""
             . . . . . . f f f f . . . . . .
                     . . . . f f f 2 2 f f f . . . .
                     . . . f f f 2 2 2 2 f f f . . .
@@ -1369,28 +1280,26 @@ def on_player1_connected():
                     . . 4 4 f 4 4 5 5 4 4 f 4 4 . .
                     . . . . . f f f f f f . . . . .
                     . . . . . f f . . f f . . . . .
-        """
-        ),
+        """),
         SpriteKind.player,
     )
     sprites.set_data_boolean(
-        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "deployed", False
-    )
+        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+        "deployed", False)
     sprites.set_data_number(
-        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "speed", 100
-    )
+        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "speed",
+        100)
     sprites.set_data_number(
-        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "Health", 100
-    )
+        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+        "Health", 100)
     sprites.set_data_number(
-        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "Damage", 100
-    )
+        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+        "Damage", 100)
     sprites.set_data_sprite(
         mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
         "sword",
         sprites.create(
-            img(
-                """
+            img("""
                 . . . . . . . . . . . . . . . .
                         . . . . . . . . . . . . . . . .
                         . . . . . . . . . . . . . . . .
@@ -1407,47 +1316,43 @@ def on_player1_connected():
                         . . . . . . . . . . . . . . . .
                         . . . . . . . . . . . . . . . .
                         . . . . . . . . . . . . . . . .
-            """
-            ),
+            """),
             SpriteKind.Weapon,
         ),
     )
     sprites.set_data_sprite(
         sprites.read_data_sprite(
-            mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "sword"
-        ),
+            mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+            "sword"),
         "Owner",
         mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
     )
     sprites.set_data_number(
-        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "Gold", 0
-    )
+        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "Gold",
+        0)
     sprites.set_data_number(
-        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "XP", 0
-    )
+        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "XP", 0)
     sprites.set_data_number(
-        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "Enemies", 0
-    )
+        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+        "Enemies", 0)
     mp.move_with_buttons(
         mp.player_selector(mp.PlayerNumber.ONE),
         sprites.read_data_number(
-            mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "speed"
-        ),
+            mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+            "speed"),
         sprites.read_data_number(
-            mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), "speed"
-        ),
+            mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
+            "speed"),
     )
     scene.camera_follow_sprite(
-        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE))
-    )
+        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)))
     tiles.place_on_tile(
         mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
         tiles.get_tile_location(145, 11),
     )
     statusbar = statusbars.create(20, 4, StatusBarKind.health)
     statusbar.attach_to_sprite(
-        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), 2, 0
-    )
+        mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)), 2, 0)
     statusbar.set_color(2, 15, 3)
     statusbar.max = 100
     statusbar.value = 100
@@ -1468,17 +1373,12 @@ controller.player1.on_event(ControllerEvent.CONNECTED, on_player1_connected)
 def generate_map():
     global playerDeployed
     playerDeployed = 0
-    scene.set_tile_map(
-        assets.image(
-            """
+    scene.set_tile_map(assets.image("""
         Map
-    """
-        )
-    )
+    """))
     scene.set_tile(
         14,
-        img(
-            """
+        img("""
             b d d d d d d c c d d d d d d c
                     d b b b b b c d d c b b b b b c
                     d b b b b c d b b b c b b b b c
@@ -1495,14 +1395,12 @@ def generate_map():
                     d b b b b c b b b c d b b b b c
                     d b b b b b c b c d b b b b b c
                     c c c c c c b c d c c c c c c a
-        """
-        ),
+        """),
         False,
     )
     scene.set_tile(
         7,
-        img(
-            """
+        img("""
             7 7 7 7 5 7 7 7 7 7 7 7 7 7 7 7
                     7 7 5 7 5 5 7 7 7 7 7 7 7 7 7 7
                     7 6 5 5 7 5 7 5 5 7 7 7 7 7 7 7
@@ -1519,14 +1417,12 @@ def generate_map():
                     7 7 7 7 7 7 7 7 7 7 7 7 7 5 7 7
                     7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
                     7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
-        """
-        ),
+        """),
         False,
     )
     scene.set_tile(
         3,
-        img(
-            """
+        img("""
             7 7 7 7 5 7 7 7 7 7 7 7 7 7 7 7
                     7 7 5 7 5 5 7 7 7 7 7 7 7 7 7 7
                     7 6 5 5 7 5 7 5 5 7 7 7 7 7 7 7
@@ -1543,14 +1439,12 @@ def generate_map():
                     7 7 7 7 7 7 7 7 7 7 7 7 7 5 7 7
                     7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
                     7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
-        """
-        ),
+        """),
         True,
     )
     scene.set_tile(
         15,
-        img(
-            """
+        img("""
             c c c c c c c c c c c c c c c c
                     c c c c c c c c c b c c c c b c
                     c c b c c c c c c c c c c c c c
@@ -1567,14 +1461,12 @@ def generate_map():
                     c c b c c c c c c c c c c b c c
                     c c c c c c c b c c c c c c c c
                     c c c c c c c c c c c c c c c c
-        """
-        ),
+        """),
         True,
     )
     scene.set_tile(
         12,
-        img(
-            """
+        img("""
             c c c c c c c c c c c c c c c c
                     c c c c c c c c c b c c c c b c
                     c c b c c c c c c c c c c c c c
@@ -1591,14 +1483,12 @@ def generate_map():
                     c c b c c c c c c c c c c b c c
                     c c c c c c c b c c c c c c c c
                     c c c c c c c c c c c c c c c c
-        """
-        ),
+        """),
         False,
     )
     scene.set_tile(
         1,
-        img(
-            """
+        img("""
             d 1 1 1 1 1 1 1 1 1 1 1 1 1 1 b
                     1 d d d d d d d d d d d d d d b
                     1 d d d d d d d d d d d d d d b
@@ -1615,14 +1505,12 @@ def generate_map():
                     1 d d d d d d d d d d d d d d b
                     1 d d d d d d d d d d d d d d b
                     b b b b b b b b b b b b b b b b
-        """
-        ),
+        """),
         True,
     )
     scene.set_tile(
         9,
-        img(
-            """
+        img("""
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
                     6 9 9 9 6 6 9 9 9 9 6 6 9 9 9 6
                     6 9 9 6 6 9 9 c c 9 9 6 6 9 9 6
@@ -1639,8 +1527,7 @@ def generate_map():
                     6 9 9 6 6 9 9 c c 9 9 6 6 9 9 6
                     6 9 9 9 6 6 9 9 9 9 6 6 9 9 9 6
                     6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
-        """
-        ),
+        """),
         False,
     )
 
@@ -1669,70 +1556,46 @@ def on_on_update():
             if sprites.read_data_number(value2, "horizontal") == -1:
                 sprites.read_data_sprite(value2, "sword").right = value2.left
                 value2.set_image(
-                    assets.image(
-                        """
+                    assets.image("""
                     Attack Left
-                """
-                    )
-                )
+                """))
                 sprites.read_data_sprite(value2, "sword").set_image(
-                    assets.image(
-                        """
+                    assets.image("""
                     Sword Attack Left
-                """
-                    )
-                )
+                """))
                 sprites.read_data_sprite(value2, "sword").y = value2.y
             if sprites.read_data_number(value2, "horizontal") == 1:
                 sprites.read_data_sprite(value2, "sword").left = value2.right
                 value2.set_image(
-                    assets.image(
-                        """
+                    assets.image("""
                     Attack Right
-                """
-                    )
-                )
+                """))
                 sprites.read_data_sprite(value2, "sword").set_image(
-                    assets.image(
-                        """
+                    assets.image("""
                     Sword Attack Right
-                """
-                    )
-                )
+                """))
                 sprites.read_data_sprite(value2, "sword").y = value2.y
             if sprites.read_data_number(value2, "vertical") == 1:
                 sprites.read_data_sprite(value2, "sword").top = value2.bottom
                 value2.set_image(
-                    assets.image(
-                        """
+                    assets.image("""
                     Attack Down
-                """
-                    )
-                )
+                """))
                 sprites.read_data_sprite(value2, "sword").set_image(
-                    assets.image(
-                        """
+                    assets.image("""
                     Sword Attack Down
-                """
-                    )
-                )
+                """))
                 sprites.read_data_sprite(value2, "sword").x = value2.x
             if sprites.read_data_number(value2, "vertical") == -1:
                 sprites.read_data_sprite(value2, "sword").bottom = value2.top
                 value2.set_image(
-                    assets.image(
-                        """
+                    assets.image("""
                     Attack Up
-                """
-                    )
-                )
+                """))
                 sprites.read_data_sprite(value2, "sword").set_image(
-                    assets.image(
-                        """
+                    assets.image("""
                     Sword Attack Up
-                """
-                    )
-                )
+                """))
                 sprites.read_data_sprite(value2, "sword").x = value2.x
 
 
