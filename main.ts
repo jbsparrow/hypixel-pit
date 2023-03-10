@@ -143,11 +143,11 @@ mp.onButtonEvent(mp.MultiplayerButton.A, ControllerButtonEvent.Pressed, function
     }
 })
 events.spriteEvent(SpriteKind.Player, SpriteKind.NPC, events.SpriteEvent.StartOverlapping, function (sprite, otherSprite) {
-    sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "speed", 0)
     if (otherSprite == Keeper && Keeper_Quest_Phase == 0) {
         story.startCutscene(function () {
+            sprites.setDataNumber(sprite, "speed", 0)
             mp.setPlayerIndicatorsVisible(false)
-            story.cancelSpriteMovement(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)))
+            story.cancelSpriteMovement(sprite)
             story.spriteSayText(Keeper, "Careful there. This is no place for an unskilled player such as yourself.")
             story.showPlayerChoices("Who Are You?", "I Dont Care Leave Me Alone!")
             if (story.checkLastAnswer("Who Are You?")) {
