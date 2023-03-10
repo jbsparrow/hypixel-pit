@@ -15,7 +15,16 @@ mp.onButtonEvent(mp.MultiplayerButton.Left, ControllerButtonEvent.Released, func
     check_direction(sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_up"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_down"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_left"), sprites.readDataBoolean(mp.getPlayerSprite(player2), "walk_right"), mp.getPlayerSprite(player2))
 })
 events.spriteEvent(SpriteKind.Weapon, SpriteKind.Enemy, events.SpriteEvent.StartOverlapping, function (sprite, otherSprite) {
-    damage_enemy(otherSprite, sprites.readDataSprite(sprite, "Owner"))
+    if (sprites.readDataNumber(otherSprite, "Health") > 0) {
+        sprites.setDataNumber(otherSprite, "Health", sprites.readDataNumber(otherSprite, "Health") - sprites.readDataNumber(sprites.readDataSprite(sprite, "Owner"), "Damage"))
+        if (sprites.readDataNumber(otherSprite, "Health") <= 0) {
+            sprites.changeDataNumberBy(sprites.readDataSprite(sprite, "Owner"), "Kills", 1)
+            sprites.changeDataNumberBy(sprites.readDataSprite(sprite, "Owner"), "Gold", sprites.readDataNumber(otherSprite, "Gold"))
+            sprites.changeDataNumberBy(sprites.readDataSprite(sprite, "Owner"), "XP", sprites.readDataNumber(otherSprite, "XP"))
+            Enemies.removeAt(Enemies.indexOf(otherSprite))
+            sprites.destroy(otherSprite)
+        }
+    }
 })
 mp.onButtonEvent(mp.MultiplayerButton.Right, ControllerButtonEvent.Pressed, function (player2) {
     animation.runImageAnimation(
@@ -638,10 +647,10 @@ events.spriteEvent(SpriteKind.Enemy, SpriteKind.Player, events.SpriteEvent.Start
             Enemies.removeAt(Enemies.indexOf(value))
             sprites.destroy(value, effects.spray, 500)
         }
-        sprites.setDataBoolean(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "deployed", false)
-        sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Enemies", 0)
-        sprites.setDataNumber(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), "Health", 100)
-        tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(145, 11))
+        sprites.setDataBoolean(otherSprite, "deployed", false)
+        sprites.setDataNumber(otherSprite, "Enemies", 0)
+        sprites.setDataNumber(otherSprite, "Health", 100)
+        tiles.placeOnTile(otherSprite, tiles.getTileLocation(145, 11))
     }
 })
 mp.onButtonEvent(mp.MultiplayerButton.Down, ControllerButtonEvent.Pressed, function (player2) {
@@ -976,16 +985,7 @@ mp.onButtonEvent(mp.MultiplayerButton.Up, ControllerButtonEvent.Pressed, functio
     sprites.setDataBoolean(mp.getPlayerSprite(player2), "walk_up", true)
 })
 function damage_enemy (enemy: Sprite, player2: Sprite) {
-    if (sprites.readDataNumber(enemy, "Health") > 0) {
-        sprites.setDataNumber(enemy, "Health", sprites.readDataNumber(enemy, "Health") - sprites.readDataNumber(player2, "Damage"))
-        if (sprites.readDataNumber(enemy, "Health") <= 0) {
-            sprites.changeDataNumberBy(player2, "Kills", 1)
-            sprites.changeDataNumberBy(player2, "Gold", sprites.readDataNumber(enemy, "Gold"))
-            sprites.changeDataNumberBy(player2, "XP", sprites.readDataNumber(enemy, "XP"))
-            Enemies.removeAt(Enemies.indexOf(enemy))
-            sprites.destroy(enemy)
-        }
-    }
+	
 }
 controller.player1.onEvent(ControllerEvent.Connected, function () {
     mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
