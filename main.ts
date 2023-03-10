@@ -1063,7 +1063,6 @@ controller.player1.onEvent(ControllerEvent.Connected, function () {
     Keeper_Quest_Phase = 0
 })
 function generate_map () {
-    playerDeployed = 0
     scene.setTileMap(assets.image`Map`)
     scene.setTile(14, img`
         b d d d d d d c c d d d d d d c 
@@ -1193,7 +1192,6 @@ function generate_map () {
         `, false)
 }
 let spawnTarget: Sprite = null
-let playerDeployed = 0
 let Character: Sprite = null
 let statusbar2: StatusBarSprite = null
 let Character2: Sprite = null
@@ -1280,7 +1278,7 @@ game.onUpdate(function () {
 })
 game.onUpdateInterval(2000, function () {
     spawnTarget = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
-    while (sprites.readDataNumber(spawnTarget, "Enemies") >= 100) {
+    while (sprites.readDataNumber(spawnTarget, "Enemies") >= maxEnemies / 2) {
         spawnTarget = mp.getPlayerSprite(mp.allPlayers()._pickRandom())
     }
     spawn_enemy(spawnTarget)
